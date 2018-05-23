@@ -19,30 +19,28 @@ public class Posts {
     @GeneratedValue
     private Long id;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 500, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(length = 255, nullable = false)
+    @Column(nullable = false)
     private String author;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String password;
+    @Column(nullable = false)
+    private String pwd;
 
-    @Column(columnDefinition = "INT")
     private int like;
 
-    @Column(columnDefinition = "INT")
     private int unlike;
 
     @Builder
-    public Posts (String title, String content, String author, String password, int like, int unlike) {
+    public Posts(String title, String content, String author, String pwd, int like, int unlike) {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.password = password;
+        this.pwd = pwd;
         this.like = like;
         this.unlike = unlike;
     }

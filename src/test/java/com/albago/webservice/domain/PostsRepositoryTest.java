@@ -1,6 +1,5 @@
 package com.albago.webservice.domain;
 
-import javafx.geometry.Pos;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,10 +28,9 @@ public class PostsRepositoryTest {
     public void save_load_content() {
         // given
         postsRepository.save(Posts.builder()
-        .title("테스트")
-        .content("본문")
-        .author("나")
-        .password("1234")
+        .title("test")
+        .content("test")
+        .author("test")
         .build());
 
         // when
@@ -42,7 +40,5 @@ public class PostsRepositoryTest {
         Posts posts = postsList.get(0);
         assertThat(posts.getTitle(), is("테스트"));
         assertThat(posts.getContent(), is("본문"));
-        assertThat(posts.getAuthor(), is("나"));
-        assertThat(posts.getPassword(), is("1234"));
     }
 }
