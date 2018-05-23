@@ -31,6 +31,10 @@ public class PostsRepositoryTest {
         .title("test")
         .content("test")
         .author("test")
+        .pwd("test")
+        .favor(1)
+        .hate(1)
+        .cat_id(1)
         .build());
 
         // when
@@ -41,6 +45,9 @@ public class PostsRepositoryTest {
         assertThat(posts.getTitle(), is("test"));
         assertThat(posts.getContent(), is("test"));
         assertThat(posts.getAuthor(), is("test"));
-        assertThat(posts.getPassword(), is("1234"));
+        assertThat(posts.getPwd(), is("test"));
+//        assertThat(posts.getLike(), is(1));
+//        assertThat(posts.getHate(), is(1));
+        assertThat(posts.getCat_id(), is(1));
     }
 }

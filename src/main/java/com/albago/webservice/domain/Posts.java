@@ -22,7 +22,7 @@ public class Posts {
     @Column(length = 500, nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false, name = "content")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @Column(nullable = false)
@@ -31,17 +31,21 @@ public class Posts {
     @Column(nullable = false)
     private String pwd;
 
-    private int like;
-    
-    private int unlike;
+    private int favor;
+
+    private int hate;
+
+    @Column(nullable = false)
+    private int cat_id;
 
     @Builder
-    public Posts(String title, String content, String author, String pwd, int like, int unlike) {
+    public Posts(String title, String content, String author, String pwd, int favor, int hate, int cat_id) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.pwd = pwd;
-        this.like = like;
-        this.unlike = unlike;
+        this.favor = favor;
+        this.hate = hate;
+        this.cat_id = cat_id;
     }
 }
