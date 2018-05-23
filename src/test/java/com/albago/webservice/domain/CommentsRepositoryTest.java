@@ -14,34 +14,32 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PostsRepositoryTest {
+public class CommentsRepositoryTest {
 
     @Autowired
-    PostsRepository postsRepository;
+    CommentsRepository commentsRepository;
 
     @After
     public void cleanup() {
-        postsRepository.deleteAll();
+        commentsRepository.deleteAll();
     }
 
     @Test
     public void save_load_content() {
         // given
-        postsRepository.save(Posts.builder()
-        .title("test")
+        commentsRepository.save(Comments.builder()
         .content("test")
         .author("test")
-        .password("1234")
+        .pwd("1234")
         .build());
 
         // when
-        List<Posts> postsList = postsRepository.findAll();
+        List<Comments> commentsList = commentsRepository.findAll();
 
         // then
-        Posts posts = postsList.get(0);
-        assertThat(posts.getTitle(), is("test"));
-        assertThat(posts.getContent(), is("test"));
-        assertThat(posts.getAuthor(), is("test"));
-        assertThat(posts.getPassword(), is("1234"));
+        Comments comments = commentsList.get(0);
+        assertThat(comments.getContent(), is("test"));
+        assertThat(comments.getAuthor(), is("test"));
+        assertThat(comments.getPwd(), is("1234"));
     }
 }

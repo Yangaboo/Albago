@@ -13,14 +13,10 @@ import javax.persistence.Id;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Posts {
-
+public class Comments {
     @Id
     @GeneratedValue
     private Long id;
-
-    @Column(length = 500, nullable = false, name = "title")
-    private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false, name = "content")
     private String content;
@@ -28,8 +24,8 @@ public class Posts {
     @Column(length = 500, nullable = false, name = "author")
     private String author;
 
-    @Column(nullable = false, name = "password")
-    private String password;
+    @Column(nullable = false, name = "pwd")
+    private String pwd;
 
     @Column(columnDefinition = "INT", name = "like")
     private int like;
@@ -38,11 +34,10 @@ public class Posts {
     private int unlike;
 
     @Builder
-    public Posts (String title, String content, String author, String password, int like, int unlike) {
-        this.title = title;
-        this.content = content;
+    public Comments(String content, String author, String pwd, int like, int unlike ) {
         this.author = author;
-        this.password = password;
+        this.content = content;
+        this.pwd = pwd;
         this.like = like;
         this.unlike = unlike;
     }
