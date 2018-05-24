@@ -46,7 +46,7 @@ public class PostsRepositoryTest {
         assertThat(posts.getContent(), is("test"));
         assertThat(posts.getAuthor(), is("test"));
         assertThat(posts.getPwd(), is("test"));
-//        assertThat(posts.getLike(), is(1));
+//        assertThat(posts.getFavor(), is(1));
 //        assertThat(posts.getHate(), is(1));
         assertThat(posts.getCat_id(), is(1));
     }

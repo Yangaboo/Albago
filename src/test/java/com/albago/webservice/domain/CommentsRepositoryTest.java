@@ -31,6 +31,8 @@ public class CommentsRepositoryTest {
         .content("test")
         .author("test")
         .pwd("1234")
+        .favor(1)
+        .hate(2)
         .build());
 
         // when
@@ -41,5 +43,7 @@ public class CommentsRepositoryTest {
         assertThat(comments.getContent(), is("test"));
         assertThat(comments.getAuthor(), is("test"));
         assertThat(comments.getPwd(), is("1234"));
+        assertThat(comments.getFavor(), is(1));
+        assertThat(comments.getHate(), is(2));
     }
 }

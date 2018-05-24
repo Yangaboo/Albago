@@ -27,18 +27,18 @@ public class Comments {
     @Column(nullable = false, name = "pwd")
     private String pwd;
 
-    @Column(columnDefinition = "INT", name = "like")
-    private int like;
+    @Column(columnDefinition = "INT", name = "favor")
+    private int favor;
 
-    @Column(columnDefinition = "INT", name = "unlike")
-    private int unlike;
+    @Column(columnDefinition = "INT", name = "hate")
+    private int hate;
 
     @Builder
-    public Comments(String content, String author, String pwd, int like, int unlike ) {
+    public Comments(String content, String author, String pwd, int favor, int hate ) {
         this.author = author;
         this.content = content;
         this.pwd = pwd;
-        this.like = like;
-        this.unlike = unlike;
+        this.favor = favor;
+        this.hate = hate;
     }
 }
