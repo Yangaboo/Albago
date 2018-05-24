@@ -31,21 +31,21 @@ public class Posts {
     @Column(nullable = false)
     private String pwd;
 
+    @Column(nullable = false)
+    private int cat_id;
+
     private int favor;
 
     private int hate;
 
-    @Column(nullable = false)
-    private int cat_id;
-
     @Builder
-    public Posts(String title, String content, String author, String pwd, int favor, int hate, int cat_id) {
+    public Posts(String title, String content, String author, String pwd,int cat_id, int favor, int hate) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.pwd = pwd;
+        this.cat_id = cat_id;
         this.favor = favor;
         this.hate = hate;
-        this.cat_id = cat_id;
     }
 }
