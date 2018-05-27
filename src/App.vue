@@ -37,10 +37,12 @@ time, mark, audio, video {
   border: 0;
   outline: none;
   vertical-align: baseline;
+  box-sizing: border-box;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 button {
