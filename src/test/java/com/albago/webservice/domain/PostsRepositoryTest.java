@@ -61,6 +61,8 @@ public class PostsRepositoryTest {
                 .title("테스트")
                 .content("테스트")
                 .author("너너너")
+                .pwd("1234")
+                .cat_id(1)
                 .build());
 
         //when
