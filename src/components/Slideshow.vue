@@ -1,15 +1,15 @@
 <template>
   <div class="slideshow" :class="currentIndex">
-    <div class="slideshow__slide" :class="slidePosition1">
+    <div class="slideshow__slide">
       <div class="slideshow__slide__job-introduction">A</div>
     </div>
-    <div class="slideshow__slide" :class="slidePosition2">
+    <div class="slideshow__slide">
       <div class="slideshow__slide__job-introduction">B</div>
     </div>
-    <div class="slideshow__slide" :class="slidePosition3">
+    <div class="slideshow__slide">
       <div class="slideshow__slide__job-introduction">C</div>
     </div>
-    <div class="slideshow__slide" :class="slidePosition4">
+    <div class="slideshow__slide">
       <div class="slideshow__slide__job-introduction">D</div>
     </div>
     <div class="sliding-index">
@@ -23,22 +23,12 @@ export default {
   name: 'slide-show',
   data() {
     return {
-      slidePosition1: 'slideshow__slide--1',
-      slidePosition2: 'slideshow__slide--2',
-      slidePosition3: 'slideshow__slide--3',
-      slidePosition4: 'slideshow__slide--4',
       currentIndex: 'slideshow--1',
       temp: 0,
     };
   },
   created() {
     setInterval(() => {
-      for (let i = 1; i <= 4; i += 1) {
-        const positionProperty = 'slidePosition'.concat(String(i));
-        let slideNumber = ((this.temp + i) % 4) + 1;
-        slideNumber = String(slideNumber);
-        this[positionProperty] = 'slideshow__slide--'.concat(slideNumber);
-      }
       this.temp = (this.temp + 1) % 4;
       this.currentIndex = 'slideshow--'.concat(String(this.temp + 1));
     }, 3000);
@@ -48,9 +38,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/setting.scss';
+
 @mixin active-dot($number) {
   &--#{$number} .sliding-index__dot:nth-child(#{$number}) {
     background-color: #000;
+  }
+}
+@mixin slide-position($number, $left, $is-block) {
+  & .slideshow__slide:nth-child(#{$number}) {
+    left: $left;
+    display: if($is-block, block, none);
   }
 }
 
@@ -66,22 +63,6 @@ export default {
     position: absolute;
     top: 0;
     transition: left 1s;
-    @include m('1') {
-      left: 0;
-      display: block;
-    }
-    @include m('2') {
-      left: -100%;
-      display: block;
-    }
-    @include m('3') {
-      left: 100%;
-      display: none;
-    }
-    @include m('4') {
-      left: 100%;
-      display: block;
-    }
     @include e('job-introduction') {
       font-size: 20px;
       color: white;
@@ -103,6 +84,30 @@ export default {
       display: inline-block;
       margin: 0 5px;
     }
+  }
+  @include m('1') {
+    @include slide-position(1, 0, true);
+    @include slide-position(2, -100%, true);
+    @include slide-position(3, 100%, false);
+    @include slide-position(4, 100%, true);
+  }
+  @include m('2') {
+    @include slide-position(4, 0, true);
+    @include slide-position(1, -100%, true);
+    @include slide-position(2, 100%, false);
+    @include slide-position(3, 100%, true);
+  }
+  @include m('3') {
+    @include slide-position(3, 0, true);
+    @include slide-position(4, -100%, true);
+    @include slide-position(1, 100%, false);
+    @include slide-position(2, 100%, true);
+  }
+  @include m('4') {
+    @include slide-position(2, 0, true);
+    @include slide-position(3, -100%, true);
+    @include slide-position(4, 100%, false);
+    @include slide-position(1, 100%, true);
   }
   @for $i from 1 through 4 {
     @include active-dot($i);
