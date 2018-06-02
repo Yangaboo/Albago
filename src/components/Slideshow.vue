@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/setting.scss';
+@import '../styles/setting';
 
 @mixin active-dot($number) {
   &--#{$number} .sliding-index__dot:nth-child(#{$number}) {

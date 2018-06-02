@@ -82,17 +82,4 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-// BEM mixin
-@mixin e($element) {
-  &__#{$element} {
-    @content;
-  }
-}
-
-@mixin m($modifier) {
-  &--#{$modifier} {
-    @content;
-  }
-}
 </style>
