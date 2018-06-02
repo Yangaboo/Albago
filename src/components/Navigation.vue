@@ -27,17 +27,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// BEM mixin
-@mixin e($element) {
-  &__#{$element} {
-    @content;
-  }
-}
-@mixin m($modifier) {
-  &--#{$modifier} {
-    @content;
-  }
-}
+@import '../styles/setting.scss';
+
 .navigation {
   height: 70px;
   padding: 25px;

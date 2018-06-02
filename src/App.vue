@@ -1,12 +1,21 @@
 <template>
   <div id="app">
+    <navigation/>
+    <slideshow/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Navigation from '@/components/Navigation';
+import Slideshow from '@/components/Slideshow';
+
 export default {
   name: 'App',
+  components: {
+    Navigation,
+    Slideshow,
+  },
 };
 </script>
 
