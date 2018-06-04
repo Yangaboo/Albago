@@ -26,6 +26,21 @@ export default {
       bulletins: [
         {
           category: category.CONVENIENCE_STORE,
+          title: '대덕SW마이스터고등학교 gs29 편의점 아르바이트...',
+          numberOfGood: 180,
+        },
+        {
+          category: category.CONVENIENCE_STORE,
+          title: '아르바이트 공고',
+          numberOfGood: 180,
+        },
+        {
+          category: category.CONVENIENCE_STORE,
+          title: '아르바이트 공고',
+          numberOfGood: 180,
+        },
+        {
+          category: category.CONVENIENCE_STORE,
           title: '아르바이트 공고',
           numberOfGood: 180,
         },

@@ -57,6 +57,7 @@ a {
 button {
   background-color: none;
   border: none;
+  font-size: inherit;
 }
 
 article, aside, details, figcaption, figure,
