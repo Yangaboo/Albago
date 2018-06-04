@@ -1,29 +1,29 @@
 <template>
   <div class="main">
-    <main-post class="main__main-post"/>
+    <main-bulletin class="main__main-bulletin"/>
     <div class="main__wrapper">
       <main-locate class="main__wrapper__main-locate"/>
-      <main-job class="main__wrapper__main-job"/>
+      <main-part-time class="main__wrapper__main-part-time"/>
     </div>
   </div>
 </template>
 
 <script>
-import MainPost from '@/components/Main/MainPost';
+import MainBulletin from '@/components/Main/MainBulletin';
 import MainLocate from '@/components/Main/MainLocate';
-import MainJob from '@/components/Main/MainJob';
+import MainPartTime from '@/components/Main/MainPartTime';
 
 export default {
   name: 'main',
   components: {
-    MainPost,
+    MainBulletin,
     MainLocate,
-    MainJob,
+    MainPartTime,
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../styles/setting';
 
 .main {
@@ -31,17 +31,15 @@ export default {
   padding: 85px 125px;
   display: flex;
   justify-content: space-around;
-  @include e('main-post') {
-    flex-grow: 1;
+  @include e('main-bulletin') {
+    flex: 1;
     display: inline-block;
     margin-right: 5%;
   }
   @include e('wrapper') {
-    flex-grow: 1;
+    flex: 1;
     @include e('main-locate') {
       margin-bottom: 70px;
-    }
-    @include e('main-job') {
     }
   }
 }

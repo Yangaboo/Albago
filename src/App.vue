@@ -82,4 +82,14 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+// common style
+.section-name {
+  font-size: 20px;
+  height: 24px;
+  line-height: 24px;
+  font-weight: 500;
+  color: white;
+  position: absolute;
+  top: -45px;
+}
 </style>

@@ -1,19 +1,19 @@
 <template>
-  <div class="main-locate">
-    <h3 class="section-name">위치 설정</h3>
+  <div class="main-part-time">
+    <h3 class="section-name">아르바이트 찾기</h3>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'main-locate',
+  name: 'main-part-time',
 };
 </script>
 
 <style lang="scss" scoped>
 @import '../../styles/setting';
 
-.main-locate {
+.main-part-time {
   position: relative;
 }
 </style>
