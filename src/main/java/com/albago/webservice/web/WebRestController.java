@@ -1,6 +1,9 @@
 package com.albago.webservice.web;
 
+import com.albago.webservice.domain.CommentsRepository;
+import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
+import com.albago.webservice.service.CommentsService;
 import com.albago.webservice.service.PostsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class WebRestController {
     private PostsService postsService;
+    private CommentsService commentsService;
 
     @GetMapping("/")
     public String hello() {
@@ -21,5 +25,10 @@ public class WebRestController {
     @PostMapping("/posts")
     public Long savePosts(@RequestBody PostsSaveRequestDto dto) {
         return postsService.save(dto);
+    }
+
+    @PostMapping("/posts/comments")
+    public Long saveComments(@RequestBody CommentsSaveRequestDto dto) {
+        return commentsService.save(dto);
     }
 }
