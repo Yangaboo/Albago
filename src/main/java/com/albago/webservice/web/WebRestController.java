@@ -18,8 +18,8 @@ public class WebRestController {
     private CommentsService commentsService;
 
     @GetMapping("/")
-    public String hello() {
-        return "Hello World!!";
+    public void hello() {
+        return;
     }
 
     @PostMapping("/posts")
