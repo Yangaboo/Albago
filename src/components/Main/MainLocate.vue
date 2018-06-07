@@ -46,6 +46,7 @@ export default {
     height: 71px;
     padding: 23px;
     color: #636d81;
+    font-weight: bold;
     width: 100%;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
