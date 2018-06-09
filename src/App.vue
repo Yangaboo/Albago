@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Navigation from '@/components/Navigation';
-import Slideshow from '@/components/Slideshow';
+import Navigation from './components/Navigation';
+import Slideshow from './components/Slideshow';
 
 export default {
   name: 'App',

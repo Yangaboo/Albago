@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import MainBulletin from '@/components/Main/MainBulletin';
-import MainLocate from '@/components/Main/MainLocate';
-import MainPartTime from '@/components/Main/MainPartTime';
+import MainBulletin from './Main/MainBulletin';
+import MainLocate from './Main/MainLocate';
+import MainPartTime from './Main/MainPartTime';
 
 export default {
   name: 'main',
