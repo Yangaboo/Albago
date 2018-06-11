@@ -45,6 +45,78 @@ export default {
           numberOfGood: 100,
           numberOfBad: 200,
         },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
+        {
+          number: 1,
+          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+          category: '교육',
+          date: '2014-04-28',
+          numberOfGood: 100,
+          numberOfBad: 200,
+        },
       ],
     };
   },
@@ -55,6 +127,7 @@ export default {
 @import '../../styles/setting';
 
 .bulletin-list {
+  height: 506px;
   margin: {
     top: 10px;
   }

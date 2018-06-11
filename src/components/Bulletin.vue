@@ -41,14 +41,16 @@ export default {
 @import '../styles/setting';
 
 .bulletin {
-  height: 700px;
+  height: 800px;
   width: 100%;
   background-image: linear-gradient(to left, #494f5c, #373c46);
   color: #fff;
   @include e('container') {
     margin: 0 auto;
     width: 1200px;
-    padding-top: 56px;
+    padding: {
+      top: 56px;
+    }
     @include e('header') {
       $height: 30px;
       height: $height;
