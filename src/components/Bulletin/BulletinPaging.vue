@@ -31,6 +31,9 @@ export default {
     link(number) {
       return `#/bulletin?page=${number}`;
     },
+    select(number) {
+      this.selected = number;
+    },
   },
 };
 </script>
