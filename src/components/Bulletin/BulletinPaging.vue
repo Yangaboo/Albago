@@ -6,7 +6,9 @@
     <li class="bulletin-paging__page"
       v-for="number in pagesNumber" :key="number"
       :class="selected === number ? 'bulletin-paging__page--selected' : ''">
-      <a href="" class="bulletin-paging__page__link">
+      <a class="bulletin-paging__page__link"
+        :href="link(number)"
+        @click="select(number)">
         {{ number }}
       </a>
     </li>
@@ -24,6 +26,11 @@ export default {
       selected: 1,
       pagesNumber: 10,
     };
+  },
+  methods: {
+    link(number) {
+      return `#/bulletin?page=${number}`;
+    },
   },
 };
 </script>
