@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <set-location v-if="isOnModal" @closeModal="isOnModal = false"/>
     <navigation/>
     <slideshow/>
     <router-view/>
@@ -9,12 +10,24 @@
 <script>
 import Navigation from './components/Navigation';
 import Slideshow from './components/Slideshow';
+import SetLocation from './components/SetLocation';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      isOnModal: false,
+    };
+  },
   components: {
+    SetLocation,
     Navigation,
     Slideshow,
+  },
+  created() {
+    this.$EventBus.$on('showModal', () => {
+      this.isOnModal = true;
+    });
   },
 };
 </script>

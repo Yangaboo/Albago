@@ -4,7 +4,7 @@
     <span class="main-locate__current-location">
       {{ currentLocation }}
     </span>
-    <button class="main-locate__select-location">
+    <button class="main-locate__select-location" @click="$EventBus.$emit('showModal')">
       위치 변경하기
     </button>
   </div>
