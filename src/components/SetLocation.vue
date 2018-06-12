@@ -1,6 +1,8 @@
 <template>
-  <div class="set-location" @click="$emit('closeModal')">
-  </div>
+  <transition name="modal">
+    <div class="set-location" @click="$emit('closeModal')">
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -20,5 +22,13 @@ export default {
   top: 0;
   left: 0;
   z-index: 1;
+}
+.modal {
+  &-enter-active, &-leave-active {
+    transition: opacity 0.5s ease;
+  }
+  &-enter, &-leave-to {
+    opacity: 0;
+  }
 }
 </style>
