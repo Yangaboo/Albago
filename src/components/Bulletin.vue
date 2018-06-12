@@ -16,7 +16,8 @@
         </div>
       </header>
       <bulletin-list class="bulletin__container__bulletin-list"/>
-      <bulletin-paging class="bulletin__container__bulletin-paging"/>
+      <bulletin-paging class="bulletin__container__bulletin-paging"
+        :pagesTotalNumber="25"/>
     </div>
   </div>
 </template>

@@ -1,11 +1,14 @@
 <template>
   <ul class="bulletin-paging">
     <li class="bulletin-paging__page">
-      <a href="" class="bulletin-paging__page__link bulletin-paging__page__link"></a>
+      <a v-if="startNumber > 1"
+        class="bulletin-paging__page__link"
+        :href="link(startNumber - 1)"
+        @click="previous(startNumber - 1)">&lt;</a>
     </li>
     <li class="bulletin-paging__page"
-      v-for="number in pagesNumber" :key="number"
-      :class="selected === number ? 'bulletin-paging__page--selected' : ''">
+      v-for="number in pages" :key="number"
+      :class="{'bulletin-paging__page--selected': selected === number}">
       <a class="bulletin-paging__page__link"
         :href="link(number)"
         @click="select(number)">
@@ -13,7 +16,10 @@
       </a>
     </li>
     <li class="bulletin-paging__page">
-      <a href="" class="bulletin-paging__page__link bulletin-paging__page__link"></a>
+      <a v-if="endNumber < pagesTotalNumber"
+        class="bulletin-paging__page__link"
+        :href="link(endNumber)"
+        @click="next(endNumber)">&gt;</a>
     </li>
   </ul>
 </template>
@@ -21,11 +27,30 @@
 <script>
 export default {
   name: 'bulletin-paging',
+  props: {
+    pagesTotalNumber: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
       selected: 1,
-      pagesNumber: 10,
+      startNumber: 1,
     };
+  },
+  computed: {
+    endNumber() {
+      const count = this.startNumber + 10 > this.pagesTotalNumber ? this.pagesTotalNumber % 10 : 10;
+      return this.startNumber + count;
+    },
+    pages() {
+      const pages = [];
+      for (let page = this.startNumber; page < this.endNumber; page += 1) {
+        pages.push(page);
+      }
+      return pages;
+    },
   },
   methods: {
     link(number) {
@@ -33,6 +58,14 @@ export default {
     },
     select(number) {
       this.selected = number;
+    },
+    previous(number) {
+      this.startNumber -= 10;
+      this.select(number);
+    },
+    next(number) {
+      this.startNumber += 10;
+      this.select(number);
     },
   },
 };
