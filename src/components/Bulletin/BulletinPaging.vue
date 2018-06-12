@@ -1,6 +1,6 @@
 <template>
   <ul class="bulletin-paging">
-    <li class="bulletin-paging__page">
+    <li class="bulletin-paging__page bulletin-paging__page--previous">
       <a v-if="startNumber > 1"
         class="bulletin-paging__page__link"
         :href="link(startNumber - 1)"
@@ -15,7 +15,7 @@
         {{ number }}
       </a>
     </li>
-    <li class="bulletin-paging__page">
+    <li class="bulletin-paging__page bulletin-paging__page--next">
       <a v-if="endNumber < pagesTotalNumber"
         class="bulletin-paging__page__link"
         :href="link(endNumber)"
@@ -76,19 +76,31 @@ export default {
 
 .bulletin-paging {
   display: flex;
-  justify-content: center;
-  margin-top: 85px;
+  margin: 85px auto 0;
+  width: 250px;
+  position: relative;
   @include e('page') {
-    width: 25px;
-    height: 25px;
+    $size: 25px;
+    width: $size;
+    height: $size;
     color: white;
     @include e('link') {
       font-size: 15px;
-      line-height: 25px;
+      line-height: $size;
       text-align: center;
       width: 100%;
       height: 100%;
       display: block;
+    }
+    @include m('previous') {
+      position: absolute;
+      top: 0;
+      left: -$size;
+    }
+    @include m('next') {
+      position: absolute;
+      top: 0;
+      right: -$size;
     }
     @include m('selected') {
       border-radius: 100%;
