@@ -1,13 +1,14 @@
 <template>
   <transition name="modal">
-    <div class="set-location" @click="$emit('closeModal')">
+    <div class="set-location">
+      <div class="set-location__mask" @click="$emit('closeModal')"></div>
     </div>
   </transition>
 </template>
 
 <script>
 export default {
-  name: 'setlocation',
+  name: 'set-location',
 };
 </script>
 
@@ -15,13 +16,17 @@ export default {
 @import '../styles/setting';
 
 .set-location {
-  background-color: rgba(0, 0, 0, 0.5);
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
+  @include e('mask') {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 .modal {
   &-enter-active, &-leave-active {
