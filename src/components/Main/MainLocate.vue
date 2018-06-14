@@ -37,7 +37,7 @@ export default {
     top: 60px;
   }
   @include e('current-location') {
-    color: white;
+    color: #fff;
   }
   @include e('select-location') {
     position: absolute;
@@ -45,6 +45,7 @@ export default {
     left: 0;
     height: 71px;
     padding: 23px;
+    background-color: #fff;
     color: #636d81;
     font-weight: bold;
     width: 100%;

@@ -105,5 +105,6 @@ table {
   color: white;
   position: absolute;
   top: -45px;
+  left: 0;
 }
 </style>
