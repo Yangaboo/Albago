@@ -5,7 +5,8 @@
       <div class="set-location__modal">
         <h2 class="set-location__modal__name">
           위치 변경하기
-          <button class="set-location__modal__name__close-button">
+          <button class="set-location__modal__name__close-button"
+            @click="$emit('closeModal')">
             &times;
           </button>
         </h2>
@@ -39,7 +40,9 @@
             @maptypeid_changed="onMapEvent('maptypeid_changed', $event)"/>
           <div class="set-location__modal__main__wrapper">
             <ul class="set-location__modal__main__wrapper__result-list">
-              <li class="set-location__modal__main__wrapper__result-list__item">
+              <li class="set-location__modal__main__wrapper__result-list__item"
+                v-for="resultList in resultLists" :key="resultList">
+                {{ resultList }}
                 <div class="set-location__modal__main__wrapper__result-list__item__check"></div>
               </li>
             </ul>
@@ -63,12 +66,20 @@ export default {
   },
   data() {
     return {
-      appKey: 'dc491c01f5648598a4745b9710a16418', // 테스트용 appkey
+      appKey: 'dc491c01f5648598a4745b9710a16418',
       center: { lat: 33.450701, lng: 126.570667 },
       level: 3,
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
-      libraries: [],
+      libraries: ['services'],
       mapObject: null,
+      resultLists: [
+        '대전역 동광장 주소 대전 동구 소제동 293-9',
+        '대전역 동광장 주소 대전 동구 소제동 293-9',
+        '대전역 동광장 주소 대전 동구 소제동 293-9',
+        '대전역 동광장 주소 대전 동구 소제동 293-9',
+        '대전역 동광장 주소 대전 동구 소제동 293-9',
+        '대전역 동광장 주소 대전 동구 소제동 293-9',
+      ],
     };
   },
   methods: {
@@ -93,6 +104,14 @@ $z-index-set-location: 1;
 $z-index-mask: 2;
 $z-index-modal: 3;
 $color-main: #494f5c;
+
+@mixin set-color($color1, $color2) {
+  background-color: $color1;
+  color: $color2;
+  &>div {
+    background-color: $color2;
+  }
+}
 
 .set-location {
   width: 100vw;
@@ -163,6 +182,8 @@ $color-main: #494f5c;
       background-color: #fff;
       border-bottom-left-radius: $radius;
       border-bottom-right-radius: $radius;
+      display: flex;
+      flex-wrap: wrap;
       @include e('search') {
         width: 100%;
         height: 60px;
@@ -195,13 +216,52 @@ $color-main: #494f5c;
         }
       }
       @include e('map') {
-        // flex: 5;
-        width: 400px;
+        width: 55%;
         height: 400px;
       }
-      // @include e('wrapper') {
-      //   flex: 4;
-      // }
+      @include e('wrapper') {
+        margin-left: 5%;
+        width: 40%;
+        height: 400px;
+        @include e('result-list') {
+          height: 300px;
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+          @include e('item') {
+            height: 50px;
+            font-size: 13px;
+            line-height: 50px;
+            position: relative;
+            padding: {
+              left: 50px;
+            }
+            &:nth-child(even) {
+              @include set-color($color-main, #fff);
+            }
+            &:nth-child(odd) {
+              @include set-color(#fff, $color-main);
+            }
+            @include e('check') {
+              position: absolute;
+              top: 10px;
+              right: 30px;
+              width: 30px;
+              height: 30px;
+              box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.16);
+              border-radius: 100%;
+            }
+          }
+        }
+        @include e('set-button') {
+          width: 100%;
+          color: #fff;
+          font-size: 18px;
+          margin-top: 30px;
+          height: 70px;
+          border-radius: 3px;
+          background-color: $color-main;
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+        }
+      }
     }
   }
 }
