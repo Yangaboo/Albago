@@ -15,7 +15,8 @@
             <input class="set-location__modal__main__search__input-text"
               type="search"
               v-model="keyword">
-            <button class="set-location__modal__main__search__search-button">
+            <button class="set-location__modal__main__search__search-button"
+              @click="searchPlaces">
               검색
             </button>
           </div>
@@ -78,6 +79,23 @@ export default {
       this.mapObject = map;
       this.daumMapsObject = window.daum.maps;
       this.searchPlaceObject = new this.daumMapsObject.services.Places();
+    },
+    searchPlaces() {
+      if (!this.keyword.replace(/^\s+|\s+$/g, '')) {
+        this.keyword = '키워드를 입력해주세요!';
+      } else {
+        // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+        this.searchPlaceObject.keywordSearch(this.keyword, this.placesSearchCB);
+      }
+    },
+    placesSearchCB(data, status) {
+      if (status === this.daumMapsObject.services.Status.OK) {
+        this.keyword = '검색 성공';
+      } else if (status === this.daumMapsObject.services.Status.ZERO_RESULT) {
+        this.keyword = '검색 결과가 존재하지 않습니다.';
+      } else if (status === this.daumMapsObject.services.Status.ERROR) {
+        this.keyword = '검색 결과 중 오류가 발생했습니다.';
+      }
     },
   },
 };
