@@ -14,6 +14,7 @@
           <div class="set-location__modal__main__search">
             <input class="set-location__modal__main__search__input-text"
               type="text"
+              :placeholder="placeholdText"
               v-model="keyword"
               @keydown.enter="searchPlaces">
             <button class="set-location__modal__main__search__search-button"
@@ -68,6 +69,7 @@ export default {
       searchPlaceObject: {},
       keyword: '',
       placeLists: [],
+      placeholdText: '키워드를 입력해 주세요',
     };
   },
   methods: {
@@ -83,7 +85,7 @@ export default {
     },
     searchPlaces() {
       if (!this.keyword.replace(/^\s+|\s+$/g, '')) {
-        this.keyword = '키워드를 입력해주세요!';
+        this.changePlaceholdText('키워드를 입력해주세요!');
       } else {
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         this.searchPlaceObject.keywordSearch(this.keyword, this.placesSearchCB);
@@ -91,12 +93,16 @@ export default {
     },
     placesSearchCB(data, status) {
       if (status === this.daumMapsObject.services.Status.OK) {
-        this.keyword = '검색 성공';
+        this.changePlaceholdText('검색 성공');
       } else if (status === this.daumMapsObject.services.Status.ZERO_RESULT) {
-        this.keyword = '검색 결과가 존재하지 않습니다.';
+        this.changePlaceholdText('검색 결과가 존재하지 않습니다.');
       } else if (status === this.daumMapsObject.services.Status.ERROR) {
-        this.keyword = '검색 결과 중 오류가 발생했습니다.';
+        this.changePlaceholdText('검색 결과 중 오류가 발생했습니다.');
       }
+    },
+    changePlaceholdText(text) {
+      this.keyword = '';
+      this.placeholdText = text;
     },
   },
 };
