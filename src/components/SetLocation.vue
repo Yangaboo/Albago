@@ -13,8 +13,9 @@
         <div class="set-location__modal__main">
           <div class="set-location__modal__main__search">
             <input class="set-location__modal__main__search__input-text"
-              type="search"
-              v-model="keyword">
+              type="text"
+              v-model="keyword"
+              @keydown.enter="searchPlaces">
             <button class="set-location__modal__main__search__search-button"
               @click="searchPlaces">
               검색
@@ -195,6 +196,7 @@ $color-main: #494f5c;
           bottom: 50px;
         }
         @include e('input-text') {
+          box-sizing: border-box;
           flex: 8;
           height: 100%;
           border: solid 1px $color-main;
