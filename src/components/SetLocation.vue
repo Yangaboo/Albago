@@ -47,6 +47,7 @@
 
 <script>
 import VueDaumMap from 'vue-daum-map';
+import config from '../config';
 
 export default {
   name: 'set-location',
@@ -55,7 +56,7 @@ export default {
   },
   data() {
     return {
-      appKey: 'dc491c01f5648598a4745b9710a16418',
+      appKey: config.appKey,
       center: { lat: 33.450701, lng: 126.570667 },
       level: 3,
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
@@ -64,15 +65,7 @@ export default {
       daumMapsObject: {},
       searchPlaceObject: {},
       keyword: '',
-      placeLists: [
-        '대전역 동광장 주소 대전 동구 소제동 293-9',
-        '대전역 동광장 주소 대전 동구 소제동 293-8',
-        '대전역 동광장 주소 대전 동구 소제동 293-7',
-        '대전역 동광장 주소 대전 동구 소제동 293-6',
-        '대전역 동광장 주소 대전 동구 소제동 293-5',
-        '대전역 동광장 주소 대전 동구 소제동 293-4',
-        '대전역 동광장 주소 대전 동구 소제동 293-3',
-      ],
+      placeLists: [],
     };
   },
   methods: {
