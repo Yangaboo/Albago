@@ -12,7 +12,9 @@
         </h2>
         <div class="set-location__modal__main">
           <div class="set-location__modal__main__search">
-            <input type="search" class="set-location__modal__main__search__input-text">
+            <input class="set-location__modal__main__search__input-text"
+              type="search"
+              v-model="keyword">
             <button class="set-location__modal__main__search__search-button">
               검색
             </button>
@@ -23,26 +25,13 @@
             :level.sync="level"
             :mapTypeId="mapTypeId"
             :libraries="libraries"
-            @load="onLoad"
-            @center_changed="onMapEvent('center_changed', $event)"
-            @zoom_start="onMapEvent('zoom_start', $event)"
-            @zoom_changed="onMapEvent('zoom_changed', $event)"
-            @bounds_changed="onMapEvent('bounds_changed', $event)"
-            @click="onMapEvent('click', $event)"
-            @dblclick="onMapEvent('dblclick', $event)"
-            @rightclick="onMapEvent('rightclick', $event)"
-            @mousemove="onMapEvent('mousemove', $event)"
-            @dragstart="onMapEvent('dragstart', $event)"
-            @drag="onMapEvent('drag', $event)"
-            @dragend="onMapEvent('dragend', $event)"
-            @idle="onMapEvent('idle', $event)"
-            @tilesloaded="onMapEvent('tilesloaded', $event)"
-            @maptypeid_changed="onMapEvent('maptypeid_changed', $event)"/>
+            @load="onLoad"/>
           <div class="set-location__modal__main__wrapper">
             <ul class="set-location__modal__main__wrapper__result-list">
               <li class="set-location__modal__main__wrapper__result-list__item"
-                v-for="resultList in resultLists" :key="resultList">
-                {{ resultList }}
+                v-for="placeList in placeLists"
+                :key="placeList">
+                {{ placeList }}
                 <div class="set-location__modal__main__wrapper__result-list__item__check"></div>
               </li>
             </ul>
@@ -72,13 +61,17 @@ export default {
       mapTypeId: VueDaumMap.MapTypeId.NORMAL,
       libraries: ['services'],
       mapObject: null,
-      resultLists: [
+      daumMapsObject: {},
+      searchPlaceObject: {},
+      keyword: '',
+      placeLists: [
         '대전역 동광장 주소 대전 동구 소제동 293-9',
-        '대전역 동광장 주소 대전 동구 소제동 293-9',
-        '대전역 동광장 주소 대전 동구 소제동 293-9',
-        '대전역 동광장 주소 대전 동구 소제동 293-9',
-        '대전역 동광장 주소 대전 동구 소제동 293-9',
-        '대전역 동광장 주소 대전 동구 소제동 293-9',
+        '대전역 동광장 주소 대전 동구 소제동 293-8',
+        '대전역 동광장 주소 대전 동구 소제동 293-7',
+        '대전역 동광장 주소 대전 동구 소제동 293-6',
+        '대전역 동광장 주소 대전 동구 소제동 293-5',
+        '대전역 동광장 주소 대전 동구 소제동 293-4',
+        '대전역 동광장 주소 대전 동구 소제동 293-3',
       ],
     };
   },
@@ -90,9 +83,8 @@ export default {
       const boundsStr = bounds.toString();
       window.console.log('Daum Map Loaded', boundsStr);
       this.mapObject = map;
-    },
-    onMapEvent(event, params) {
-      window.console.log(`Daum Map Event(${event})`, params);
+      this.daumMapsObject = window.daum.maps;
+      this.searchPlaceObject = new this.daumMapsObject.services.Places();
     },
   },
 };
@@ -226,6 +218,7 @@ $color-main: #494f5c;
         @include e('result-list') {
           height: 300px;
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+          overflow-y: scroll;
           @include e('item') {
             height: 50px;
             font-size: 13px;
@@ -235,10 +228,10 @@ $color-main: #494f5c;
               left: 50px;
             }
             &:nth-child(even) {
-              @include set-color($color-main, #fff);
+              @include set-color(#fff, $color-main);
             }
             &:nth-child(odd) {
-              @include set-color(#fff, $color-main);
+              @include set-color($color-main, #fff);
             }
             @include e('check') {
               position: absolute;
