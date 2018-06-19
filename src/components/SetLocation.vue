@@ -34,8 +34,14 @@
               <li class="set-location__modal__main__wrapper__result-list__item"
                 v-for="placeList in placeLists"
                 :key="placeList">
-                {{ placeList.place_name }}
-                <div class="set-location__modal__main__wrapper__result-list__item__check"></div>
+                <h5 class="set-location__modal__main__wrapper__result-list__item__name">
+                  {{ placeList.place_name }}
+                </h5>
+                <div class="set-location__modal__main__wrapper__result-list__item__address-name">
+                  {{ placeList.road_address_name || placeList.address_name }}
+                </div>
+                <div class="set-location__modal__main__wrapper__result-list__item__check check">
+                </div>
               </li>
             </ul>
             <button class="set-location__modal__main__wrapper__set-button">
@@ -118,7 +124,7 @@ $color-main: #494f5c;
 @mixin set-color($color1, $color2) {
   background-color: $color1;
   color: $color2;
-  &>div {
+  .check {
     background-color: $color2;
   }
 }
@@ -240,17 +246,25 @@ $color-main: #494f5c;
           overflow-y: scroll;
           @include e('item') {
             height: 50px;
-            font-size: 13px;
-            line-height: 50px;
             position: relative;
             padding: {
               left: 50px;
+              top: 10px;
+              bottom: 10px;
             }
             &:nth-child(even) {
               @include set-color(#fff, $color-main);
             }
             &:nth-child(odd) {
               @include set-color($color-main, #fff);
+            }
+            @include e('name') {
+              font-size: 13px;
+              line-height: 20px;
+            }
+            @include e('address-name') {
+              font-size: 8px;
+              line-height: 10px;
             }
             @include e('check') {
               position: absolute;
