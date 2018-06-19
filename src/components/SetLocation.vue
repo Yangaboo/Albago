@@ -34,7 +34,7 @@
               <li class="set-location__modal__main__wrapper__result-list__item"
                 v-for="placeList in placeLists"
                 :key="placeList">
-                {{ placeList }}
+                {{ placeList.place_name }}
                 <div class="set-location__modal__main__wrapper__result-list__item__check"></div>
               </li>
             </ul>
@@ -93,7 +93,7 @@ export default {
     },
     placesSearchCB(data, status) {
       if (status === this.daumMapsObject.services.Status.OK) {
-        this.changePlaceholdText('검색 성공');
+        this.placeLists = data;
       } else if (status === this.daumMapsObject.services.Status.ZERO_RESULT) {
         this.changePlaceholdText('검색 결과가 존재하지 않습니다.');
       } else if (status === this.daumMapsObject.services.Status.ERROR) {
