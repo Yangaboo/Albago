@@ -32,8 +32,8 @@
           <div class="set-location__modal__main__wrapper">
             <ul class="set-location__modal__main__wrapper__result-list">
               <li class="set-location__modal__main__wrapper__result-list__item"
-                v-for="placeList in placeLists"
-                :key="placeList">
+                v-for="(placeList, index) in placeLists"
+                :key="index">
                 <h5 class="set-location__modal__main__wrapper__result-list__item__name">
                   {{ placeList.place_name }}
                 </h5>
@@ -75,7 +75,7 @@ export default {
       searchPlaceObject: {},
       keyword: '',
       placeLists: [],
-      placeholdText: '키워드를 입력해 주세요',
+      placeholdText: '키워드를 입력해 주세요(건물명, 주소..)',
     };
   },
   methods: {
@@ -91,7 +91,7 @@ export default {
     },
     searchPlaces() {
       if (!this.keyword.replace(/^\s+|\s+$/g, '')) {
-        this.changePlaceholdText('키워드를 입력해주세요!');
+        this.changePlaceholdText('키워드를 입력해 주세요(건물명, 주소..)');
       } else {
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         this.searchPlaceObject.keywordSearch(this.keyword, this.placesSearchCB);
@@ -101,9 +101,9 @@ export default {
       if (status === this.daumMapsObject.services.Status.OK) {
         this.placeLists = data;
       } else if (status === this.daumMapsObject.services.Status.ZERO_RESULT) {
-        this.changePlaceholdText('검색 결과가 존재하지 않습니다.');
+        this.changePlaceholdText('검색 결과가 존재하지 않습니다');
       } else if (status === this.daumMapsObject.services.Status.ERROR) {
-        this.changePlaceholdText('검색 결과 중 오류가 발생했습니다.');
+        this.changePlaceholdText('검색 결과 중 오류가 발생했습니다');
       }
     },
     changePlaceholdText(text) {

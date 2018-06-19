@@ -2,7 +2,7 @@
   <div class="main-bulletin">
     <h3 class="section-name">게시판</h3>
     <ul>
-      <li class="main-bulletin__list-item" v-for="bulletin in bulletins" :key="bulletin">
+      <li class="main-bulletin__list-item" v-for="(bulletin, index) in bulletins" :key="index">
         <a href="" class="main-bulletin__list-item__link">
           <div class="main-bulletin__list-item__link__title">
             {{ bulletin.title }}
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import category from '@/constants/category';
+import category from '../../constants/category';
 
 export default {
   name: 'main-bulletin',

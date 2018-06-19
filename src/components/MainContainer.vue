@@ -1,20 +1,20 @@
 <template>
-  <div class="main">
-    <main-bulletin class="main__main-bulletin"/>
-    <div class="main__wrapper">
-      <main-locate class="main__wrapper__main-locate"/>
-      <main-part-time class="main__wrapper__main-part-time"/>
+  <div class="main-container">
+    <main-bulletin class="main-container__main-bulletin"/>
+    <div class="main-container__wrapper">
+      <main-locate class="main-container__wrapper__main-locate"/>
+      <main-part-time class="main-container__wrapper__main-part-time"/>
     </div>
   </div>
 </template>
 
 <script>
-import MainBulletin from './Main/MainBulletin';
-import MainLocate from './Main/MainLocate';
-import MainPartTime from './Main/MainPartTime';
+import MainBulletin from './MainContainer/MainBulletin';
+import MainLocate from './MainContainer/MainLocate';
+import MainPartTime from './MainContainer/MainPartTime';
 
 export default {
-  name: 'main',
+  name: 'main-container',
   components: {
     MainBulletin,
     MainLocate,
@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/setting';
 
-.main {
+.main-container {
   background-color: #494f5c;
   padding: 85px 125px;
   display: flex;

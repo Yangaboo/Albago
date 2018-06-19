@@ -3,7 +3,7 @@
     <h3 class="section-name">아르바이트 찾기</h3>
     <ul>
       <li class="main-part-time__list-item"
-        v-for="partTime in partTimes" :key="partTime">
+        v-for="(partTime, index) in partTimes" :key="index">
         <div class="main-part-time__list-item__title">{{ partTime.title }}</div>
         <div class="main-part-time__list-item__term">
           {{ partTime.startDay }} ~ {{ partTime.endDay }} ({{ partTime.term }}일간)
