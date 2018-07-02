@@ -36,7 +36,7 @@ public class PostsRepositoryTest {
         .pwd("test")
         .favor(1)
         .hate(1)
-        .cat_id(1)
+        .cat_id("all")
         .build());
 
         // when
@@ -50,7 +50,7 @@ public class PostsRepositoryTest {
         assertThat(posts.getPwd(), is("test"));
 //        assertThat(posts.getFavor(), is(1));
 //        assertThat(posts.getHate(), is(1));
-        assertThat(posts.getCat_id(), is(1));
+        assertThat(posts.getCat_id(), is("all"));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class PostsRepositoryTest {
                 .content("테스트")
                 .author("너너너")
                 .pwd("1234")
-                .cat_id(1)
+                .cat_id("all")
                 .build());
 
         //when

@@ -15,12 +15,12 @@ public class PostsSaveRequestDto {
     private String content;
     private String author;
     private String pwd;
-    private int cat_id;
+    private String cat_id;
     private int favor;
     private int hate;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author, String pwd, int cat_id, int favor, int hate) {
+    public PostsSaveRequestDto(String title, String content, String author, String pwd, String cat_id, int favor, int hate) {
         this.title = title;
         this.content = content;
         this.author = author;

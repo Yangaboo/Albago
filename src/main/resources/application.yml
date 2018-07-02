@@ -2,3 +2,5 @@ spring:
   h2:
     console:
       enabled: true
+server:
+  port: 8090

@@ -14,6 +14,6 @@ public class CommentsService {
 
     @Transactional
     public Long save(CommentsSaveRequestDto dto) {
-        return commentsRepository.save(dto.toEntity()).getId();
+        return commentsRepository.save(dto.toEntity()).getComment_id();
     }
 }

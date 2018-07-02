@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Comments extends BaseTimeEntity {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long comment_id;
 
     @Column(columnDefinition = "TEXT", nullable = false, name = "content")
     private String content;
