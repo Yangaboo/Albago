@@ -44,6 +44,16 @@
                 </div>
               </li>
             </ul>
+            <div class="set-location__modal__main__wrapper__pagination">
+              <a class="set-location__modal__main__wrapper__pagination__number"
+                href="#"
+                v-for="index in pagination.last"
+                :key="index"
+                :class="{'on': index == pagination.current}"
+                @click="pagination.gotoPage(index)">
+                {{ index }}
+              </a>
+            </div>
             <button class="set-location__modal__main__wrapper__set-button">
               해당 위치로 설정
             </button>
@@ -76,6 +86,7 @@ export default {
       keyword: '',
       placeLists: [],
       placeholdText: '키워드를 입력해 주세요(건물명, 주소..)',
+      pagination: {},
     };
   },
   methods: {
@@ -97,9 +108,12 @@ export default {
         this.searchPlaceObject.keywordSearch(this.keyword, this.placesSearchCB);
       }
     },
-    placesSearchCB(data, status) {
+    placesSearchCB(data, status, pagination) {
       if (status === this.daumMapsObject.services.Status.OK) {
+        // 지역 목록을 가져옵니다
         this.placeLists = data;
+        // 페이지 번호를 가져옵니다
+        this.pagination = pagination;
       } else if (status === this.daumMapsObject.services.Status.ZERO_RESULT) {
         this.changePlaceholdText('검색 결과가 존재하지 않습니다');
       } else if (status === this.daumMapsObject.services.Status.ERROR) {
@@ -241,7 +255,7 @@ $color-main: #494f5c;
         width: 40%;
         height: 400px;
         @include e('result-list') {
-          height: 300px;
+          height: 270px;
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
           overflow-y: scroll;
           @include e('item') {
@@ -274,6 +288,23 @@ $color-main: #494f5c;
               height: 30px;
               box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.16);
               border-radius: 100%;
+            }
+          }
+        }
+        @include e('pagination') {
+          text-align: center;
+          height: 20px;
+          margin-top: 10px;
+          @include e('number') {
+            display: inline-block;
+            height: 100%;
+            width: 20px;
+            font-size: 15px;
+            font-weight: bolder;
+            line-height: 20px;
+            color: rgb(170, 170, 170);
+            &.on {
+              color: #000;
             }
           }
         }
