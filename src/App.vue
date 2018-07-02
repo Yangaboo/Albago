@@ -71,6 +71,7 @@ button {
   background-color: none;
   border: none;
   font-size: inherit;
+  outline: none;
 }
 
 article, aside, details, figcaption, figure,

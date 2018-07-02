@@ -32,7 +32,9 @@
             <ul class="set-location__modal__main__wrapper__result-list">
               <li class="set-location__modal__main__wrapper__result-list__item"
                 v-for="(placeList, index) in placeLists"
-                :key="index">
+                :key="index"
+                @click="selected = index"
+                :class="{'selected': selected == index}">
                 <h5 class="set-location__modal__main__wrapper__result-list__item__name">
                   {{ placeList.place_name }}
                 </h5>
@@ -40,6 +42,7 @@
                   {{ placeList.road_address_name || placeList.address_name }}
                 </div>
                 <div class="set-location__modal__main__wrapper__result-list__item__check check">
+                  &#10004;
                 </div>
               </li>
             </ul>
@@ -53,8 +56,9 @@
                 {{ index }}
               </a>
             </div>
-            <button class="set-location__modal__main__wrapper__set-button">
-              해당 위치로 설정
+            <button class="set-location__modal__main__wrapper__set-button"
+              @click="setLocation">
+              {{ buttonText }}
             </button>
           </div>
         </div>
@@ -83,8 +87,10 @@ export default {
       searchPlaceObject: {},
       keyword: '',
       placeLists: [],
+      selected: 0,
       placeholdText: '키워드를 입력해 주세요(건물명, 주소..)',
       pagination: {},
+      buttonText: '해당 위치로 설정',
     };
   },
   methods: {
@@ -106,6 +112,8 @@ export default {
       } else {
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         this.searchPlaceObject.keywordSearch(this.keyword, this.placesSearchCB);
+
+        this.buttonText = '해당 위치로 설정';
       }
     },
     placesSearchCB(data, status, pagination) {
@@ -161,6 +169,15 @@ export default {
       this.keyword = '';
       this.placeholdText = text;
     },
+    setLocation() {
+      if (this.placeLists) {
+        const selectedPlace = this.placeLists[this.selected];
+        window.localStorage.setItem('place_name', selectedPlace.place_name);
+        window.localStorage.setItem('address_name', selectedPlace.address_name);
+        window.localStorage.setItem('road_address_name', selectedPlace.road_address_name);
+        this.buttonText = '변경되었습니다';
+      }
+    },
   },
 };
 </script>
@@ -177,6 +194,11 @@ $color-main: #494f5c;
   color: $color2;
   .check {
     background-color: $color2;
+  }
+  &.selected {
+    .check {
+      color: $color1;
+    }
   }
 }
 
@@ -325,6 +347,9 @@ $color-main: #494f5c;
               height: 30px;
               box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.16);
               border-radius: 100%;
+              text-align: center;
+              line-height: 30px;
+              font-size: 20px;
             }
           }
         }
@@ -354,6 +379,14 @@ $color-main: #494f5c;
           border-radius: 3px;
           background-color: $color-main;
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+          transition: background-color 0.1s;
+          &:hover {
+            background-color: $color-main / 5 * 6;
+          }
+          &:active {
+            padding-top: 10px;
+            color: #ddd;
+          }
         }
       }
     }
