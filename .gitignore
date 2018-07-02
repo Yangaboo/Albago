@@ -1,4 +1,5 @@
 .gradle
+node_modules/
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
