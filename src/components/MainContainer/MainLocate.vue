@@ -15,8 +15,16 @@ export default {
   name: 'main-locate',
   data() {
     return {
-      currentLocation: '대전광역시 동구 산내로 1375 어쩌구 저쩌구',
+      currentLocation: '대전광역시 동구 산내로 1375',
     };
+  },
+  created() {
+    if (window.localStorage.getItem('address_name')) {
+      this.currentLocation = window.localStorage.getItem('address_name');
+    }
+    this.$EventBus.$on('setLocate', () => {
+      this.currentLocation = window.localStorage.getItem('address_name');
+    });
   },
 };
 </script>

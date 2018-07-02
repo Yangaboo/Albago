@@ -176,6 +176,7 @@ export default {
         window.localStorage.setItem('address_name', selectedPlace.address_name);
         window.localStorage.setItem('road_address_name', selectedPlace.road_address_name);
         this.buttonText = '변경되었습니다';
+        this.$EventBus.$emit('setLocate');
       }
     },
   },
