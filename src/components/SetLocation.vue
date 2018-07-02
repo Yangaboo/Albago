@@ -26,7 +26,6 @@
             :appKey="appKey"
             :center.sync="center"
             :level.sync="level"
-            :mapTypeId="mapTypeId"
             :libraries="libraries"
             @load="onLoad"/>
           <div class="set-location__modal__main__wrapper">
@@ -78,7 +77,6 @@ export default {
       appKey: config.appKey,
       center: { lat: 33.450701, lng: 126.570667 },
       level: 3,
-      mapTypeId: VueDaumMap.MapTypeId.NORMAL,
       libraries: ['services'],
       mapObject: null,
       daumMapsObject: {},
@@ -93,9 +91,11 @@ export default {
     onLoad(map) {
       // 지도의 현재 영역을 얻어옵니다
       const bounds = map.getBounds();
+
       // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
       const boundsStr = bounds.toString();
       window.console.log('Daum Map Loaded', boundsStr);
+
       this.mapObject = map;
       this.daumMapsObject = window.daum.maps;
       this.searchPlaceObject = new this.daumMapsObject.services.Places();
@@ -112,6 +112,8 @@ export default {
       if (status === this.daumMapsObject.services.Status.OK) {
         // 지역 목록을 가져옵니다
         this.placeLists = data;
+        // 마커를 표출합니다
+        this.displayPlaces();
         // 페이지 번호를 가져옵니다
         this.pagination = pagination;
       } else if (status === this.daumMapsObject.services.Status.ZERO_RESULT) {
@@ -119,6 +121,32 @@ export default {
       } else if (status === this.daumMapsObject.services.Status.ERROR) {
         this.changePlaceholdText('검색 결과 중 오류가 발생했습니다');
       }
+    },
+    displayPlaces() {
+      const bounds = new this.daumMapsObject.LatLngBounds();
+      for (let i = 0; i < this.placeLists.length; i += 1) {
+        // 마커를 생성하고 지도에 표시합니다
+        const placePosition = new this.daumMapsObject.LatLng(
+          this.placeLists[i].y,
+          this.placeLists[i].x,
+        );
+        this.addMarker(placePosition);
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(placePosition);
+      }
+
+      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+      this.mapObject.setBounds(bounds);
+    },
+    addMarker(position) {
+      const marker = new this.daumMapsObject.Marker({
+        position,
+      });
+      marker.setMap(this.mapObject); // 지도 위에 마커를 표출합니다
+      // markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+      return marker;
     },
     changePlaceholdText(text) {
       this.keyword = '';
