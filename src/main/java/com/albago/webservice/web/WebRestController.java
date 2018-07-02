@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 @RestController
 @AllArgsConstructor
@@ -30,5 +31,11 @@ public class WebRestController {
     @PostMapping("/posts/comments")
     public Long saveComments(@RequestBody CommentsSaveRequestDto dto) {
         return commentsService.save(dto);
+    }
+
+    @GetMapping("/posts")
+    public String getPosts(Model model) {
+        model.addAttribute("posts", postsService.findAllDesc());
+        return "getPosts";
     }
 }
