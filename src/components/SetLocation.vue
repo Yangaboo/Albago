@@ -141,11 +141,20 @@ export default {
       this.mapObject.setBounds(bounds);
     },
     addMarker(position) {
+      const imageSrc = 'https://github.com/Yangaboo/Albago/blob/Front-End/src/assets/map_mark.png?raw=true';
+      const imageSize = new this.daumMapsObject.Size(36, 37);
+      const imageOption = {
+        offset: new this.daumMapsObject.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+      };
+      const markerImage = new this.daumMapsObject.MarkerImage(imageSrc, imageSize, imageOption);
       const marker = new this.daumMapsObject.Marker({
-        position,
+        position, // 마커의 위치
+        image: markerImage,
       });
+
       marker.setMap(this.mapObject); // 지도 위에 마커를 표출합니다
       // markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+
       return marker;
     },
     changePlaceholdText(text) {
