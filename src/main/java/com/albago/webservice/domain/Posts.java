@@ -32,14 +32,14 @@ public class Posts extends BaseTimeEntity {
     private String pwd;
 
     @Column(nullable = false)
-    private String cat_id;
+    private int cat_id;
 
     private int favor;
 
     private int hate;
 
     @Builder
-    public Posts(String title, String content, String author, String pwd,String cat_id, int favor, int hate) {
+    public Posts(String title, String content, String author, String pwd, int cat_id, int favor, int hate) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -49,3 +49,14 @@ public class Posts extends BaseTimeEntity {
         this.hate = hate;
     }
 }
+/*
+    ALL: 0,
+    SERVE: 1,
+    MANAGE: 2,
+    PARK: 3,
+    IT: 4,
+    CLEAN: 5,
+    EXPRESS: 6,
+    OFFICE: 7,
+    ETC: 8
+*/

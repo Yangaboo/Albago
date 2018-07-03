@@ -36,7 +36,7 @@ public class PostsRepositoryTest {
         .pwd("test")
         .favor(1)
         .hate(1)
-        .cat_id("all")
+        .cat_id(0)
         .build());
 
         // when
@@ -62,7 +62,7 @@ public class PostsRepositoryTest {
                 .content("테스트")
                 .author("너너너")
                 .pwd("1234")
-                .cat_id("all")
+                .cat_id(0)
                 .build());
 
         //when

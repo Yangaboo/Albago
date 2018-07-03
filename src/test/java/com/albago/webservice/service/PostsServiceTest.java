@@ -35,7 +35,7 @@ public class PostsServiceTest {
                 .content("테스트")
                 .author("테스트")
                 .pwd("test")
-                .cat_id("all")
+                .cat_id(0)
                 .favor(1)
                 .hate(1)
                 .build();

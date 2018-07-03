@@ -13,7 +13,7 @@ public class PostsMainResponseDto {
     private Long post_id;
     private String title;
     private String author;
-    private String cat_id;
+    private int cat_id;
     private int favor;
     private int hate;
 
