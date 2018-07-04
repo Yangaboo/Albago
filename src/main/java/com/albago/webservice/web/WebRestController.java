@@ -36,6 +36,6 @@ public class WebRestController {
     @GetMapping("/posts")
     public String getPosts(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
-        return "getPosts";
+        return "main";
     }
 }
