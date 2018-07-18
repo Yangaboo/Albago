@@ -21,7 +21,7 @@ export default new Router({
     {
       path: '/compare',
       name: 'compare-job',
-      components: CompareJob,
+      component: CompareJob,
     },
   ],
 });
