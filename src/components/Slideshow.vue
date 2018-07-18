@@ -1,16 +1,32 @@
 <template>
   <div class="slideshow" :class="currentIndex">
     <div class="slideshow__slide">
-      <div class="slideshow__slide__job-introduction">A</div>
+      <div class="slideshow__slide__job-introduction">
+        gs25 아르바이트생 구합니다. 남자 1 여자 1<br>
+        주간,주말 (공휴일 제외)<br>
+        시급 : 8200원
+      </div>
     </div>
     <div class="slideshow__slide">
-      <div class="slideshow__slide__job-introduction">B</div>
+      <div class="slideshow__slide__job-introduction">
+        gs25 아르바이트생 구합니다. 남자 1 여자 1<br>
+        주간,주말 (공휴일 제외)<br>
+        시급 : 8200원
+      </div>
     </div>
     <div class="slideshow__slide">
-      <div class="slideshow__slide__job-introduction">C</div>
+      <div class="slideshow__slide__job-introduction">
+        gs25 아르바이트생 구합니다. 남자 1 여자 1<br>
+        주간,주말 (공휴일 제외)<br>
+        시급 : 8200원
+      </div>
     </div>
     <div class="slideshow__slide">
-      <div class="slideshow__slide__job-introduction">D</div>
+      <div class="slideshow__slide__job-introduction">
+        gs25 아르바이트생 구합니다. 남자 1 여자 1<br>
+        주간,주말 (공휴일 제외)<br>
+        시급 : 8200원
+      </div>
     </div>
     <div class="sliding-index">
       <div class="sliding-index__dot" v-for="dot in 4" :key="dot"></div>
@@ -60,9 +76,13 @@ export default {
   @include e('slide') {
     width: 100%;
     padding-top: 52px;
+    height: 100%;
     position: absolute;
     top: 0;
     transition: left 1s;
+    background-image: url('../assets/picture.png');
+    background-size: cover;
+    background-position: center -300px;
     @include e('job-introduction') {
       font-size: 20px;
       color: white;
