@@ -33,6 +33,10 @@ import BulletinPaging from './Bulletin/BulletinPaging';
 export default {
   name: 'bulletin',
   data() {
+    return {
+      totalBulletin: 0,
+      todayBulletin: 0,
+    };
   },
   components: {
     Slideshow,
