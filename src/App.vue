@@ -72,6 +72,10 @@ input::-webkit-input-placeholder, {
 ol, ul {
   list-style: none;
 }
+
+#app {
+  min-width: 1670px;
+}
 // common style
 .section-name {
   font-size: 20px;
