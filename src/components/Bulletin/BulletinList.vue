@@ -46,7 +46,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 2,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -54,7 +54,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 3,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -62,7 +62,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 4,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -70,7 +70,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 5,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -78,7 +78,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 6,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -86,7 +86,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 7,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -94,7 +94,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 8,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -102,7 +102,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 9,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
@@ -110,7 +110,7 @@ export default {
           numberOfBad: 200,
         },
         {
-          number: 1,
+          number: 10,
           title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
           category: '교육',
           date: '2014-04-28',
