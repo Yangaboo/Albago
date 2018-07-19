@@ -1,14 +1,18 @@
 <template>
-  <div class="main-container">
-    <main-bulletin class="main-container__main-bulletin"/>
-    <div class="main-container__wrapper">
-      <main-locate class="main-container__wrapper__main-locate"/>
-      <main-part-time class="main-container__wrapper__main-part-time"/>
+  <div class="wrap">
+    <slideshow/>
+    <div class="main-container">
+      <main-bulletin class="main-container__main-bulletin"/>
+      <div class="main-container__wrapper">
+        <main-locate class="main-container__wrapper__main-locate"/>
+        <main-part-time class="main-container__wrapper__main-part-time"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Slideshow from './Common/Slideshow';
 import MainBulletin from './MainContainer/MainBulletin';
 import MainLocate from './MainContainer/MainLocate';
 import MainPartTime from './MainContainer/MainPartTime';
@@ -16,6 +20,7 @@ import MainPartTime from './MainContainer/MainPartTime';
 export default {
   name: 'main-container',
   components: {
+    Slideshow,
     MainBulletin,
     MainLocate,
     MainPartTime,

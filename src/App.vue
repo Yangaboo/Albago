@@ -2,14 +2,12 @@
   <div id="app">
     <set-location v-if="isOnModal" @closeModal="isOnModal = false"/>
     <navigation/>
-    <slideshow/>
     <router-view/>
   </div>
 </template>
 
 <script>
 import Navigation from './components/Navigation';
-import Slideshow from './components/Slideshow';
 import SetLocation from './components/SetLocation';
 
 export default {
@@ -22,7 +20,6 @@ export default {
   components: {
     SetLocation,
     Navigation,
-    Slideshow,
   },
   created() {
     this.$EventBus.$on('showModal', () => {

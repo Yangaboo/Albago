@@ -1,5 +1,7 @@
 <template>
-  <div class="compare-job">
+  <div class="wrap">
+    <div class="compare-job">
+    </div>
   </div>
 </template>
 
@@ -11,5 +13,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/setting';
+$main-color1: #494f5c;
 
+.compare-job {
+  background-color: $main-color1;
+  height: 1010px;
+}
 </style>

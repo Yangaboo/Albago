@@ -1,37 +1,41 @@
 <template>
-  <div class="bulletin">
-    <div class="bulletin__container">
-      <header class="bulletin__container__header">
-        <div class="bulletin__container__header__outline">
-          총 {{ totalBulletin }}건 / 금일 {{ todayBulletin }}건
-        </div>
-        <div class="bulletin__container__header__navigation-tool">
-          <select class="bulletin__container__header__navigation-tool__category">
-            <option disabled selected>카테고리</option>
-          </select>
-          <input type="search"
-            placeholder="검색어.."
-            class="bulletin__container__header__navigation-tool__search-input">
-          <button class="bulletin__container__header__navigation-tool__search-button">검색</button>
-        </div>
-      </header>
-      <bulletin-list class="bulletin__container__bulletin-list"/>
-      <bulletin-paging class="bulletin__container__bulletin-paging"
-        :pagesTotalNumber="25"/>
+  <div class="wap">
+    <slideshow/>
+    <div class="bulletin">
+      <div class="bulletin__container">
+        <header class="bulletin__container__header">
+          <div class="bulletin__container__header__outline">
+            총 {{ totalBulletin }}건 / 금일 {{ todayBulletin }}건
+          </div>
+          <div class="bulletin__container__header__navigation-tool">
+            <select class="bulletin__container__header__navigation-tool__category">
+              <option disabled selected>카테고리</option>
+            </select>
+            <input type="search"
+              placeholder="검색어.."
+              class="bulletin__container__header__navigation-tool__search-input">
+            <button class="bulletin__container__header__navigation-tool__search-button">검색</button>
+          </div>
+        </header>
+        <bulletin-list class="bulletin__container__bulletin-list"/>
+        <bulletin-paging class="bulletin__container__bulletin-paging"
+          :pagesTotalNumber="25"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Slideshow from './Common/Slideshow';
 import BulletinList from './Bulletin/BulletinList';
 import BulletinPaging from './Bulletin/BulletinPaging';
 
 export default {
   name: 'bulletin',
   data() {
-
   },
   components: {
+    Slideshow,
     BulletinList,
     BulletinPaging,
   },

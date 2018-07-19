@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/setting';
+@import '../../styles/setting';
 
 @mixin active-dot($number) {
   &--#{$number} .sliding-index__dot:nth-child(#{$number}) {
@@ -80,7 +80,7 @@ export default {
     position: absolute;
     top: 0;
     transition: left 1s;
-    background-image: url('../assets/picture.png');
+    background-image: url('../../assets/picture.png');
     background-size: cover;
     background-position: center -300px;
     @include e('job-introduction') {
