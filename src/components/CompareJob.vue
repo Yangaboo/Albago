@@ -73,7 +73,7 @@ $point-color1: #ffe886;
       width: 220px;
       height: 100%;
       border-radius: 5px;
-      background-color: #ffe886;
+      background-color: $point-color1;
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
       border: none;
       font-size: 18px;
@@ -121,6 +121,14 @@ $point-color1: #ffe886;
   @include e('main') {
     width: $width;
     margin: 0 auto;
+    display: flex;
+    @include e('filter') {
+      width: 800px;
+      margin-right: 50px;
+    }
+    @include e('list') {
+      width: 820px;
+    }
   }
 }
 </style>
