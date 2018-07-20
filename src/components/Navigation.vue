@@ -21,7 +21,7 @@
         </li>
         <li class="nav__container__list__item">
           <router-link class="nav__container__list__item__link"
-            :to="{path: '/parttime'}">아르바이트 찾기</router-link>
+            :to="{path: '/compare'}">아르바이트 비교</router-link>
         </li>
       </ul>
     </div>
