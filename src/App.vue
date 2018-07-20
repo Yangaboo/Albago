@@ -62,11 +62,13 @@ a {
 
 button,
 input,
-input::-webkit-input-placeholder, {
+input::-webkit-input-placeholder,
+label {
   background-color: none;
   border: none;
   font-size: inherit;
   outline: none;
+  box-sizing: border-box;
 }
 
 ol, ul {
