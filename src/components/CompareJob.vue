@@ -123,11 +123,11 @@ $point-color1: #ffe886;
     margin: 0 auto;
     display: flex;
     @include e('filter') {
-      width: 800px;
+      width: 600px;
       margin-right: 50px;
     }
     @include e('list') {
-      width: 820px;
+      width: 1020px;
     }
   }
 }
