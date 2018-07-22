@@ -120,7 +120,7 @@ $point-color1: #ffe886;
   }
   @include e('main') {
     width: $width;
-    margin: 0 auto;
+    margin: 50px auto;
     display: flex;
     @include e('filter') {
       width: 600px;
