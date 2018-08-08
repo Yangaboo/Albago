@@ -6,10 +6,7 @@ import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
 import com.albago.webservice.service.PostsService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 @RestController
@@ -37,5 +34,11 @@ public class WebRestController {
     public String getPosts(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
         return "main";
+    }
+
+    @DeleteMapping("/posts/{post_id}/delete")
+    public Long deletePosts(@PathVariable Long post_id) {
+        postsService.delete(post_id);
+        return post_id;
     }
 }

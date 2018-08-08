@@ -26,4 +26,10 @@ public class PostsService {
                 .map(PostsMainResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public String delete(Long post_id) {
+        postsRepository.delete(post_id);
+        return "delete";
+    }
 }
