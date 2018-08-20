@@ -83,7 +83,7 @@ export default {
   name: 'compare-job-filter',
   data() {
     return {
-      prioritySubjects: [
+      relevantSubjects: [
         {
           name: '거리',
           options: [
@@ -121,23 +121,17 @@ export default {
           isIrrelevant: false,
         },
       ],
+      irrelevantSubjects: [],
     };
   },
-  computed: {
-    relevantSubjects() { return this.prioritySubjects.filter(subject => !subject.isIrrelevant); },
-    irrelevantSubjects() { return this.prioritySubjects.filter(subject => subject.isIrrelevant); },
-  },
   methods: {
-    updateSubjects() {
-      this.prioritySubjects = this.relevantSubjects.concat(this.irrelevantSubjects);
-    },
     toIrrelevant(index) {
-      this.updateSubjects();
       this.relevantSubjects[index].value = '';
+      this.irrelevantSubjects.push(...this.relevantSubjects.splice(index, 1));
     },
     toRelevant(index) {
-      this.updateSubjects();
       this.irrelevantSubjects[index].isIrrelevant = false;
+      this.relevantSubjects.push(...this.irrelevantSubjects.splice(index, 1));
     },
   },
 };
