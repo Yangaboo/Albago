@@ -12,7 +12,7 @@
         :name="subject.name"
         :options="subject.options"
         v-model="subject.value"
-        @to-irrelevant="toIrrelevant(index)"
+        @toIrrelevant="toIrrelevant(index)"
         @forward="forward(index)"
         @backward="backward(index)">
       </compare-job-priority>
