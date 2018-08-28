@@ -12,7 +12,9 @@
         :name="subject.name"
         :options="subject.options"
         v-model="subject.value"
-        @toIrrelevant="toIrrelevant(index)">
+        @to-irrelevant="toIrrelevant(index)"
+        @forward="forward(index)"
+        @backward="backward(index)">
       </compare-job-priority>
 
       <!-- 상관 없음이 선택된 항목, 비교 기준에서 제외 -->
@@ -78,6 +80,19 @@ export default {
     };
   },
   methods: {
+    movePosition(arr, from, to) {
+      arr.splice(to, 0, ...arr.splice(from, 1));
+    },
+    forward(index) {
+      if (index !== 0) {
+        this.movePosition(this.relevantSubjects, index, index - 1);
+      }
+    },
+    backward(index) {
+      if (index !== this.relevantSubjects.length - 1) {
+        this.movePosition(this.relevantSubjects, index, index + 1);
+      }
+    },
     toIrrelevant(index) {
       this.relevantSubjects[index].value = '';
       this.irrelevantSubjects.push(...this.relevantSubjects.splice(index, 1));
