@@ -28,6 +28,15 @@
         v-model="subject.value"
         @change="newValue => toRelevant(index, newValue)">
       </compare-job-priority>
+
+      <!--
+        TODO
+        시간대: 주간, 야간
+        나이: 청소년, 상관없음
+        요일: 월, 화, 수, 목, 금, 토, 일
+
+        제출 버튼
+      -->
     </ul>
   </div>
 </template>
