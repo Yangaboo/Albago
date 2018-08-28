@@ -4,7 +4,8 @@
       <li><h3 class="section-name">우선순위로 비교</h3></li>
 
       <!-- 상관 없음이 선택되지 않은 항목, 비교 기준 -->
-      <compare-job-priority
+      <li
+        is="compare-job-priority"
         :is-relevant="true"
         v-for="(subject, index) in relevantSubjects"
         :key="`sub1${subject.name}`"
@@ -15,10 +16,11 @@
         @toIrrelevant="toIrrelevant(index)"
         @forward="forward(index)"
         @backward="backward(index)">
-      </compare-job-priority>
+      </li>
 
       <!-- 상관 없음이 선택된 항목, 비교 기준에서 제외 -->
-      <compare-job-priority
+      <li
+        is="compare-job-priority"
         :is-relevant="false"
         v-for="(subject, index) in irrelevantSubjects"
         :key="`sub2${index}`"
@@ -27,7 +29,7 @@
         :options="subject.options"
         v-model="subject.value"
         @change="newValue => toRelevant(index, newValue)">
-      </compare-job-priority>
+      </li>
 
     </ul>
 
