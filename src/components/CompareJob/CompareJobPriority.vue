@@ -34,9 +34,15 @@
         상관 없음
       </label>
     </div>
-    <div class="subject__order-btn-cover">
-      <button class="order-btn forward"></button>
-      <button class="order-btn backward"></button>
+    <div class="subject__order-btn-cover" v-show="isRelevant">
+      <button
+        class="order-btn forward"
+        @click="$emit('forward')">
+      </button>
+      <button
+        class="order-btn backward"
+        @click="$emit('backward')">
+      </button>
     </div>
   </li>
 </template>
