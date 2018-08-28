@@ -34,10 +34,10 @@
         상관 없음
       </label>
     </div>
-    <!-- <div class="subject__order-btn-cover">
+    <div class="subject__order-btn-cover">
       <button class="order-btn forward"></button>
       <button class="order-btn backward"></button>
-    </div> -->
+    </div>
   </li>
 </template>
 
@@ -79,6 +79,7 @@ $point-color1: #ffe886;
   display: flex;
   border-bottom: 1px solid $point-color1;
   color: #fff; // name color
+  position: relative;
   padding: {
     top: ($item-height - $item-content-height) / 2;
     left: 40px;
@@ -125,5 +126,34 @@ $point-color1: #ffe886;
       margin-left: 10px;
     }
   }
+  @include e('order-btn-cover') {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50px;
+    display: flex;
+    flex-flow: column;
+    .order-btn {
+      display: block;
+      height: 50%;
+      width: 100%;
+      filter: brightness(0.6);
+      cursor: pointer;
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
   }
+}
+
+.forward {
+  background: url('../../assets/arrow_top.svg') no-repeat center bottom 5px;
+  background-size: 25px;
+}
+
+.backward {
+  background: url('../../assets/arrow_bottom.svg') no-repeat center top 5px;
+  background-size: 25px;
+}
 </style>
