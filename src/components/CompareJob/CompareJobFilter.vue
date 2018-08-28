@@ -29,18 +29,20 @@
         @change="newValue => toRelevant(index, newValue)">
       </compare-job-priority>
 
-      <!--
-        TODO
-        시간대: 주간, 야간
-        요일: 월, 화, 수, 목, 금, 토, 일
-        성별: 남성, 여성, 상관없음
-        나이: 청소년, 상관없음
-      -->
-
-      <button class="submit" @click="submit">
-        아르바이트 비교
-      </button>
     </ul>
+
+    <!--
+      TODO
+      시간대: 주간, 야간
+      요일: 월, 화, 수, 목, 금, 토, 일
+      성별: 남성, 여성, 상관없음
+      나이: 청소년, 상관없음
+    -->
+
+
+    <button class="submit" @click="submit">
+      아르바이트 비교
+    </button>
   </div>
 </template>
 
@@ -129,6 +131,27 @@ $point-color1: #ffe886;
 .filter {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
   position: relative;
+}
+
+.submit {
+  width: 100%;
+  height: 80px;
+  font-size: 28px;
+  line-height: 80px;
+  color: #484e5a;
+  background: url('../../assets/logo_mark.png') no-repeat right -50px center #fff;
+  background-size: 50px auto;
+  transition: background-position-x 0.5s, background-color 0.5s;
+  &:hover {
+    background-position: right 20px center;
+    background-color: #fff;
+    font-weight: bold;
+  }
+  &:active {
+    padding-top: 10px;
+    line-height: 70px;
+    background-position: right 20px bottom 12px;
+  }
 }
 
 </style>
