@@ -32,11 +32,14 @@
       <!--
         TODO
         시간대: 주간, 야간
-        나이: 청소년, 상관없음
         요일: 월, 화, 수, 목, 금, 토, 일
-
-        제출 버튼
+        성별: 남성, 여성, 상관없음
+        나이: 청소년, 상관없음
       -->
+
+      <button class="submit" @click="submit">
+        아르바이트 비교
+      </button>
     </ul>
   </div>
 </template>
@@ -109,6 +112,9 @@ export default {
     toRelevant(index, value) {
       this.irrelevantSubjects[index].value = value;
       this.relevantSubjects.push(...this.irrelevantSubjects.splice(index, 1));
+    },
+    submit() {
+      this.$EventBus.$emit('updateFilter');
     },
   },
 };
