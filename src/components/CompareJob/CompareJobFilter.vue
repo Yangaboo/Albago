@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <ul class="filter__priority-list">
+    <ul class="priority-list">
       <li><h3 class="section-name">우선순위로 비교</h3></li>
 
       <!-- 상관 없음이 선택되지 않은 항목, 비교 기준 -->
@@ -35,12 +35,33 @@
 
     <!--
       TODO
-      시간대: 주간, 야간
       요일: 월, 화, 수, 목, 금, 토, 일
-      성별: 남성, 여성, 상관없음
-      나이: 청소년, 상관없음
     -->
-
+    <div class="selectitem-cover">
+      <h3 class="section-name">항목체크로 비교</h3>
+      <div
+        class="selectitem"
+        v-for="selectitem in selectitems"
+        :key="selectitem.name">
+        <div class="selectitem__name">
+          {{ selectitem.name }}
+        </div>
+        <div class="selectitem__options">
+          <label
+            v-for="option in selectitem.options"
+            :key="`input${option.value}`"
+            :for="`input${option.value}`">
+            <input
+              :id="`input${option.value}`"
+              type="radio"
+              :value="option.value"
+              v-model="selectitem.value"
+              style="display: none">
+            {{ option.text }}
+          </label>
+        </div>
+      </div>
+    </div>
 
     <button class="submit" @click="submit">
       아르바이트 비교
@@ -93,6 +114,34 @@ export default {
         },
       ],
       irrelevantSubjects: [],
+      selectitems: [
+        {
+          name: '시간대',
+          options: [
+            { text: '주간', value: 'day' },
+            { text: '야간', value: 'night' },
+            { text: '상관없음', value: 'ignore' },
+          ],
+          value: 'ignore',
+        },
+        {
+          name: '성별',
+          options: [
+            { text: '남성', value: 'male' },
+            { text: '여성', value: 'female' },
+            { text: '상관없음', value: 'ignore' },
+          ],
+          value: 'ignore',
+        },
+        {
+          name: '나이',
+          options: [
+            { text: '청소년', value: 'teen' },
+            { text: '상관없음', value: 'ignore' },
+          ],
+          value: 'ignore',
+        },
+      ],
     };
   },
   methods: {
@@ -131,7 +180,15 @@ $main-color2: #636d81;
 $point-color1: #ffe886;
 
 .filter {
+  position: relative;
+}
+
+.priority-list {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
+  margin-bottom: 70px;
+}
+
+.selectitem-cover {
   position: relative;
 }
 
@@ -144,6 +201,7 @@ $point-color1: #ffe886;
   background: url('../../assets/logo_mark.png') no-repeat right -50px center #fff;
   background-size: 50px auto;
   transition: background-position-x 0.5s, background-color 0.5s;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
   &:hover {
     background-position: right 20px center;
     background-color: #fff;
