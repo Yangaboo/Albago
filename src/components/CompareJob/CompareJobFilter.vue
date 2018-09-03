@@ -45,14 +45,14 @@
             <input
               :key="`s-check${option}`"
               :id="`s-check${option}`"
-              class="select__radio--day"
+              class="select__checkbox"
               type="checkbox"
               :value="option"
               v-model="selectday.value"
               style="display: none">
             <label
               :key="`s-label${option}`"
-              class="select__label--day"
+              class="select__label select__label--day"
               :for="`s-check${option}`">
               {{ option }}
             </label>
@@ -72,14 +72,14 @@
             <input
               :key="`s-radio${selectitem.name}${option.value}`"
               :id="`s-radio${selectitem.name}${option.value}`"
-              class="select__radio--item"
+              class="select__radio"
               type="radio"
               :value="option.value"
               v-model="selectitem.value"
               style="display: none">
             <label
               :key="`s-label${selectitem.name}${option.value}`"
-              class="select__label--item"
+              class="select__label select__label--item"
               :for="`s-radio${selectitem.name}${option.value}`">
               {{ option.text }}
             </label>
@@ -242,22 +242,34 @@ $menu-shadow1: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
     flex: 4;
     display: flex;
   }
+  @include e('checkbox') {
+    &:checked + label {
+      transform: none;
+      box-shadow: none;
+      background-color: $main-color2 / 1.1;
+    }
+  }
   @include e('radio') {
-    @include m('item') {
-      &:checked + label {
-        background: url('../../assets/checked.png') no-repeat left center;
-        background-size: 20px;
-        font-size: 18px;
-        font-weight: bolder;
-        line-height: 50px;
-        border-bottom: 1px solid $point-color1;
-      }
+    &:checked + label {
+      background: url('../../assets/checked.png') no-repeat left center;
+      background-size: 20px;
+      font-size: 18px;
+      font-weight: bolder;
+      line-height: 50px;
+      border-bottom: 1px solid $point-color1;
     }
   }
   @include e('label') {
+    height: 50px;
+    flex: 1;
+    @include m('day') {
+      margin: 0 5px;
+      background-color: $main-color2;
+      text-align: center;
+      transform: translateY(-5px);
+      box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.219);
+    }
     @include m('item') {
-      height: 50px;
-      flex: 1;
       margin: 0 10px;
       padding-left: 30px;
       transition: line-height 0.3s;
