@@ -174,6 +174,15 @@ export default {
       ],
     };
   },
+  computed: {
+    resultRelevantSubject() {
+      return this.relevantSubjects.map(subject => ({ name: subject.name, value: subject.value }));
+    },
+    resultSelect() {
+      const result = [this.selectday.value.slice()];
+      return result.concat(this.selectitems.map(item => item.value));
+    },
+  },
   methods: {
     movePosition(arr, from, to) {
       arr.splice(to, 0, ...arr.splice(from, 1));
@@ -197,7 +206,7 @@ export default {
       this.relevantSubjects.push(...this.irrelevantSubjects.splice(index, 1));
     },
     submit() {
-      this.$EventBus.$emit('updateFilter');
+      this.$EventBus.$emit('updateFilter', this.resultRelevantSubject, this.resultSelect);
     },
   },
 };
