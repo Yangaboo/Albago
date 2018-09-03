@@ -33,32 +33,53 @@
 
     </ul>
 
-    <!--
-      TODO
-      요일: 월, 화, 수, 목, 금, 토, 일
-    -->
-    <div class="selectitem-cover">
+    <div class="select-cover">
       <h3 class="section-name">항목체크로 비교</h3>
       <div
-        class="selectitem"
+        class="select">
+        <div class="select__name">
+          {{ selectday.name }}
+        </div>
+        <div class="select__options">
+          <template v-for="option in selectday.options">
+            <input
+              :key="`s-check${option}`"
+              :id="`s-check${option}`"
+              class="select__radio--day"
+              type="checkbox"
+              :value="option"
+              v-model="selectday.value"
+              style="display: none">
+            <label
+              :key="`s-label${option}`"
+              class="select__label--day"
+              :for="`s-check${option}`">
+              {{ option }}
+            </label>
+          </template>
+        </div>
+      </div>
+
+      <div
+        class="select"
         v-for="selectitem in selectitems"
         :key="selectitem.name">
-        <div class="selectitem__name">
+        <div class="select__name">
           {{ selectitem.name }}
         </div>
-        <div class="selectitem__options">
+        <div class="select__options">
           <template v-for="option in selectitem.options">
             <input
               :key="`s-radio${selectitem.name}${option.value}`"
               :id="`s-radio${selectitem.name}${option.value}`"
-              class="selectitem__radio"
+              class="select__radio--item"
               type="radio"
               :value="option.value"
               v-model="selectitem.value"
               style="display: none">
             <label
               :key="`s-label${selectitem.name}${option.value}`"
-              class="selectitem__label"
+              class="select__label--item"
               :for="`s-radio${selectitem.name}${option.value}`">
               {{ option.text }}
             </label>
@@ -118,6 +139,11 @@ export default {
         },
       ],
       irrelevantSubjects: [],
+      selectday: {
+        name: '요일',
+        options: ['월', '화', '수', '목', '금', '토', '일'],
+        value: ['토', '일'],
+      },
       selectitems: [
         {
           name: '시간대',
@@ -193,11 +219,11 @@ $menu-shadow1: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
   margin-bottom: 70px;
 }
 
-.selectitem-cover {
+.select-cover {
   position: relative;
 }
 
-.selectitem {
+.select {
   color: #fff;
   display: flex;
   line-height: 50px;
@@ -217,25 +243,27 @@ $menu-shadow1: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
     display: flex;
   }
   @include e('radio') {
-    &:checked + label {
-      background: url('../../assets/checked.png') no-repeat left center;
-      background-size: 20px;
-      font-size: 18px;
-      font-weight: bolder;
-      line-height: 50px;
-      border: {
-        bottom: 1px solid $point-color1;
+    @include m('item') {
+      &:checked + label {
+        background: url('../../assets/checked.png') no-repeat left center;
+        background-size: 20px;
+        font-size: 18px;
+        font-weight: bolder;
+        line-height: 50px;
+        border-bottom: 1px solid $point-color1;
       }
     }
   }
   @include e('label') {
-    height: 50px;
-    flex: 1;
-    margin: 0 10px;
-    padding-left: 30px;
-    transition: line-height 0.3s;
-    &:hover {
-      line-height: 40px;
+    @include m('item') {
+      height: 50px;
+      flex: 1;
+      margin: 0 10px;
+      padding-left: 30px;
+      transition: line-height 0.3s;
+      &:hover {
+        line-height: 40px;
+      }
     }
   }
 }
