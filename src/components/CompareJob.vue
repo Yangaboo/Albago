@@ -48,7 +48,7 @@ $point-color1: #ffe886;
   $width: 1670px;
 
   background-color: $main-color1;
-  height: calc(100vh - 70px);
+  height: auto;
   padding-top: 70px;
   width: 100%;
   @include e('header') {
@@ -120,7 +120,7 @@ $point-color1: #ffe886;
   }
   @include e('main') {
     width: $width;
-    margin: 50px auto;
+    margin: 50px auto 0;
     display: flex;
     @include e('filter') {
       width: 600px;

@@ -47,18 +47,22 @@
           {{ selectitem.name }}
         </div>
         <div class="selectitem__options">
-          <label
-            v-for="option in selectitem.options"
-            :key="`input${option.value}`"
-            :for="`input${option.value}`">
+          <template v-for="option in selectitem.options">
             <input
-              :id="`input${option.value}`"
+              :key="`s-radio${selectitem.name}${option.value}`"
+              :id="`s-radio${selectitem.name}${option.value}`"
+              class="selectitem__radio"
               type="radio"
               :value="option.value"
               v-model="selectitem.value"
               style="display: none">
-            {{ option.text }}
-          </label>
+            <label
+              :key="`s-label${selectitem.name}${option.value}`"
+              class="selectitem__label"
+              :for="`s-radio${selectitem.name}${option.value}`">
+              {{ option.text }}
+            </label>
+          </template>
         </div>
       </div>
     </div>
@@ -178,18 +182,62 @@ export default {
 $main-color1: #494f5c;
 $main-color2: #636d81;
 $point-color1: #ffe886;
+$menu-shadow1: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
 
 .filter {
   position: relative;
 }
 
 .priority-list {
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: $menu-shadow1;
   margin-bottom: 70px;
 }
 
 .selectitem-cover {
   position: relative;
+}
+
+.selectitem {
+  color: #fff;
+  display: flex;
+  line-height: 50px;
+  margin-bottom: 10px;
+  @include e('name') {
+    flex: 1;
+    font-size: 20px;
+    background-color: $main-color2;
+    padding: 0 40px;
+    margin-right: 50px;
+    border-bottom-right-radius: 20px 20px;
+    box-shadow: $menu-shadow1;
+  }
+  @include e('options') {
+    font-size: 16px;
+    flex: 4;
+    display: flex;
+  }
+  @include e('radio') {
+    &:checked + label {
+      background: url('../../assets/checked.png') no-repeat left center;
+      background-size: 20px;
+      font-size: 18px;
+      font-weight: bolder;
+      line-height: 50px;
+      border: {
+        bottom: 1px solid $point-color1;
+      }
+    }
+  }
+  @include e('label') {
+    height: 50px;
+    flex: 1;
+    margin: 0 10px;
+    padding-left: 30px;
+    transition: line-height 0.3s;
+    &:hover {
+      line-height: 40px;
+    }
+  }
 }
 
 .submit {
@@ -202,6 +250,10 @@ $point-color1: #ffe886;
   background-size: 50px auto;
   transition: background-position-x 0.5s, background-color 0.5s;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16);
+  margin: {
+    top: 50px;
+    bottom: 50px;
+  }
   &:hover {
     background-position: right 20px center;
     background-color: #fff;
