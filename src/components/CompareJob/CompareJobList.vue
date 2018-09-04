@@ -1,5 +1,10 @@
 <template>
   <ul class="list">
+    <!--
+      TODO
+      job style
+      job delete function
+    -->
     <li
       class="job"
       v-for="(job, index) in jobLists"
@@ -21,6 +26,20 @@
       </div>
       <a class="job__link" :href="job.href"></a>
     </li>
+    <li class="add-job">
+      <div class="add-job__name">
+        URI
+      </div>
+      <input
+        type="url"
+        class="add-job__uri-input"
+        v-model="uri">
+      <button
+        class="add-job__request-btn"
+        @click="addJob">
+        &plus;
+      </button>
+    </li>
   </ul>
 </template>
 
@@ -37,7 +56,13 @@ export default {
         hourlyWage: '8,690원',
         href: '#',
       }],
+      uri: '',
     };
+  },
+  methods: {
+    addJob() {
+      // request to uri crawling for job data
+    },
   },
 };
 </script>

@@ -89,7 +89,7 @@
     </div>
 
     <button class="submit" @click="submit">
-      아르바이트 비교
+      아르바이트 비교 정렬
     </button>
   </div>
 </template>
