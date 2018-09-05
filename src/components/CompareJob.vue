@@ -21,9 +21,22 @@
           </button>
         </div>
       </header>
-      <main class="compare-job__main">
-        <compare-job-filter class="compare-job__main__filter"/>
-        <compare-job-list class="compare-job__main__list"/>
+      <main class="main">
+        <compare-job-filter class="main__filter"/>
+        <ul class="main__job-list">
+          <li
+            is="compare-job-item"
+            class="main__item"
+            v-for="(job, index) in jobLists"
+            :key="`job${index}`"
+            :name="job.name"
+            :distance="job.distance"
+            :period="job.period"
+            :workTime="job.workTime"
+            :hourlyWage="job.hourlyWage"
+            :href="job.href">
+          </li>
+        </ul>
       </main>
     </div>
   </div>
@@ -31,17 +44,39 @@
 
 <script>
 import CompareJobFilter from './CompareJob/CompareJobFilter';
-import CompareJobList from './CompareJob/CompareJobList';
+import CompareJobItem from './CompareJob/CompareJobItem';
 
 export default {
   name: 'compare-job',
   components: {
     CompareJobFilter,
-    CompareJobList,
+    CompareJobItem,
   },
   data() {
     return {
       uri: '',
+      jobLists: [{
+        name: 'GS25 편의점 아르바이트',
+        distance: '16km',
+        period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
+        workTime: '5시간 (17시 ~ 22시)',
+        hourlyWage: '8,690원',
+        href: '#',
+      }, {
+        name: 'GS25 편의점 아르바이트',
+        distance: '16km',
+        period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
+        workTime: '5시간 (17시 ~ 22시)',
+        hourlyWage: '8,690원',
+        href: '#',
+      }, {
+        name: 'GS25 편의점 아르바이트',
+        distance: '16km',
+        period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
+        workTime: '5시간 (17시 ~ 22시)',
+        hourlyWage: '8,690원',
+        href: '#',
+      }],
     };
   },
   methods: {
@@ -57,55 +92,6 @@ export default {
 $main-color1: #494f5c;
 $main-color2: #636d81;
 $point-color1: #ffe886;
-
-.compare-job {
-  $width: 1670px;
-
-  background-color: $main-color1;
-  height: auto;
-  padding-top: 70px;
-  width: 100%;
-  @include e('header') {
-    $header-height: 60px;
-
-    width: $width;
-    margin: {
-      left: auto;
-      right: auto;
-      bottom: 40px;
-    }
-    height: $header-height;
-    position: relative;
-    font-size: 0;
-    @include e('title') {
-      display: inline-block;
-      height: 100%;
-      line-height: 60px;
-      font-size: 30px;
-      font-weight: bold;
-      color: #fff;
-    }
-    .add-job {
-      height: 100%;
-      display: flex;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  }
-  @include e('main') {
-    width: $width;
-    margin: 50px auto 0;
-    display: flex;
-    @include e('filter') {
-      width: 600px;
-      margin-right: 50px;
-    }
-    @include e('list') {
-      width: 1020px;
-    }
-  }
-}
 
 .delete-all-btn {
   width: 220px;
@@ -147,4 +133,55 @@ $point-color1: #ffe886;
     font-size: 20px;
   }
 }
+
+.compare-job {
+  $width: 1670px;
+
+  background-color: $main-color1;
+  height: auto;
+  padding-top: 70px;
+  width: 100%;
+  @include e('header') {
+    $header-height: 60px;
+
+    width: $width;
+    margin: {
+      left: auto;
+      right: auto;
+      bottom: 40px;
+    }
+    height: $header-height;
+    position: relative;
+    font-size: 0;
+    @include e('title') {
+      display: inline-block;
+      height: 100%;
+      line-height: 60px;
+      font-size: 30px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .add-job {
+      height: 100%;
+      display: flex;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  margin: 50px auto 0;
+  display: flex;
+  @include e('filter') {
+    width: 600px;
+    margin-right: 50px;
+  }
+  @include e('item') {
+    width: 1020px;
+  }
+}
+
 </style>
