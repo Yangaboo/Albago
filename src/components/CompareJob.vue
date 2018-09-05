@@ -92,6 +92,7 @@ export default {
 $main-color1: #494f5c;
 $main-color2: #636d81;
 $point-color1: #ffe886;
+$compare-job-width: 1670px;
 
 .delete-all-btn {
   width: 220px;
@@ -135,8 +136,6 @@ $point-color1: #ffe886;
 }
 
 .compare-job {
-  $width: 1670px;
-
   background-color: $main-color1;
   height: auto;
   padding-top: 70px;
@@ -144,7 +143,7 @@ $point-color1: #ffe886;
   @include e('header') {
     $header-height: 60px;
 
-    width: $width;
+    width: $compare-job-width;
     margin: {
       left: auto;
       right: auto;
@@ -172,7 +171,7 @@ $point-color1: #ffe886;
 }
 
 .main {
-  width: 100%;
+  width: $compare-job-width;
   margin: 50px auto 0;
   display: flex;
   @include e('filter') {
