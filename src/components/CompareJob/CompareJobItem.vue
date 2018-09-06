@@ -19,7 +19,7 @@
       <div class="job__hourly-wage">
         {{ hourlyWage }}
       </div>
-      <button class="job__delete-btn">
+      <button class="job__delete-btn" @click="$emit('delete')">
         제거
       </button>
     </div>

@@ -34,7 +34,8 @@
             :period="job.period"
             :workTime="job.workTime"
             :hourlyWage="job.hourlyWage"
-            :href="job.href">
+            :href="job.href"
+            @delete="deleteItem(index)">
           </li>
         </ul>
       </main>
@@ -64,14 +65,14 @@ export default {
         href: '#',
       }, {
         name: 'GS25 편의점 아르바이트',
-        distance: '16km',
+        distance: '17km',
         period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
         workTime: '5시간 (17시 ~ 22시)',
         hourlyWage: '8,690원',
         href: '#',
       }, {
         name: 'GS25 편의점 아르바이트',
-        distance: '16km',
+        distance: '18km',
         period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
         workTime: '5시간 (17시 ~ 22시)',
         hourlyWage: '8,690원',
@@ -82,6 +83,9 @@ export default {
   methods: {
     addJob() {
       // request to uri crawling for job data
+    },
+    deleteItem(index) {
+      this.jobLists.splice(index, 1);
     },
   },
 };
