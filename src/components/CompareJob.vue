@@ -26,7 +26,7 @@
         <ul class="main__job-list">
           <li
             is="compare-job-item"
-            class="main__item"
+            class="main__job-item"
             v-for="(job, index) in jobLists"
             :key="`job${index}`"
             :name="job.name"
@@ -178,8 +178,14 @@ $compare-job-width: 1670px;
     width: 600px;
     margin-right: 50px;
   }
-  @include e('item') {
+  @include e('job-list') {
     width: 1020px;
+  }
+  @include e('job-item') {
+    border-bottom: 1px solid $point-color1;
+    &:last-child {
+      border: none;
+    }
   }
 }
 
