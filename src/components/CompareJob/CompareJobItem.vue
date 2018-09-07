@@ -15,8 +15,8 @@
       <div class="job__days">
         <div
           class="job__day"
-          v-for="day in reassignedDays"
-          :key="day"
+          v-for="(day, index) in reassignedDays"
+          :key="`day${index}`"
           :class="{'on':day }">
           {{ day }}
         </div>
