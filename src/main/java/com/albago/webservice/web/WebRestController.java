@@ -41,4 +41,9 @@ public class WebRestController {
         postsService.delete(post_id);
         return post_id;
     }
+
+    @PostMapping("/filter")
+    public void filter() {
+        return;
+    }
 }
