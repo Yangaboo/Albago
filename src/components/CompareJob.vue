@@ -35,6 +35,8 @@
             :workTime="job.workTime"
             :hourlyWage="job.hourlyWage"
             :href="job.href"
+            :days="job.days"
+            :tags="job.tags"
             @delete="deleteItem(index)">
           </li>
         </ul>
@@ -63,20 +65,8 @@ export default {
         workTime: '5시간 (17시 ~ 22시)',
         hourlyWage: '8,690원',
         href: '#',
-      }, {
-        name: 'GS25 편의점 아르바이트',
-        distance: '17km',
-        period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
-        workTime: '5시간 (17시 ~ 22시)',
-        hourlyWage: '8,690원',
-        href: '#',
-      }, {
-        name: 'GS25 편의점 아르바이트',
-        distance: '18km',
-        period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
-        workTime: '5시간 (17시 ~ 22시)',
-        hourlyWage: '8,690원',
-        href: '#',
+        days: [0, 1, 2, 3],
+        tags: ['day', 'night', 'male', 'female', 'teen'],
       }],
     };
   },
@@ -97,13 +87,14 @@ $main-color1: #494f5c;
 $main-color2: #636d81;
 $point-color1: #ffe886;
 $compare-job-width: 1670px;
+$shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
 
 .delete-all-btn {
   width: 220px;
   height: 100%;
   border-radius: 5px;
   background-color: $point-color1;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: $shadow;
   border: none;
   font-size: 18px;
   color: $main-color1;
@@ -114,7 +105,7 @@ $compare-job-width: 1670px;
 
 .add-job {
   width: 570px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: $shadow;
   @include e('uri-input') {
     height: 100%;
     flex: 1;
@@ -184,6 +175,8 @@ $compare-job-width: 1670px;
   }
   @include e('job-list') {
     width: 1020px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.151);
+    height: fit-content;
   }
   @include e('job-item') {
     border-bottom: 1px solid $point-color1;

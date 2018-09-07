@@ -4,6 +4,24 @@
       job delete function
     -->
     <div class="job">
+      <div class="job__tags">
+        <div
+          class="job__tag"
+          v-for="tag in tags"
+          :key="tag">
+          {{ tag }}
+        </div>
+      </div>
+      <!-- TODO: days
+      <div class="job__days">
+        <div
+          class="job__day"
+          v-for="day in dailyConstant"
+          :key="day">
+          {{ day }}
+        </div>
+      </div>
+      -->
       <div class="job__distance">
         {{ distance }}
       </div>
@@ -35,6 +53,19 @@ export default {
     workTime: String,
     hourlyWage: String,
     href: String,
+    days: Array,
+    tags: Array,
+  },
+  data() {
+    return {
+      dailyConstant: ['월', '화', '수', '목', '금', '토', '일'],
+    };
+  },
+  computed: {
+    reassignedDays() {
+      // days.
+      return 1;
+    },
   },
 };
 </script>
@@ -46,6 +77,7 @@ $main-color2: #636d81;
 $point-color1: #ffe886;
 
 .job {
+  $tags-height: 20px;
   $job-padding: 20px;
   $distance-width: 50px;
   $btn-width: 50px;
@@ -53,7 +85,7 @@ $point-color1: #ffe886;
   background-color: $main-color2;
   padding: {
     left: $job-padding + $distance-width;
-    top: $job-padding;
+    top: $job-padding + $tags-height;
     bottom: $job-padding;
     right: $job-padding;
   };
@@ -61,10 +93,27 @@ $point-color1: #ffe886;
   color: #fff;
   display: flex;
   flex-wrap: wrap;
+  @include e('tags') {
+    top: $job-padding / 2;
+    left: $job-padding;
+    height: $tags-height;
+    width: 50%;
+    position: absolute;
+    display: flex;
+  }
+  @include e('tag') {
+    background-color: #fff;
+    border-radius: 3px;
+    margin-right: 5px;
+    padding: 0 5px;
+    color: #000;
+    text-align: center;
+    line-height: $tags-height;
+  }
   @include e('distance') {
     color: $point-color1;
     position: absolute;
-    top: $job-padding;
+    top: $job-padding + $job-padding;
     left: $job-padding;
     font-size: 14px;
     width: $distance-width;
@@ -104,8 +153,8 @@ $point-color1: #ffe886;
     color: $point-color1;
     font-weight: bold;
     position: absolute;
-    bottom: $job-padding / 2;
-    right: $job-padding / 2;
+    bottom: $job-padding;
+    right: $job-padding;
     font-size: 35px;
   }
   @include e('delete-btn') {
