@@ -5,21 +5,20 @@
         <h1 class="compare-job__header__title">
           비교 필터
         </h1>
-        <button class="delete-all-btn">
+        <button class="delete-all-btn" @click="deleteAll">
           전체 제거
         </button>
-        <div class="add-job">
+        <form @submit.prevent="addJob" class="add-job">
           <input
             type="url"
             class="add-job__uri-input"
             v-model="uri"
             placeholder="URI를 입력하세요">
-          <button
+          <input
+            type="submit"
             class="add-job__request-btn"
-            @click="addJob">
-            알바 추가
-          </button>
-        </div>
+            value="알바 추가"/>
+        </form>
       </header>
       <main class="main">
         <compare-job-filter class="main__filter"/>
@@ -72,7 +71,11 @@ export default {
   },
   methods: {
     addJob() {
+      console.log('addjob');
       // request to uri crawling for job data
+    },
+    deleteAll() {
+      this.jobLists = [];
     },
     deleteItem(index) {
       this.jobLists.splice(index, 1);
