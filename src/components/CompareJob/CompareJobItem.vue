@@ -12,16 +12,15 @@
           {{ tag }}
         </div>
       </div>
-      <!-- TODO: days
       <div class="job__days">
         <div
           class="job__day"
-          v-for="day in dailyConstant"
-          :key="day">
+          v-for="day in reassignedDays"
+          :key="day"
+          :class="{'on':day }">
           {{ day }}
         </div>
       </div>
-      -->
       <div class="job__distance">
         {{ distance }}
       </div>
@@ -63,8 +62,11 @@ export default {
   },
   computed: {
     reassignedDays() {
-      // days.
-      return 1;
+      const arr = ['', '', '', '', '', '', ''];
+      this.days.forEach((day) => {
+        arr[day] = this.dailyConstant[day];
+      });
+      return arr;
     },
   },
 };
@@ -109,6 +111,26 @@ $point-color1: #ffe886;
     color: #000;
     text-align: center;
     line-height: $tags-height;
+  }
+  @include e('days') {
+    top: $job-padding / 2;
+    left: 50%;
+    height: $tags-height;
+    width: 50%;
+    position: absolute;
+    display: flex;
+  }
+  @include e('day') {
+    background-color: #fff;
+    width: 20px;
+    border-radius: 3px;
+    margin-right: 5px;
+    color: #000;
+    text-align: center;
+    line-height: $tags-height;
+    &.on {
+      background-color: $point-color1;
+    }
   }
   @include e('distance') {
     color: $point-color1;
