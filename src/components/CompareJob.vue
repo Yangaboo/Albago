@@ -30,8 +30,10 @@
             :key="`job${index}`"
             :name="job.name"
             :distance="job.distance"
-            :period="job.period"
-            :workTime="job.workTime"
+            :startDay="job.startDay"
+            :endDay="job.endDay"
+            :startTime="job.startTime"
+            :endTime="job.endTime"
             :hourlyWage="job.hourlyWage"
             :href="job.href"
             :days="job.days"
@@ -48,6 +50,11 @@
 import CompareJobFilter from './CompareJob/CompareJobFilter';
 import CompareJobItem from './CompareJob/CompareJobItem';
 
+/*
+  TODO:
+  addJob으로 데이터 요청, jobLists에 데이터 추가
+*/
+
 export default {
   name: 'compare-job',
   components: {
@@ -59,13 +66,15 @@ export default {
       uri: '',
       jobLists: [{
         name: 'GS25 편의점 아르바이트',
-        distance: '16km',
-        period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
-        workTime: '5시간 (17시 ~ 22시)',
-        hourlyWage: '8,690원',
-        href: '#',
+        distance: 16000,
+        startDay: '2018.04.01',
+        endDay: '2018.04.18',
+        startTime: 17,
+        endTime: 22,
+        hourlyWage: 8690,
         days: [0, 1, 2, 3],
         tags: ['day', 'night', 'male', 'female', 'teen'],
+        href: '#',
       }],
     };
   },

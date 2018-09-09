@@ -22,19 +22,20 @@
         </div>
       </div>
       <div class="job__distance">
-        {{ distance }}
+        {{ unittedDistance }}
       </div>
       <a class="job__name" :href="href">
         {{ name }}
       </a>
       <div class="job__period">
-        {{ period }}
+        {{ periodSring }}
       </div>
       <div class="job__work-time">
-        {{ workTime }}
+        {{ workTimeString }}
       </div>
       <div class="job__hourly-wage">
-        {{ hourlyWage }}
+        {{ hourlyWage.toLocaleString() }}
+        <span style="font-size: 0.5em">원</span>
       </div>
       <button class="job__delete-btn" @click="$emit('delete')">
         제거
@@ -46,11 +47,13 @@
 export default {
   name: 'compare-job-item',
   props: {
-    distance: String,
+    distance: Number,
     name: String,
-    period: String,
-    workTime: String,
-    hourlyWage: String,
+    startDay: String,
+    endDay: String,
+    startTime: Number,
+    endTime: Number,
+    hourlyWage: Number,
     href: String,
     days: Array,
     tags: Array,
@@ -61,12 +64,30 @@ export default {
     };
   },
   computed: {
+    unittedDistance() {
+      return this.distance >= 1000 ?
+        `${Math.floor(this.distance / 1000)}km` :
+        `${this.distance}m`;
+    },
     reassignedDays() {
       const arr = ['', '', '', '', '', '', ''];
       this.days.forEach((day) => {
         arr[day] = this.dailyConstant[day];
       });
       return arr;
+    },
+    workTimeString() {
+      const start = this.startTime;
+      const end = this.endTime;
+      const workTime = start > end ? (end + 24) - end : end - start;
+      return `${workTime}시간 (${start}시 ~ ${end}시)`;
+    },
+    // period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
+    periodSring() {
+      const start = new Date(this.startDay);
+      const end = new Date(this.endDay);
+      const dateConst = 1000 * 60 * 60 * 24;
+      return `${Math.floor((end - start) / dateConst)}일 근무 (${this.startDay} ~ ${this.endDay})`;
     },
   },
 };
