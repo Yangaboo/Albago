@@ -6,6 +6,7 @@
     <post-article
       :name="name"
       :writingDay="writingDay"
+      :writingTime="writingTime"
       :content="content"
       :good="good"
       :bad="bad"/>
@@ -26,7 +27,9 @@ export default {
   data() {
     return {
       name: '대전 대덕소프트웨어마이스터고등학교 GS27 편의점 아르바이트 후기',
-      writingDay: '2018.09.10.12',
+      writingDay: '2018.09.10',
+      writingTime: '12:00',
+      viewCount: 87,
       content: 'text',
       good: 47,
       bad: 13,
