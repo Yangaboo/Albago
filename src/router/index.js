@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import MainContainer from '../components/MainContainer';
 import Bulletin from '../components/Bulletin';
 import CompareJob from '../components/CompareJob';
+import Post from '../components/Post';
 
 Vue.use(Router);
 
@@ -23,5 +24,10 @@ export default new Router({
       name: 'compare-job',
       component: CompareJob,
     },
+    {
+      path: '/post',
+      name: 'post',
+      component: Post,
+    }
   ],
 });
