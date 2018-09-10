@@ -22,7 +22,7 @@
         <button class="comment__good">
           좋아요 {{ comment.good }}
         </button>
-        <button class="comment__delete">
+        <button class="comment__delete" @click="$emit('delete', index)">
           삭제
         </button>
       </li>

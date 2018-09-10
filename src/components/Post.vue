@@ -11,7 +11,9 @@
       :content="content"
       :good="good"
       :bad="bad"/>
-    <post-comment :comments="comments"/>
+    <post-comment
+      :comments="comments"
+      @delete="index => deleteCommentByIndex(index)"/>
   </div>
 </template>
 
@@ -35,13 +37,30 @@ export default {
       good: 47,
       bad: 13,
       comments: [{
-        name: '와 정말 좋네요',
+        name: '1와 정말 좋네요',
+        writingDay: '2018.06.30',
+        writingTime: '09:22',
+        content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
+        good: 10,
+      }, {
+        name: '2와 정말 좋네요',
+        writingDay: '2018.06.30',
+        writingTime: '09:22',
+        content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
+        good: 10,
+      }, {
+        name: '3와 정말 좋네요',
         writingDay: '2018.06.30',
         writingTime: '09:22',
         content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
         good: 10,
       }],
     };
+  },
+  methods: {
+    deleteCommentByIndex(index) {
+      this.comments.splice(index, 1);
+    },
   },
 };
 </script>
