@@ -10,8 +10,8 @@
         <div class="comment__name">
           {{ comment.name }}
         </div>
-        <div class="comment__writing-day">
-          {{ comment.writingDay }}
+        <div class="comment__writing-date">
+          {{ comment.writingDate }}
         </div>
         <div class="comment__writing-time">
           {{ comment.writingTime }}
@@ -28,23 +28,32 @@
       </li>
     </ul>
     <div class="comment__add-cover">
+      <div class="comment__alert" v-show="pw !== pwRe">
+        비밀번호가 다릅니다
+      </div>
       <textarea
         class="comment__textarea"
-        placeholder="댓글을 입력해주세요."></textarea>
+        placeholder="댓글을 입력해주세요."
+        v-model="text">
+      </textarea>
       <input
         class="comment__input-name"
         type="text"
-        placeholder="닉네임">
+        placeholder="닉네임"
+        v-model="name">
       <input
         class="comment__input-pw"
         type="password"
-        placeholder="비밀번호">
+        placeholder="비밀번호"
+        v-model="pw">
       <input
         class="comment__input-pw-re"
         type="password"
-        placeholder="비밀번호 재입력">
+        placeholder="비밀번호 재입력"
+        v-model="pwRe">
       <button
-        class="comment__btn-add">
+        class="comment__btn-add"
+        @click="pw === pwRe ? $emit('create', text, name, pw) : ''">
         댓글달기
       </button>
     </div>
@@ -54,7 +63,14 @@
 <script>
 export default {
   props: { comments: Array },
-
+  data() {
+    return {
+      text: '',
+      name: '',
+      pw: '',
+      pwRe: '',
+    };
+  },
 };
 </script>
 

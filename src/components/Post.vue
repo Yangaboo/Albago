@@ -5,7 +5,7 @@
     </div>
     <post-article
       :name="name"
-      :writingDay="writingDay"
+      :writingDate="writingDate"
       :writingTime="writingTime"
       :viewCount="viewCount"
       :content="content"
@@ -13,7 +13,8 @@
       :bad="bad"/>
     <post-comment
       :comments="comments"
-      @delete="index => deleteCommentByIndex(index)"/>
+      @delete="index => deleteCommentByIndex(index)"
+      @create="(content, name, pw) => createComment(content, name, pw)"/>
   </div>
 </template>
 
@@ -30,7 +31,7 @@ export default {
   data() {
     return {
       name: '대전 대덕소프트웨어마이스터고등학교 GS27 편의점 아르바이트 후기',
-      writingDay: '2018.09.10',
+      writingDate: '2018.09.10',
       writingTime: '12:00',
       viewCount: 87,
       content: 'text',
@@ -38,19 +39,19 @@ export default {
       bad: 13,
       comments: [{
         name: '1와 정말 좋네요',
-        writingDay: '2018.06.30',
+        writingDate: '2018.06.30',
         writingTime: '09:22',
         content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
         good: 10,
       }, {
         name: '2와 정말 좋네요',
-        writingDay: '2018.06.30',
+        writingDate: '2018.06.30',
         writingTime: '09:22',
         content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
         good: 10,
       }, {
         name: '3와 정말 좋네요',
-        writingDay: '2018.06.30',
+        writingDate: '2018.06.30',
         writingTime: '09:22',
         content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
         good: 10,
@@ -60,6 +61,28 @@ export default {
   methods: {
     deleteCommentByIndex(index) {
       this.comments.splice(index, 1);
+    },
+    formatDate(dateObject = new Date()) {
+      const year = dateObject.getFullYear();
+      const month = `0${dateObject.getMonth() + 1}`.slice(-2);
+      const date = `0${dateObject.getDate()}`.slice(-2);
+
+      return `${year}.${month}.${date}`;
+    },
+    formatTime(dateObject = new Date()) {
+      const hour = `0${dateObject.getHours()}`.slice(-2);
+      const minute = `0${dateObject.getMinutes()}`.slice(-2);
+
+      return `${hour}:${minute}`;
+    },
+    createComment(content, name, pw) {
+      this.comments.push({
+        name,
+        content,
+        writingDate: this.formatDate(),
+        writingTime: this.formatTime(),
+        good: 0,
+      });
     },
   },
 };

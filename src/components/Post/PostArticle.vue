@@ -5,7 +5,7 @@
         {{ name }}
       </h2>
       <div class="article__info">
-        {{ writingDay }} | {{ writingTime }} | 조회 {{ viewCount }}회
+        {{ writingDate }} | {{ writingTime }} | 조회 {{ viewCount }}회
       </div>
     </header>
     <div class="article__content">
@@ -26,7 +26,7 @@
 export default {
   props: {
     name: String,
-    writingDay: String,
+    writingDate: String,
     writingTime: String,
     viewCount: Number,
     content: String,
