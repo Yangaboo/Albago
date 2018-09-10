@@ -7,6 +7,7 @@
       :name="name"
       :writingDay="writingDay"
       :writingTime="writingTime"
+      :viewCount="viewCount"
       :content="content"
       :good="good"
       :bad="bad"/>

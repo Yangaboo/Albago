@@ -39,5 +39,60 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/setting';
 $color1: #494f5c;
+$border1: 3px solid #c4c6c9;
+
+.post-article {
+  border: {
+    top: $border1;
+    bottom: $border1;
+  }
+  padding: 30px 0;
+}
+
+.article {
+  @include e('header') {
+    border: {
+      top: solid 3px $color1;
+      bottom: $border1;
+    }
+    padding: 30px 10px;
+  }
+  @include e('title') {
+    height: 20px;
+    font-size: 22px;
+    line-height: 20px;
+    color: $color1;
+    margin-bottom: 10px;
+  }
+  @include e('info') {
+    height: 14px;
+    font-size: 14px;
+    color: $color1;
+  }
+  @include e('content') {
+    padding: 30px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: $color1;
+  }
+  @include e('cover') {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.clickable {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+.good {
+  // background: url('../../assets/good.png') no-repeat bottom center;
+  background-size: cover;
+}
+.bad {
+  // background: url('../../assets/bad.png') no-repeat bottom center;
+  background-size: cover;
+}
 
 </style>
