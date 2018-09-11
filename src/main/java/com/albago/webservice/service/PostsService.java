@@ -1,5 +1,6 @@
 package com.albago.webservice.service;
 
+import com.albago.webservice.domain.Posts;
 import com.albago.webservice.domain.PostsRepository;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.dto.posts.PostsMainResponseDto;
@@ -31,5 +32,10 @@ public class PostsService {
     public String delete(Long post_id) {
         postsRepository.delete(post_id);
         return "delete";
+    }
+
+    @Transactional
+    public Posts findOne(Long post_id) {
+        return postsRepository.findOne(post_id);
     }
 }

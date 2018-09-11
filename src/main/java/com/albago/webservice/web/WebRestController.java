@@ -1,22 +1,24 @@
 package com.albago.webservice.web;
 
 import com.albago.webservice.URL;
+import com.albago.webservice.domain.Posts;
 import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
+import com.albago.webservice.dto.posts.PostsMainResponseDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
 import com.albago.webservice.service.PostsService;
+import javafx.geometry.Pos;
 import lombok.AllArgsConstructor;
-import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Document;
-
+import org.jsoup.nodes.Element;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -27,6 +29,11 @@ public class WebRestController {
     @GetMapping("/")
     void hello() {
         return;
+    }
+
+    @GetMapping("/posts")
+    public List<PostsMainResponseDto> getPosts() {
+        return postsService.findAllDesc();
     }
 
     @PostMapping("/posts")
@@ -40,20 +47,19 @@ public class WebRestController {
     }
 
     @GetMapping("/posts/{post_id}")
-    public String getPosts(Model model) {
-        return "main";
+    public Posts getPost(Model model, @PathVariable Long post_id) {
+        return postsService.findOne(post_id);
     }
 
     @DeleteMapping("/posts/{post_id}/delete")
-    public Long deletePosts(@PathVariable Long post_id) {
+    public String deletePosts(@PathVariable Long post_id) {
         postsService.delete(post_id);
-        return post_id;
+        return "Success deleted";
     }
 
     @PostMapping("/filter")
     public HashMap<String, String> filter(@RequestBody URL url) throws IOException {
         HashMap<String, String> res = new HashMap<String, String>();
-//        JSONObject json = new JSONObject(res);
         String uri;
         uri = url.getUrl();
         Connection.Response response = Jsoup.connect(uri)
