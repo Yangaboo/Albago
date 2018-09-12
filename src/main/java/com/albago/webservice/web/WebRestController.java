@@ -25,8 +25,8 @@ public class WebRestController {
     private CommentsService commentsService;
 
     @GetMapping("/")
-    void hello() {
-        return;
+    public String index(){
+        return "Main";
     }
 
     @GetMapping("/posts")
