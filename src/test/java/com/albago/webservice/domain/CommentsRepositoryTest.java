@@ -30,10 +30,10 @@ public class CommentsRepositoryTest {
     public void save_load_content() {
         // given
         commentsRepository.save(Comments.builder()
-        .content("test")
-        .author("test")
-        .pwd("1234")
-        .favor(1)
+        .content("asd")
+        .author("asd")
+        .pwd("asd")
+        .favor(3)
         .hate(2)
         .post_id(1)
         .build());
@@ -43,12 +43,12 @@ public class CommentsRepositoryTest {
 
         // then
         Comments comments = commentsList.get(0);
-        assertThat(comments.getContent(), is("test"));
-        assertThat(comments.getAuthor(), is("test"));
-        assertThat(comments.getPwd(), is("1234"));
-        assertThat(comments.getFavor(), is(1));
+        assertThat(comments.getContent(), is("asd"));
+        assertThat(comments.getAuthor(), is("asd"));
+        assertThat(comments.getPwd(), is("asd"));
+        assertThat(comments.getFavor(), is(3));
         assertThat(comments.getHate(), is(2));
-        assertThat(comments.getPost_id(), is(1));
+        assertThat(comments.getPost_id(), is(1L));
     }
 
     @Test
@@ -59,8 +59,8 @@ public class CommentsRepositoryTest {
             .content("asd")
             .author("asd")
             .pwd("asd")
-            .favor(1)
-            .hate(1)
+            .favor(3)
+            .hate(2)
             .post_id(1)
             .build());
 
