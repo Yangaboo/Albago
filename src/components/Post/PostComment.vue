@@ -19,9 +19,17 @@
         <div class="comment__content">
           {{ comment.content }}
         </div>
-        <button class="comment__good">
-          좋아요 {{ comment.good }}
-        </button>
+        <input
+          type="checkbox"
+          class="comment__good-checkbox"
+          v-model="comment.isCheckedGood"
+          @change="$emit('click-good', index)"
+          :id="`good${index}`"/>
+        <label
+          class="comment__good-label"
+          :for="`good${index}`">
+          좋아요 {{comment.good}}
+        </label>
         <button class="comment__delete" @click="$emit('delete', index)">
           삭제
         </button>
@@ -69,6 +77,7 @@ export default {
       name: '',
       pw: '',
       pwRe: '',
+      isCheckGood: false,
     };
   },
 };
