@@ -29,7 +29,7 @@ public class PostsService {
     }
 
     @Transactional
-    public String delete(Long post_id) {
+    public String deletePost(Long post_id) {
         postsRepository.delete(post_id);
         return "delete";
     }

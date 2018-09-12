@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -33,12 +30,17 @@ public class Comments extends BaseTimeEntity {
     @Column(columnDefinition = "INT", name = "hate")
     private int hate;
 
+    @JoinColumn(name = "post_id")
+    @Column(columnDefinition = "LONG", name = "post_id")
+    private long post_id;
+
     @Builder
-    public Comments(String content, String author, String pwd, int favor, int hate ) {
+    public Comments(String content, String author, String pwd, int favor, int hate, long post_id) {
         this.author = author;
         this.content = content;
         this.pwd = pwd;
         this.favor = favor;
         this.hate = hate;
+        this.post_id = post_id;
     }
 }

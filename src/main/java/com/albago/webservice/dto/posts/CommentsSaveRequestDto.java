@@ -15,14 +15,16 @@ public class CommentsSaveRequestDto {
     private String pwd;
     private int favor;
     private int hate;
+    private long post_id;
 
     @Builder
-    public CommentsSaveRequestDto(String content, String author, String pwd, int favor, int hate) {
+    public CommentsSaveRequestDto(String content, String author, String pwd, int favor, int hate, long post_id) {
         this.content = content;
         this.author = author;
         this.pwd = pwd;
         this.favor = favor;
         this.hate = hate;
+        this.post_id = post_id;
     }
 
     public Comments toEntity() {
@@ -32,6 +34,7 @@ public class CommentsSaveRequestDto {
                 .pwd(pwd)
                 .favor(favor)
                 .hate(hate)
+                .post_id(post_id)
                 .build();
     }
 }

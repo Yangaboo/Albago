@@ -1,22 +1,20 @@
 package com.albago.webservice.web;
 
 import com.albago.webservice.URL;
-import com.albago.webservice.domain.Posts;
 import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
 import com.albago.webservice.dto.posts.PostsMainResponseDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
 import com.albago.webservice.service.PostsService;
-import javafx.geometry.Pos;
 import lombok.AllArgsConstructor;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,13 +45,29 @@ public class WebRestController {
     }
 
     @GetMapping("/posts/{post_id}")
-    public Posts getPost(Model model, @PathVariable Long post_id) {
-        return postsService.findOne(post_id);
+    public HashMap<String, ArrayList> getPost(@PathVariable Long post_id) {
+        HashMap<String, ArrayList> Post = new HashMap<String, ArrayList>();
+
+        ArrayList post = new ArrayList();
+        post.add(postsService.findOne(post_id));
+        ArrayList comment = new ArrayList();
+        comment.add(commentsService.findComments(post_id));
+
+        Post.put("post", post);
+        Post.put("comments", comment);
+
+        return Post;
+    }
+
+    @DeleteMapping("/posts/{post_id}/delete/{comment_id}")
+    public String deleteComments(@PathVariable Long comment_id) {
+        commentsService.deleteCommnet(comment_id);
+        return "success deleted";
     }
 
     @DeleteMapping("/posts/{post_id}/delete")
     public String deletePosts(@PathVariable Long post_id) {
-        postsService.delete(post_id);
+        postsService.deletePost(post_id);
         return "Success deleted";
     }
 
