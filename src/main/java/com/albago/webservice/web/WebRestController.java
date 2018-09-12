@@ -39,7 +39,7 @@ public class WebRestController {
         return postsService.save(dto);
     }
 
-    @PostMapping("/posts/comments")
+    @PostMapping("/posts/{post_id}/comments")
     public Long saveComments(@RequestBody CommentsSaveRequestDto dto) {
         return commentsService.save(dto);
     }
