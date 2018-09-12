@@ -33,9 +33,10 @@ public class CommentsServiceTest {
         CommentsSaveRequestDto dto = CommentsSaveRequestDto.builder()
                 .content("asd")
                 .author("asd")
-                .pwd("sad")
+                .pwd("asd")
                 .favor(1)
                 .hate(1)
+                .post_id(1)
                 .build();
 
         // when

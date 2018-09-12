@@ -31,11 +31,11 @@ public class PostsServiceTest {
     public void DTO_data_save_to_Posts() {
         // given
         PostsSaveRequestDto dto = PostsSaveRequestDto.builder()
-                .title("테스트")
-                .content("테스트")
-                .author("테스트")
-                .pwd("test")
-                .cat_id(0)
+                .title("a")
+                .content("b")
+                .author("c")
+                .pwd("d")
+                .cat_id(1)
                 .favor(1)
                 .hate(1)
                 .build();
