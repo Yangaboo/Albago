@@ -30,10 +30,10 @@ public class PostsRepositoryTest {
     public void save_load_content() {
         // given
         postsRepository.save(Posts.builder()
-        .title("test")
-        .content("test")
-        .author("test")
-        .pwd("test")
+        .title("a")
+        .content("b")
+        .author("c")
+        .pwd("d")
         .cat_id(0)
         .favor(1)
         .hate(1)
