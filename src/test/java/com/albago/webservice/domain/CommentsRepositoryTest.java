@@ -35,6 +35,7 @@ public class CommentsRepositoryTest {
         .pwd("1234")
         .favor(1)
         .hate(2)
+        .post_id(1)
         .build());
 
         // when
@@ -47,6 +48,7 @@ public class CommentsRepositoryTest {
         assertThat(comments.getPwd(), is("1234"));
         assertThat(comments.getFavor(), is(1));
         assertThat(comments.getHate(), is(2));
+        assertThat(comments.getPost_id(), is(1));
     }
 
     @Test
@@ -59,6 +61,7 @@ public class CommentsRepositoryTest {
             .pwd("asd")
             .favor(1)
             .hate(1)
+            .post_id(1)
             .build());
 
         // when
