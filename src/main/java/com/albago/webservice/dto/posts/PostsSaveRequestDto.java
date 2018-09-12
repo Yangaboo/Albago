@@ -1,15 +1,10 @@
 package com.albago.webservice.dto.posts;
 
 import com.albago.webservice.domain.Posts;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 @Getter
 @Setter
