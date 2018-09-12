@@ -34,7 +34,7 @@ public class PostsRepositoryTest {
         .content("b")
         .author("c")
         .pwd("d")
-        .cat_id(0)
+        .cat_id(1)
         .favor(1)
         .hate(1)
         .build());
