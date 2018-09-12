@@ -30,7 +30,7 @@ public class CommentsService {
     }
 
     @Transactional
-    public String deleteCommnet(Long comment_id) {
+    public String deleteComment(Long comment_id) {
         commentsRepository.delete(comment_id);
         return "delete";
     }
