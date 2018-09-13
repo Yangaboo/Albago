@@ -1,23 +1,23 @@
 <template>
-  <ul class="bulletin-paging">
-    <li class="bulletin-paging__page bulletin-paging__page--previous">
+  <ul class="paging">
+    <li class="paging__page paging__page--previous">
       <a v-if="startNumber > 1"
-        class="bulletin-paging__page__link"
+        class="paging__link"
         :href="link(startNumber - 1)"
         @click="previous(startNumber - 1)">&lt;</a>
     </li>
-    <li class="bulletin-paging__page"
+    <li class="paging__page"
       v-for="number in pages" :key="number"
-      :class="{'bulletin-paging__page--selected': selected === number}">
-      <a class="bulletin-paging__page__link"
+      :class="{'paging__page--selected': selected === number}">
+      <a class="paging__link"
         :href="link(number)"
         @click="select(number)">
         {{ number }}
       </a>
     </li>
-    <li class="bulletin-paging__page bulletin-paging__page--next">
+    <li class="paging__page paging__page--next">
       <a v-if="endNumber < pagesTotalNumber"
-        class="bulletin-paging__page__link"
+        class="paging__link"
         :href="link(endNumber)"
         @click="next(endNumber)">&gt;</a>
     </li>
@@ -74,24 +74,17 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/setting';
 
-.bulletin-paging {
+.paging {
+  $size: 25px;
+
   display: flex;
   margin: 85px auto 0;
   width: 250px;
   position: relative;
   @include e('page') {
-    $size: 25px;
     width: $size;
     height: $size;
     color: white;
-    @include e('link') {
-      font-size: 15px;
-      line-height: $size;
-      text-align: center;
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
     @include m('previous') {
       position: absolute;
       top: 0;
@@ -109,6 +102,14 @@ export default {
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
       font-weight: bolder;
     }
+  }
+  @include e('link') {
+    font-size: 15px;
+    line-height: $size;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }
 </style>

@@ -1,31 +1,31 @@
 <template>
-  <ul class="bulletin-list">
-    <li class="bulletin-list__head">
-      <div class="bulletin-list__head__item bulletin-list__head__number">번호</div>
-      <div class="bulletin-list__head__item bulletin-list__head__title">제목</div>
-      <div class="bulletin-list__head__item bulletin-list__head__category">카테고리</div>
-      <div class="bulletin-list__head__item bulletin-list__head__date">작성일</div>
-      <div class="bulletin-list__head__item bulletin-list__head__numberOfGood">좋아요</div>
-      <div class="bulletin-list__head__item bulletin-list__head__numberOfBad">싫어요</div>
+  <ul class="list">
+    <li class="head">
+      <div class="head__item head__number">번호</div>
+      <div class="head__item head__title">제목</div>
+      <div class="head__item head__category">카테고리</div>
+      <div class="head__item head__date">작성일</div>
+      <div class="head__item head__good">좋아요</div>
+      <div class="head__item head__bad">싫어요</div>
     </li>
-    <li class="bulletin-list__link" v-for="bulletin in bulletins" :key="bulletin.number">
-      <div class="bulletin-list__link__item bulletin-list__link__number">
+    <li class="link" v-for="bulletin in bulletins" :key="bulletin.number">
+      <div class="link__item link__number">
         {{ bulletin.number }}
       </div>
-      <div class="bulletin-list__link__item bulletin-list__link__title">
+      <a :href="`#/post/${bulletin.number}`" class="link__item link__title">
         {{ bulletin.title }}
-      </div>
-      <div class="bulletin-list__link__item bulletin-list__link__category">
+      </a>
+      <div class="link__item link__category">
         {{ bulletin.category }}
       </div>
-      <div class="bulletin-list__link__item bulletin-list__link__date">
+      <div class="link__item link__date">
         {{ bulletin.date }}
       </div>
-      <div class="bulletin-list__link__item bulletin-list__link__numberOfGood">
-        {{ bulletin.numberOfGood }}
+      <div class="link__item link__good">
+        {{ bulletin.good }}
       </div>
-      <div class="bulletin-list__link__item bulletin-list__link__numberOfBad">
-        {{ bulletin.numberOfBad }}
+      <div class="link__item link__bad">
+        {{ bulletin.bad }}
       </div>
     </li>
   </ul>
@@ -36,88 +36,14 @@ export default {
   name: 'bulletin-list',
   data() {
     return {
-      bulletins: [
-        {
-          number: 1,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 2,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 3,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 4,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 5,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 6,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 7,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 8,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 9,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-        {
-          number: 10,
-          title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-          category: '교육',
-          date: '2014-04-28',
-          numberOfGood: 100,
-          numberOfBad: 200,
-        },
-      ],
+      bulletins: [{
+        number: 1,
+        title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+        category: '교육',
+        date: '2014-04-28',
+        good: 100,
+        bad: 200,
+      }],
     };
   },
 };
@@ -126,7 +52,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/setting';
 
-.bulletin-list {
+.list {
   height: 506px;
   margin: {
     top: 10px;
@@ -134,42 +60,44 @@ export default {
   border: {
     top: 2px solid white;
   }
-  %list-item {
-    width: 100%;
-    display: flex;
+}
+
+%list-item {
+  width: 100%;
+  display: flex;
+}
+%flex-item {
+  font-size: 15px;
+  line-height: 19px;
+  height: 46px;
+  border-bottom: 1px solid #fff;
+  padding: {
+    top: 13px;
+    bottom: 13px;
   }
-  %flex-item {
-    font-size: 15px;
-    line-height: 19px;
-    height: 46px;
-    border-bottom: 1px solid #fff;
-    padding: {
-      top: 13px;
-      bottom: 13px;
-    }
+}
+
+.head {
+  @extend %list-item;
+  @include e('item') {
+    @extend %flex-item;
+    width: 10%;
+    text-align: center;
   }
-  @include e('head') {
-    @extend %list-item;
-    @include e('item') {
-      @extend %flex-item;
-      width: 10%;
-      text-align: center;
-    }
-    @include e('title') {
-      width: 50%;
-    }
+  @include e('title') {
+    width: 50%;
   }
-  @include e('link') {
-    @extend %list-item;
-    @include e('item') {
-      @extend %flex-item;
-      width: 10%;
-      text-align: center;
-    }
-    @include e('title') {
-      width: 50%;
-      text-align: left;
-    }
+}
+.link {
+  @extend %list-item;
+  @include e('item') {
+    @extend %flex-item;
+    width: 10%;
+    text-align: center;
+  }
+  @include e('title') {
+    width: 50%;
+    text-align: left;
   }
 }
 </style>
