@@ -63,7 +63,10 @@ public class WebRestController {
     }
 
     @DeleteMapping("/posts/{post_id}/delete/{comment_id}")
-    public String deleteComments(@PathVariable Long comment_id) {
+    public String deleteComments(@PathVariable Long comment_id, @RequestBody String pwd) {
+        if(commentsService.findPwd(comment_id).equals(pwd)) {
+            commentsService.deleteComment(comment_id);
+        }
         commentsService.deleteComment(comment_id);
         return "success deleted";
     }

@@ -34,4 +34,9 @@ public class CommentsService {
         commentsRepository.delete(comment_id);
         return "delete";
     }
+
+    @Transactional
+    public String findPwd(Long comment_id) {
+        return commentsRepository.findPwd(comment_id);
+    }
 }
