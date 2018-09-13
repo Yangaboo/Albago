@@ -17,7 +17,7 @@ public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
-    private Long post_id;
+    private Long postId;
 
     @Column(length = 500, nullable = false)
     private String title;

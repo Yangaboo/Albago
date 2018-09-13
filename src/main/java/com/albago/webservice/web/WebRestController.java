@@ -1,8 +1,8 @@
 package com.albago.webservice.web;
 
 import com.albago.webservice.URL;
+import com.albago.webservice.domain.Posts;
 import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
-import com.albago.webservice.dto.posts.PostsMainResponseDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
 import com.albago.webservice.service.PostsService;
@@ -11,12 +11,15 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -30,8 +33,8 @@ public class WebRestController {
     }
 
     @GetMapping("/posts")
-    public List<PostsMainResponseDto> getPosts() {
-        return postsService.findAllDesc();
+    public Page<Posts> getPosts(@PageableDefault(size = 10, sort = {"postId"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        return postsService.findAll(pageable);
     }
 
     @PostMapping("/posts")

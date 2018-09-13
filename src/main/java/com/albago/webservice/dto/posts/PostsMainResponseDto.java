@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class PostsMainResponseDto {
-    private Long post_id;
+    private Long postId;
     private String title;
     private String author;
     private int cat_id;
@@ -18,7 +18,7 @@ public class PostsMainResponseDto {
     private int hate;
 
     public PostsMainResponseDto(Posts entity) {
-        post_id = entity.getPost_id();
+        postId = entity.getPostId();
         title = entity.getTitle();
         author = entity.getAuthor();
         cat_id = entity.getCat_id();
