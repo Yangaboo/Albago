@@ -34,4 +34,15 @@ public class CommentsService {
         commentsRepository.delete(comment_id);
         return "delete";
     }
+
+    @Transactional
+    public String findFavor(Long comment_id) {
+        return commentsRepository.findFavor(comment_id);
+    }
+
+    @Transactional
+    public int updateFavor(int favor, Long comment_id) {
+        commentsRepository.updateFavor(favor, comment_id);
+        return favor;
+    }
 }

@@ -62,6 +62,13 @@ public class WebRestController {
         return Post;
     }
 
+    @PostMapping("/posts/favor/{comment_id}")
+    public String likeComments(@PathVariable Long comment_id) {
+        String currentFavor = commentsService.findFavor(comment_id);
+        commentsService.updateFavor(Integer.parseInt(currentFavor)+1, comment_id);
+        return "Success";
+    }
+
     @DeleteMapping("/posts/{post_id}/delete/{comment_id}")
     public String deleteComments(@PathVariable Long comment_id) {
         commentsService.deleteComment(comment_id);

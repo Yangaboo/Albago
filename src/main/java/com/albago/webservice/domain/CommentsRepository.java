@@ -1,6 +1,7 @@
 package com.albago.webservice.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -12,4 +13,12 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
     @Query("SELECT c.pwd FROM Comments c WHERE c.comment_id=:comment_id")
     String findPwd(@Param("comment_id") Long comment_id);
+
+    @Query("SELECT c.favor FROM Comments c WHERE c.comment_id=:comment_id")
+    String findFavor(@Param("comment_id") Long comment_id);
+
+    @Modifying
+    @Query("UPDATE Comments as c SET c.favor=:favor WHERE c.comment_id=:comment_id")
+    int updateFavor(@Param("favor") int favor,
+                       @Param("comment_id") Long comment_id);
 }
