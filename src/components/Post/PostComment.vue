@@ -11,10 +11,7 @@
           {{ comment.name }}
         </div>
         <div class="comment__writing-date">
-          {{ comment.writingDate }}
-        </div>
-        <div class="comment__writing-time">
-          {{ comment.writingTime }}
+          {{ comment.writingDate }} {{ comment.writingTime }}
         </div>
         <div class="comment__content">
           {{ comment.content }}
@@ -28,7 +25,7 @@
         <label
           class="comment__good-label"
           :for="`good${index}`">
-          좋아요 {{comment.good}}
+          {{comment.good}}
         </label>
         <button class="comment__delete" @click="$emit('delete', index)">
           삭제
@@ -45,17 +42,17 @@
         v-model="text">
       </textarea>
       <input
-        class="comment__input-name"
+        class="comment__input"
         type="text"
         placeholder="닉네임"
         v-model="name">
       <input
-        class="comment__input-pw"
+        class="comment__input"
         type="password"
         placeholder="비밀번호"
         v-model="pw">
       <input
-        class="comment__input-pw-re"
+        class="comment__input"
         type="password"
         placeholder="비밀번호 재입력"
         v-model="pwRe">
@@ -88,4 +85,92 @@ export default {
 $color1: #494f5c;
 $border1: 3px solid #c4c6c9;
 
+.comment {
+  background-color: #eeeeee;
+  padding: 30px 40px;
+  position: relative;
+  border-top: $border1;
+  @include e('count') {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    font-size: 15px;
+  }
+  @include e('item') {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 20px 0;
+    line-height: 30px;
+    border-bottom: $border1;
+  }
+  @include e('name') {
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+  }
+  @include e('writing-date') {
+    font-size: 12px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+  }
+  @include e('content') {
+    flex: 1;
+    line-height: 20px;
+  }
+  @include e('good-checkbox') {
+    display: none;
+  }
+  @include e('good-label') {
+    padding-right: 10px;
+    height: 20px;
+    line-height: 20px;
+    width: 100px;
+    text-align: right;
+  }
+  @include e('delete') {
+    height: 20px;
+    font-size: 12px;
+    color: #f00;
+    background: none;
+    padding-left: 10px;
+    border-left: $border1;
+  }
+
+  $add-font-size: 15px;
+  $add-border: solid 2px #d9dadb;
+  @include e('add-cover') {
+    display: flex;
+    flex-flow: wrap;
+    margin-top: 30px;
+  }
+  @include e('textarea') {
+    width: 100%;
+    padding: 10px;
+    resize: none;
+    font-size: $add-font-size;
+    line-height: 1;
+    height: 20px + $add-font-size * 3;
+    border: $add-border;
+  }
+  @include e('input') {
+    font-size: $add-font-size;
+    height: $add-font-size * 3;
+    width: 25%;
+    padding: 0 10px;
+    border: $add-border;
+  }
+  @include e('btn-add') {
+    width: 25%;
+    font-size: $add-font-size;
+    border: $add-border;
+    &:focus, &:hover {
+      font-weight: bolder;
+    }
+    &:active {
+      font-weight: lighter;
+    }
+  }
+}
 </style>

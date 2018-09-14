@@ -4,6 +4,7 @@
       홈 > 게시판 > 아르바이트 리뷰
     </div>
     <post-article
+      class="post__article"
       :name="name"
       :writingDate="writingDate"
       :writingTime="writingTime"
@@ -12,6 +13,7 @@
       :good="good"
       :bad="bad"/>
     <post-comment
+      class="post__comment"
       :comments="comments"
       @click-good="index => toggleGood(index)"
       @delete="index => deleteCommentByIndex(index)"
@@ -107,6 +109,9 @@ $color1: #494f5c;
   width: 800px;
   margin: 0 auto;
   padding-top: 40px;
+  @include e('comment') {
+    margin-top: 60px;
+  }
 }
 .branch {
   height: 32px;
