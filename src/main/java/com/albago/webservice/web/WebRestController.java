@@ -13,6 +13,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
@@ -62,10 +63,31 @@ public class WebRestController {
         return Post;
     }
 
+    @PostMapping("/posts/{post_id}/favor")
+    public String likePost(@PathVariable Long post_id) {
+        String currentFavor = postsService.findFavor(post_id);
+        postsService.updateFavor(Integer.parseInt(currentFavor)+1, post_id);
+        return "Success";
+    }
+
+    @PostMapping("/posts/{post_id}/hate")
+    public String hatePost(@PathVariable Long post_id) {
+        String currentHate = postsService.findHate(post_id);
+        postsService.updateHate(Integer.parseInt(currentHate)+1, post_id);
+        return "Success";
+    }
+
     @PostMapping("/posts/favor/{comment_id}")
     public String likeComments(@PathVariable Long comment_id) {
         String currentFavor = commentsService.findFavor(comment_id);
         commentsService.updateFavor(Integer.parseInt(currentFavor)+1, comment_id);
+        return "Success";
+    }
+
+    @PostMapping("/posts/hate/{comment_id}")
+    public String hateComments(@PathVariable Long comment_id) {
+        String currentHate = commentsService.findHate(comment_id);
+        commentsService.updateHate(Math.toIntExact(comment_id)+1, comment_id);
         return "Success";
     }
 

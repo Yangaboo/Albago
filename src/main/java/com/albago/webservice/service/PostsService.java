@@ -33,6 +33,28 @@ public class PostsService {
     }
 
     @Transactional
+    public String findFavor(Long post_id) {
+        return postsRepository.findFavor(post_id);
+    }
+
+    @Transactional
+    public String findHate(Long post_id) {
+        return postsRepository.findHate(post_id);
+    }
+
+    @Transactional
+    public int updateFavor(int favor, Long post_id) {
+        postsRepository.updateFavor(favor, post_id);
+        return favor;
+    }
+
+    @Transactional
+    public int updateHate(int hate, Long post_id) {
+        postsRepository.updateHate(hate, post_id);
+        return hate;
+    }
+
+    @Transactional
     public Posts findOne(Long post_id) {
         return postsRepository.findOne(post_id);
     }

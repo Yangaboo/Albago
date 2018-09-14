@@ -41,9 +41,20 @@ public class CommentsService {
     }
 
     @Transactional
+    public String findHate(Long comment_id) {
+        return commentsRepository.findHate(comment_id);
+    }
+
+    @Transactional
     public int updateFavor(int favor, Long comment_id) {
         commentsRepository.updateFavor(favor, comment_id);
         return favor;
+    }
+
+    @Transactional
+    public int updateHate(int hate, Long comment_id) {
+        commentsRepository.updateHate(hate, comment_id);
+        return hate;
     }
 
     @Transactional
