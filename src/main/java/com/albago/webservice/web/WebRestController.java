@@ -74,7 +74,6 @@ public class WebRestController {
         if(commentsService.findPwd(comment_id).equals(pwd)) {
             commentsService.deleteComment(comment_id);
         }
-        commentsService.deleteComment(comment_id);
         return "success deleted";
     }
 

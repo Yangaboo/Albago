@@ -45,4 +45,9 @@ public class CommentsService {
         commentsRepository.updateFavor(favor, comment_id);
         return favor;
     }
+
+    @Transactional
+    public String findPwd(Long comment_id) {
+        return commentsRepository.findPwd(comment_id);
+    }
 }
