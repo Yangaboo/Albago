@@ -100,9 +100,16 @@ public class WebRestController {
     }
 
     @DeleteMapping("/posts/{post_id}/delete")
-    public String deletePosts(@PathVariable Long post_id) {
-        postsService.deletePost(post_id);
-        return "Success deleted";
+    public String deletePosts(@PathVariable Long post_id, @RequestBody URL pwd) {
+        String requestPwd = postsService.findPwd(post_id);
+        String Pwd;
+        Pwd = pwd.getPwd();
+        if(requestPwd.equals(Pwd)) {
+            postsService.deletePost(post_id);
+            return "success deleted";
+        } else {
+            return "failed";
+        }
     }
 
     @PostMapping("/filter")

@@ -1,7 +1,6 @@
 spring:
   profiles:
     active: local
-
 ---
 spring:
   profiles: local

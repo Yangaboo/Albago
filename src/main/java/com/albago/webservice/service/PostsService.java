@@ -33,6 +33,11 @@ public class PostsService {
     }
 
     @Transactional
+    public String findPwd(Long post_id) {
+        return postsRepository.findPwd(post_id);
+    }
+
+    @Transactional
     public String findFavor(Long post_id) {
         return postsRepository.findFavor(post_id);
     }
