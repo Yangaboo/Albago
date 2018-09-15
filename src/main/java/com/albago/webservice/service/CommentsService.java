@@ -36,6 +36,12 @@ public class CommentsService {
     }
 
     @Transactional
+    public String deleteCommentByPostId(Long post_id) {
+        commentsRepository.deleteCommentsByPostId(post_id);
+        return "delete";
+    }
+
+    @Transactional
     public String findFavor(Long comment_id) {
         return commentsRepository.findFavor(comment_id);
     }
