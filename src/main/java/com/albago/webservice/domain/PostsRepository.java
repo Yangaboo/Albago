@@ -19,8 +19,8 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query("SELECT p.hate FROM Posts p WHERE p.postId=:postId")
     String findHate(@Param("postId") Long post_id);
 
-    @Query("SELECT p FROM Posts p WHERE p.cat_id=:cat_id")
-    Page<Posts> findPostsByCat_id(@Param("cat_id") int cat_id, Pageable pageable);
+    @Query("SELECT p FROM Posts p WHERE p.cat_id=:catId")
+    Page<Posts> findPostsByCat_id(@Param("catId") int catId, Pageable pageable);
 
     @Modifying
     @Query("UPDATE Posts as p SET p.favor=:favor WHERE p.postId=:postId")

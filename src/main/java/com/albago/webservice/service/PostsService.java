@@ -46,8 +46,8 @@ public class PostsService {
     }
 
     @Transactional
-    public Page<Posts> findPostsByCatId(int cat_id, Pageable pageable) {
-        return postsRepository.findPostsByCat_id(cat_id, pageable);
+    public Page<Posts> findPostsByCatId(int catId, Pageable pageable) {
+        return postsRepository.findPostsByCat_id(catId, pageable);
     }
 
     @Transactional
