@@ -34,8 +34,12 @@ public class WebRestController {
     }
 
     @GetMapping("/posts")
-    public Page<Posts> getPosts(@PageableDefault(size = 10, sort = {"postId"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        return postsService.findAll(pageable);
+    public Page<Posts> getPosts(@PageableDefault(size = 10, sort = {"postId"}, direction = Sort.Direction.DESC) Pageable pageable, @RequestParam int cat_id) {
+        if (cat_id == 0) {
+            return postsService.findAll(pageable);
+        } else {
+            return postsService.findPostsByCatId(cat_id, pageable);
+        }
     }
 
     @PostMapping("/posts")

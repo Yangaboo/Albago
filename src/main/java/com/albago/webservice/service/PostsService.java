@@ -6,8 +6,6 @@ import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +43,11 @@ public class PostsService {
     @Transactional
     public String findHate(Long post_id) {
         return postsRepository.findHate(post_id);
+    }
+
+    @Transactional
+    public Page<Posts> findPostsByCatId(int cat_id, Pageable pageable) {
+        return postsRepository.findPostsByCat_id(cat_id, pageable);
     }
 
     @Transactional

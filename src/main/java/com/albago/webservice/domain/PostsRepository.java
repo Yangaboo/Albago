@@ -1,5 +1,7 @@
 package com.albago.webservice.domain;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +18,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 
     @Query("SELECT p.hate FROM Posts p WHERE p.postId=:postId")
     String findHate(@Param("postId") Long post_id);
+
+    @Query("SELECT p FROM Posts p WHERE p.cat_id=:cat_id")
+    Page<Posts> findPostsByCat_id(@Param("cat_id") int cat_id, Pageable pageable);
 
     @Modifying
     @Query("UPDATE Posts as p SET p.favor=:favor WHERE p.postId=:postId")
