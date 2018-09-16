@@ -30,6 +30,7 @@
         <button class="comment__delete" @click="$emit('delete', index)">
           삭제
         </button>
+        <!-- TODO: 댓글 수정 기능 -->
       </li>
     </ul>
     <div class="comment__add-cover">
@@ -121,21 +122,30 @@ $border1: 3px solid #c4c6c9;
   }
   @include e('good-checkbox') {
     display: none;
+    &:checked + label {
+      background-image: url('../../assets/comment-like_pressed.png');
+    }
   }
   @include e('good-label') {
     padding-right: 10px;
-    height: 20px;
-    line-height: 20px;
-    width: 100px;
+    font-size: 15px;
+    height: 17px;
+    line-height: 18px;
+    width: 90px;
     text-align: right;
+    background-image: url('../../assets/comment-like.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    user-select: none;
   }
   @include e('delete') {
-    height: 20px;
+    height: 17px;
     font-size: 12px;
     color: #f00;
     background: none;
     padding-left: 10px;
     border-left: $border1;
+    user-select: none;
   }
 
   $add-font-size: 15px;

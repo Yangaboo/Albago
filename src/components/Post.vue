@@ -1,5 +1,6 @@
 <template>
   <div class="post">
+    <navigation :style="postNavStyle"/>
     <div class="branch">
       홈 > 게시판 > 아르바이트 리뷰
     </div>
@@ -22,17 +23,20 @@
 </template>
 
 <script>
+import Navigation from './Common/Navigation';
 import PostArticle from './Post/PostArticle';
 import PostComment from './Post/PostComment';
 
 export default {
   components: {
+    Navigation,
     PostArticle,
     PostComment,
   },
   name: 'post',
   data() {
     return {
+      postNavStyle: 'background-color: #eee; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16)',
       name: '대전 대덕소프트웨어마이스터고등학교 GS27 편의점 아르바이트 후기',
       writingDate: '2018.09.10',
       writingTime: '12:00',

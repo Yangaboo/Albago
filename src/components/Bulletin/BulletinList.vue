@@ -34,17 +34,8 @@
 <script>
 export default {
   name: 'bulletin-list',
-  data() {
-    return {
-      bulletins: [{
-        number: 1,
-        title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-        category: '교육',
-        date: '2014-04-28',
-        good: 100,
-        bad: 200,
-      }],
-    };
+  props: {
+    bulletins: Array,
   },
 };
 </script>

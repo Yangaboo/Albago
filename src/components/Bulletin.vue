@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <navigation/>
     <slideshow/>
     <div class="bulletin">
       <div class="bulletin__container">
@@ -11,14 +12,20 @@
             <select class="bulletin__category">
               <option disabled selected>카테고리</option>
             </select>
-            <input type="search"
+            <input
+              type="search"
               placeholder="검색어.."
               class="bulletin__search-input">
             <button class="bulletin__search-button">검색</button>
           </div>
         </header>
-        <bulletin-list class="bulletin__bulletin-list"/>
-        <bulletin-paging class="bulletin__bulletin-paging"
+
+        <bulletin-list
+          class="bulletin__bulletin-list"
+          :bulletins="bulletins"/>
+
+        <bulletin-paging
+          class="bulletin__bulletin-paging"
           :pagesTotalNumber="25"/>
       </div>
     </div>
@@ -26,6 +33,7 @@
 </template>
 
 <script>
+import Navigation from './Common/Navigation';
 import Slideshow from './Common/Slideshow';
 import BulletinList from './Bulletin/BulletinList';
 import BulletinPaging from './Bulletin/BulletinPaging';
@@ -36,9 +44,18 @@ export default {
     return {
       totalBulletin: 0,
       todayBulletin: 0,
+      bulletins: [{
+        number: 1,
+        title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
+        category: '교육',
+        date: '2014-04-28',
+        good: 100,
+        bad: 200,
+      }],
     };
   },
   components: {
+    Navigation,
     Slideshow,
     BulletinList,
     BulletinPaging,

@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <set-location v-if="isOnModal" @closeModal="isOnModal = false"/>
-    <navigation/>
     <router-view/>
   </div>
 </template>
 
 <script>
-import Navigation from './components/Navigation';
 import SetLocation from './components/SetLocation';
 
 export default {
@@ -19,7 +17,6 @@ export default {
   },
   components: {
     SetLocation,
-    Navigation,
   },
   created() {
     this.$EventBus.$on('showModal', () => {
@@ -77,6 +74,7 @@ ol, ul {
 
 #app {
   min-width: 1670px;
+  margin-top: 70px; // navigation size
 }
 // common style
 .section-name {

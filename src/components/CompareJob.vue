@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <navigation/>
     <div class="compare-job">
       <header class="compare-job__header">
         <h1 class="compare-job__header__title">
@@ -47,6 +48,7 @@
 </template>
 
 <script>
+import Navigation from './Common/Navigation';
 import CompareJobFilter from './CompareJob/CompareJobFilter';
 import CompareJobItem from './CompareJob/CompareJobItem';
 
@@ -58,6 +60,7 @@ import CompareJobItem from './CompareJob/CompareJobItem';
 export default {
   name: 'compare-job',
   components: {
+    Navigation,
     CompareJobFilter,
     CompareJobItem,
   },

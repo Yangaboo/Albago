@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <navigation/>
     <slideshow/>
     <div class="main-container">
       <main-bulletin class="main-container__main-bulletin"/>
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import Navigation from './Common/Navigation';
 import Slideshow from './Common/Slideshow';
 import MainBulletin from './MainContainer/MainBulletin';
 import MainLocate from './MainContainer/MainLocate';
@@ -20,6 +22,7 @@ import MainPartTime from './MainContainer/MainPartTime';
 export default {
   name: 'main-container',
   components: {
+    Navigation,
     Slideshow,
     MainBulletin,
     MainLocate,
