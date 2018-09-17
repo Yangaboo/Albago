@@ -124,36 +124,6 @@ public class WebRestController {
 
     @PostMapping("/filter")
     public HashMap<String, String> filter(@RequestBody URL url) throws IOException {
-        HashMap<String, String> res = new HashMap<String, String>();
-        String uri;
-        uri = url.getUrl();
-        Connection.Response response = Jsoup.connect(uri)
-                .method(Connection.Method.GET)
-                .execute();
-        Document albaDocument = response.parse();
-        Element address = albaDocument.select("li[class=address divide]").select("strong").first();
-        Element title = albaDocument.select("p[class=detailTitle]").first();
-        Element workTime = albaDocument.select("li[class=worktimecd]").first();
-        Element period = albaDocument.select("li[class=workperiodcd]").select("a").first();
-        Element pay = albaDocument.select("p[class=pay]").first();
-        Element workDate = albaDocument.select("li[class=workweekcd]").select("a").first();
-        Element age = albaDocument.select("li[class=agetemp]").first();
-
-        String addressValue = address.text();
-        String titleValue = title.text();
-        String workTimeValue = workTime.text();
-        String periodValue = period.text();
-        String payValue = pay.text();
-        String workDateValue = workDate.text();
-        String ageValue = age.text();
-
-        res.put("name", titleValue);
-        res.put("workTime", workTimeValue);
-        res.put("period", periodValue);
-        res.put("hourlyWage", payValue);
-        res.put("days", workDateValue);
-        res.put("age", ageValue);
-
-        return res;
+        return url.Crawling(url);
     }
 }
