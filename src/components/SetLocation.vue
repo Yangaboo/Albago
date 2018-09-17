@@ -1,53 +1,53 @@
 <template>
   <transition name="modal">
-    <div class="set-location">
-      <div class="set-location__mask" @click="$emit('closeModal')"></div>
-      <div class="set-location__modal">
-        <h2 class="set-location__modal__name">
+    <div class="set-loc">
+      <div class="set-loc__mask" @click="$emit('closeModal')"></div>
+      <div class="modal">
+        <h2 class="modal__name">
           위치 변경하기
-          <button class="set-location__modal__name__close-button"
+          <button class="modal__close-button"
             @click="$emit('closeModal')">
             &times;
           </button>
         </h2>
-        <div class="set-location__modal__main">
-          <div class="set-location__modal__main__search">
-            <input class="set-location__modal__main__search__input-text"
+        <div class="modal__main">
+          <div class="modal__search">
+            <input class="modal__search__input-text"
               type="text"
               :placeholder="placeholdText"
               v-model="keyword"
               @keydown.enter="searchPlaces">
-            <button class="set-location__modal__main__search__search-button"
+            <button class="modal__search__search-button"
               @click="searchPlaces">
               검색
             </button>
           </div>
-          <vue-daum-map class="set-location__modal__main__map"
+          <vue-daum-map class="modal__map"
             :appKey="appKey"
             :center.sync="center"
             :level.sync="level"
             :libraries="libraries"
             @load="onLoad"/>
-          <div class="set-location__modal__main__wrapper">
-            <ul class="set-location__modal__main__wrapper__result-list">
-              <li class="set-location__modal__main__wrapper__result-list__item"
+          <div class="modal__wrapper">
+            <ul class="modal__result-list">
+              <li class="modal__result-item"
                 v-for="(placeList, index) in placeLists"
                 :key="index"
                 @click="selected = index"
                 :class="{'selected': selected == index}">
-                <h5 class="set-location__modal__main__wrapper__result-list__item__name">
+                <h5 class="modal__result-item__name">
                   {{ placeList.place_name }}
                 </h5>
-                <div class="set-location__modal__main__wrapper__result-list__item__address-name">
+                <div class="modal__result-item__address-name">
                   {{ placeList.road_address_name || placeList.address_name }}
                 </div>
-                <div class="set-location__modal__main__wrapper__result-list__item__check check">
+                <div class="modal__result-item__check check">
                   &#10004;
                 </div>
               </li>
             </ul>
-            <div class="set-location__modal__main__wrapper__pagination">
-              <a class="set-location__modal__main__wrapper__pagination__number"
+            <div class="modal__pagination">
+              <a class="modal__pagination__number"
                 href="#"
                 v-for="index in pagination.last"
                 :key="index"
@@ -56,7 +56,7 @@
                 {{ index }}
               </a>
             </div>
-            <button class="set-location__modal__main__wrapper__set-button"
+            <button class="modal__set-button"
               @click="setLocation">
               {{ buttonText }}
             </button>
@@ -185,7 +185,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/setting';
-$z-index-set-location: 1;
+$z-index-set-loc: 1;
 $z-index-mask: 2;
 $z-index-modal: 3;
 $color-main: #494f5c;
@@ -203,13 +203,13 @@ $color-main: #494f5c;
   }
 }
 
-.set-location {
+.set-loc {
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: $z-index-set-location;
+  z-index: $z-index-set-loc;
   @include e('mask') {
     position: absolute;
     width: 100%;
@@ -217,183 +217,189 @@ $color-main: #494f5c;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: $z-index-mask;
   }
-  @include e('modal') {
-    $width-modal: 1100px;
-    $height-modal: 700px;
-    $radius: 5px;
-    $side-padding: 60px;
+}
+.modal {
+  $width-modal: 1100px;
+  $height-modal: 700px;
+  $radius: 5px;
+  $side-padding: 60px;
+  $name-padding-top: 30px;
+
+  position: absolute;
+  z-index: $z-index-modal;
+  left: 50%;
+  top: 50%;
+  margin: {
+    left: -($width-modal / 2);
+    top: -($height-modal / 2);
+  }
+  width: $width-modal;
+  height: $height-modal;
+  background-color: #fff;
+  border-radius: $radius;
+  @include e('name') {
+    width: 100%;
+    background-color: $color-main;
+    height: 80px;
+    padding: {
+      top: $name-padding-top;
+      bottom: 20px;
+      left: $side-padding;
+      right: $side-padding;
+    }
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 30px;
+    color: white;
+  }
+  @include e('close-button') {
     position: absolute;
-    z-index: $z-index-modal;
-    left: 50%;
-    top: 50%;
-    margin: {
-      left: -($width-modal / 2);
-      top: -($height-modal / 2);
+    top: $name-padding-top;
+    right: $side-padding;
+    font-size: 30px;
+    font-weight: lighter;
+    line-height: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+  }
+  @include e('main') {
+    padding: {
+      top: 40px;
+      left: $side-padding;
+      right: $side-padding;
     }
-    width: $width-modal;
-    height: $height-modal;
     background-color: #fff;
-    border-radius: $radius;
-    @include e('name') {
-      $padding-top: 30px;
-      width: 100%;
-      background-color: $color-main;
-      height: 80px;
-      padding: {
-        top: $padding-top;
-        bottom: 20px;
-        left: $side-padding;
-        right: $side-padding;
-      }
-      border-top-left-radius: $radius;
-      border-top-right-radius: $radius;
-      font-size: 22px;
-      font-weight: bold;
-      line-height: 30px;
-      color: white;
-      @include e('close-button') {
-        position: absolute;
-        top: $padding-top;
-        right: $side-padding;
-        font-size: 30px;
-        font-weight: lighter;
-        line-height: inherit;
-        color: inherit;
-        background: none;
-        border: none;
-      }
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  @include e('search') {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    margin: {
+      bottom: 50px;
     }
-    @include e('main') {
-      padding: {
-        top: 40px;
-        left: $side-padding;
-        right: $side-padding;
-      }
+    @include e('input-text') {
+      box-sizing: border-box;
+      flex: 8;
+      height: 100%;
+      border: solid 1px $color-main;
       background-color: #fff;
-      border-bottom-left-radius: $radius;
+      padding: {
+        left: 70px;
+        top: 20px;
+        bottom: 20px;
+      }
+      font-size: 18px;
+      line-height: 20px;
+      background: url('../assets/search.png') no-repeat left 20px center;
+      background-size: auto 50%;
+    }
+    @include e('search-button') {
+      flex: 1;
+      height: 100%;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      background-color: $color-main;
       border-bottom-right-radius: $radius;
-      display: flex;
-      flex-wrap: wrap;
-      @include e('search') {
-        width: 100%;
-        height: 60px;
-        display: flex;
-        margin: {
-          bottom: 50px;
-        }
-        @include e('input-text') {
-          box-sizing: border-box;
-          flex: 8;
-          height: 100%;
-          border: solid 1px $color-main;
-          background-color: #fff;
-          padding: {
-            left: 170px;
-            top: 20px;
-            bottom: 20px;
-          }
-          font-size: 18px;
-          line-height: 20px;
-        }
-        @include e('search-button') {
-          flex: 1;
-          height: 100%;
-          font-size: 20px;
-          font-weight: bold;
-          color: #fff;
-          background-color: $color-main;
-          border-bottom-right-radius: $radius;
-          border-top-right-radius: $radius;
-        }
-      }
-      @include e('map') {
-        width: 55%;
-        height: 400px;
-      }
-      @include e('wrapper') {
-        margin-left: 5%;
-        width: 40%;
-        height: 400px;
-        @include e('result-list') {
-          height: 270px;
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
-          overflow-y: scroll;
-          @include e('item') {
-            height: 50px;
-            position: relative;
-            padding: {
-              left: 50px;
-              top: 10px;
-              bottom: 10px;
-            }
-            &:nth-child(even) {
-              @include set-color(#fff, $color-main);
-            }
-            &:nth-child(odd) {
-              @include set-color($color-main, #fff);
-            }
-            @include e('name') {
-              font-size: 13px;
-              line-height: 20px;
-            }
-            @include e('address-name') {
-              font-size: 8px;
-              line-height: 10px;
-            }
-            @include e('check') {
-              position: absolute;
-              top: 10px;
-              right: 30px;
-              width: 30px;
-              height: 30px;
-              box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.16);
-              border-radius: 100%;
-              text-align: center;
-              line-height: 30px;
-              font-size: 20px;
-            }
-          }
-        }
-        @include e('pagination') {
-          text-align: center;
-          height: 20px;
-          margin-top: 10px;
-          @include e('number') {
-            display: inline-block;
-            height: 100%;
-            width: 20px;
-            font-size: 15px;
-            font-weight: bolder;
-            line-height: 20px;
-            color: rgb(170, 170, 170);
-            &.on {
-              color: #000;
-            }
-          }
-        }
-        @include e('set-button') {
-          width: 100%;
-          color: #fff;
-          font-size: 18px;
-          margin-top: 30px;
-          height: 70px;
-          border-radius: 3px;
-          background-color: $color-main;
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
-          transition: background-color 0.1s;
-          &:hover {
-            background-color: $color-main / 5 * 6;
-          }
-          &:active {
-            padding-top: 10px;
-            color: #ddd;
-          }
-        }
+      border-top-right-radius: $radius;
+    }
+  }
+  @include e('map') {
+    width: 55%;
+    height: 400px;
+  }
+  @include e('wrapper') {
+    margin-left: 5%;
+    width: 40%;
+    height: 400px;
+  }
+  @include e('result-list') {
+    height: 270px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+    overflow-y: scroll;
+  }
+  @include e('result-item') {
+    height: 50px;
+    position: relative;
+    padding: {
+      left: 50px;
+      top: 10px;
+      bottom: 10px;
+    }
+    background-size: 30px;
+    background-position: left 10px center;
+    background-repeat: no-repeat;
+    &:nth-child(even) {
+      @include set-color(#fff, $color-main);
+      background-image: url('../assets/set-location__1.png');
+    }
+    &:nth-child(odd) {
+      @include set-color($color-main, #fff);
+      background-image: url('../assets/set-location__2.png');
+    }
+    @include e('name') {
+      font-size: 13px;
+      line-height: 20px;
+    }
+    @include e('address-name') {
+      font-size: 8px;
+      line-height: 10px;
+    }
+    @include e('check') {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      width: 30px;
+      height: 30px;
+      box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.16);
+      border-radius: 100%;
+      text-align: center;
+      line-height: 30px;
+      font-size: 20px;
+    }
+  }
+  @include e('pagination') {
+    text-align: center;
+    height: 20px;
+    margin-top: 10px;
+    @include e('number') {
+      display: inline-block;
+      height: 100%;
+      width: 20px;
+      font-size: 15px;
+      font-weight: bolder;
+      line-height: 20px;
+      color: rgb(170, 170, 170);
+      &.on {
+        color: #000;
       }
     }
   }
-}
-.modal {
+  @include e('set-button') {
+    width: 100%;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 30px;
+    height: 70px;
+    border-radius: 3px;
+    background-color: $color-main;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+    transition: background-color 0.1s;
+    &:hover {
+      background-color: $color-main / 5 * 6;
+    }
+    &:active {
+      padding-top: 10px;
+      color: #ddd;
+    }
+  }
   &-enter-active, &-leave-active {
     transition: opacity 0.5s ease;
   }
