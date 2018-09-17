@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
@@ -96,27 +98,27 @@ public class WebRestController {
     }
 
     @DeleteMapping("/posts/{post_id}/delete/{comment_id}")
-    public String deleteComments(@PathVariable Long comment_id, @RequestBody URL pwd) {
+    public ResponseEntity<?> deleteComments(@PathVariable Long comment_id, @RequestBody URL pwd) {
         String requestPwd = commentsService.findPwd(comment_id);
         String Pwd = pwd.getPwd();
         if(requestPwd.equals(Pwd)) {
             commentsService.deleteComment(comment_id);
-            return "success deleted";
+            return new ResponseEntity<String>(HttpStatus.OK);
         } else {
-            return "failed";
+            return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
         }
     }
 
     @DeleteMapping("/posts/{post_id}/delete")
-    public String deletePosts(@PathVariable Long post_id, @RequestBody URL pwd) {
+    public ResponseEntity<?> deletePosts(@PathVariable Long post_id, @RequestBody URL pwd) {
         String requestPwd = postsService.findPwd(post_id);
         String Pwd = pwd.getPwd();
         if(requestPwd.equals(Pwd)) {
             postsService.deletePost(post_id);
             commentsService.deleteCommentByPostId(post_id);
-            return "success deleted";
+            return new ResponseEntity<String>(HttpStatus.OK);
         } else {
-            return "failed";
+            return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
         }
     }
 
