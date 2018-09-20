@@ -17,7 +17,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any()) // 현재 RequestMapping으로 할당된 모든 URL 리스트를 추출
+                .apis(RequestHandlerSelectors.any()) // 현재 RequestMapping으로 할당된 모든 JOB 리스트를 추출
                 .paths(PathSelectors.ant("/**")) // 그중 /api/** 인 URL들만 필터링
                 .build();
     }

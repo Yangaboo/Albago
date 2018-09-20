@@ -1,26 +1,20 @@
 package com.albago.webservice.web;
 
-import com.albago.webservice.URL;
+import com.albago.webservice.JOB;
 import com.albago.webservice.domain.Posts;
 import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
 import com.albago.webservice.service.PostsService;
 import lombok.AllArgsConstructor;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,7 +107,7 @@ public class WebRestController {
     }
 
     @DeleteMapping("/posts/{post_id}/delete/{comment_id}")
-    public ResponseEntity<?> deleteComments(@PathVariable Long comment_id, @RequestBody URL pwd) {
+    public ResponseEntity<?> deleteComments(@PathVariable Long comment_id, @RequestBody JOB pwd) {
         try{
             String requestPwd = commentsService.findPwd(comment_id);
             String Pwd = pwd.getPwd();
@@ -130,7 +124,7 @@ public class WebRestController {
     }
 
     @DeleteMapping("/posts/{post_id}/delete")
-    public ResponseEntity<?> deletePosts(@PathVariable Long post_id, @RequestBody URL pwd) {
+    public ResponseEntity<?> deletePosts(@PathVariable Long post_id, @RequestBody JOB pwd) {
         try{
             String requestPwd = postsService.findPwd(post_id);
             String Pwd = pwd.getPwd();
@@ -148,7 +142,23 @@ public class WebRestController {
     }
 
     @PostMapping("/filter")
-    public HashMap<String, String> filter(@RequestBody URL url) throws IOException {
-        return url.Crawling(url);
+    public HashMap<String, String> filter(@RequestBody JOB url) throws IOException {
+        ArrayList geoLocation;
+        String totalDistance;
+
+        HashMap<String, String> crawling =  url.Crawling(url);
+        geoLocation = url.convertAddress(crawling.get("address"));
+
+        String endX = String.valueOf(geoLocation.get(1));
+        String endY = String.valueOf(geoLocation.get(0));
+
+        String startX = url.getStartX();
+        String startY = url.getStartY();
+
+        totalDistance = url.findDistance(startX, startY, endX, endY);
+
+        crawling.put("distance", totalDistance);
+
+        return crawling;
     }
 }
