@@ -6,6 +6,9 @@ import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
 import com.albago.webservice.service.PostsService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -67,8 +70,7 @@ public class WebRestController {
             double hate = commentsService.getHate(comment_id);
             double ratio = (hate/(hate+favor))*100;
 
-            if (ratio >= 70) { commentsService.deleteComment(comment_id); }
-
+            if (ratio >= 70 | favor+hate>=50 ) { commentsService.deleteComment(comment_id); }
         }
         comment.add(commentsService.findComments(post_id));
 
@@ -141,6 +143,12 @@ public class WebRestController {
         }
     }
 
+    @ApiOperation(value = "비교 기능")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startx", value = "x좌표", required = true, dataType = "string", paramType = "body", defaultValue = ""),
+            @ApiImplicitParam(name = "startY", value = "Y좌표", required = true ,dataType = "string", paramType = "body", defaultValue = ""),
+            @ApiImplicitParam(name = "url", value = "알바정보", required = true,  dataType = "string", paramType = "body", defaultValue = ""),
+    })
     @PostMapping("/filter")
     public HashMap<String, String> filter(@RequestBody JOB url) throws IOException {
         ArrayList geoLocation;
