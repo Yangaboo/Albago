@@ -67,4 +67,19 @@ public class CommentsService {
     public String findPwd(Long comment_id) {
         return commentsRepository.findPwd(comment_id);
     }
+
+    @Transactional
+    public List<Long> getCommentId(Long post_id) {
+        return commentsRepository.getCommentId(post_id);
+    }
+
+    @Transactional
+    public int getFavor(Long comment_id) {
+        return commentsRepository.getFavor(comment_id);
+    }
+
+    @Transactional
+    public int getHate(Long comment_id) {
+        return commentsRepository.getHate(comment_id);
+    }
 }

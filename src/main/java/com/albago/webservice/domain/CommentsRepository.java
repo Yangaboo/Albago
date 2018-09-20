@@ -1,10 +1,12 @@
 package com.albago.webservice.domain;
 
+import io.swagger.models.auth.In;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
@@ -33,4 +35,13 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
     @Modifying
     @Query("DELETE FROM Comments c WHERE c.post_id=:post_id")
     void deleteCommentsByPostId(@Param("post_id") Long post_id);
+
+    @Query("SELECT c.comment_id FROM Comments c WHERE post_id=:post_id")
+    List<Long> getCommentId(@Param("post_id") Long post_id);
+
+    @Query("SELECT c.favor FROM Comments c WHERE c.comment_id=:comment_id")
+    int getFavor(@Param("comment_id") Long comment_id);
+
+    @Query("SELECT c.hate FROM Comments c WHERE c.comment_id=:comment_id")
+    int getHate(@Param("comment_id") Long comment_id);
 }

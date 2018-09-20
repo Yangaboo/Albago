@@ -24,6 +24,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -57,11 +58,24 @@ public class WebRestController {
 
     @GetMapping("/posts/{post_id}")
     public HashMap<String, ArrayList> getPost(@PathVariable Long post_id) {
+        //AutoDelete auto = new AutoDelete();
         HashMap<String, ArrayList> Post = new HashMap<String, ArrayList>();
 
         ArrayList post = new ArrayList();
         post.add(postsService.findOne(post_id));
         ArrayList comment = new ArrayList();
+
+        List<Long> comment_Ids;
+        comment_Ids = commentsService.getCommentId(post_id);
+
+        for (Long comment_id : comment_Ids) {
+            double favor = commentsService.getFavor(comment_id);
+            double hate = commentsService.getHate(comment_id);
+            double ratio = (hate/(hate+favor))*100;
+
+            if (ratio >= 70) { commentsService.deleteComment(comment_id); }
+
+        }
         comment.add(commentsService.findComments(post_id));
 
         Post.put("post", post);
