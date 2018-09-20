@@ -1,7 +1,5 @@
 package com.albago.webservice;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -57,8 +55,6 @@ public class JOB {
     public ArrayList convertAddress(String address) throws IOException {
         String apiKey = "53cc8319-52df-4dfa-ba76-fbcc52ccdc99";
         String Accept = "application/json";
-        Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
 
         String location = URLEncoder.encode(address, "UTF-8");
         String apiURL = "https://api2.sktelecom.com/tmap/geo/convertAddress?version=1&searchTypCd=NtoO&reqAdd=" + location + "&appKey=" + apiKey;
