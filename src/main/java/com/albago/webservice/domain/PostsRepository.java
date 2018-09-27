@@ -35,6 +35,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query("SELECT p.pwd FROM Posts p WHERE p.postId=:postId")
     String findPwd(@Param("postId") Long post_id);
 
+    @Query("SELECT count(p) FROM Posts p")
+    int findTotal();
+
 }
 
 

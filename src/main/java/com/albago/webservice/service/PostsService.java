@@ -66,4 +66,7 @@ public class PostsService {
     public Posts findOne(Long post_id) {
         return postsRepository.findOne(post_id);
     }
+
+    @Transactional
+    public int findTotal() {  return postsRepository.findTotal();  }
 }
