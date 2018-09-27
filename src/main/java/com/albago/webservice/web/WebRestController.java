@@ -145,8 +145,8 @@ public class WebRestController {
 
     @ApiOperation(value = "비교 기능")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "startx", value = "x좌표", required = true, dataType = "string", paramType = "body", defaultValue = ""),
-            @ApiImplicitParam(name = "startY", value = "Y좌표", required = true ,dataType = "string", paramType = "body", defaultValue = ""),
+            @ApiImplicitParam(name = "startx", value = "x좌표", required = true, dataType = "string", paramType = "body", defaultValue = "127.54125"),
+            @ApiImplicitParam(name = "startY", value = "Y좌표", required = true ,dataType = "string", paramType = "body", defaultValue = "36.54989"),
             @ApiImplicitParam(name = "url", value = "알바정보", required = true,  dataType = "string", paramType = "body", defaultValue = ""),
     })
     @PostMapping("/filter")

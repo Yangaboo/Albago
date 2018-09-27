@@ -108,7 +108,7 @@ public class JOB {
         String totalDistance = null;
         if ((inputLine = br.readLine()) != null) {
             response = inputLine;
-            totalDistance = response.substring(110, 116).replaceAll("[^0-9]", "");
+            totalDistance = response.substring(110, 120).replaceAll("[^0-9]", "");
         }
 
         return totalDistance;
