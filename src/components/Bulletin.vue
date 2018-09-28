@@ -71,7 +71,7 @@ export default {
   methods: {
     getPostList(number) {
       this.currentPage = number;
-      this.$axios.get(`${uri}/posts?page=${number - 1}&catId=${this.currentCategory}`)
+      this.$axios.get(`${uri}/posts?page=${number}&catId=${this.currentCategory}`)
         .then(({ data }) => {
           console.log(data);
           this.bulletins = data.content;

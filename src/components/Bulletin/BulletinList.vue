@@ -12,7 +12,7 @@
       <div class="link__item link__number">
         {{ bulletin.postId }}
       </div>
-      <a :href="`#/post?page=${bulletin.number}`" class="link__item link__title">
+      <a :href="`#/post?id=${bulletin.postId}`" class="link__item link__title">
         {{ bulletin.title }}
       </a>
       <div class="link__item link__category">
@@ -107,6 +107,9 @@ export default {
   @include e('title') {
     width: 50%;
     text-align: left;
+  }
+  @include e('category') {
+    width: 20%;
   }
   @include e('date') {
     width: 30%;
