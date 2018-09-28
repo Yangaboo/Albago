@@ -32,10 +32,13 @@ export default {
       type: Number,
       required: true,
     },
+    selected: {
+      type: Number,
+      default: 1,
+    },
   },
   data() {
     return {
-      selected: 1,
       startNumber: 1,
     };
   },
@@ -54,10 +57,10 @@ export default {
   },
   methods: {
     link(number) {
-      return `#/bulletin?page=${number}`;
+      return `#/bulletin?catid=${number}`;
     },
     select(number) {
-      this.selected = number;
+      this.$emit('select', number);
     },
     previous(number) {
       this.startNumber -= 10;

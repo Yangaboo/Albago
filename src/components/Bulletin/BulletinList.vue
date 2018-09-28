@@ -10,32 +10,47 @@
     </li>
     <li class="link" v-for="bulletin in bulletins" :key="bulletin.number">
       <div class="link__item link__number">
-        {{ bulletin.number }}
+        {{ bulletin.postId }}
       </div>
-      <a :href="`#/post/${bulletin.number}`" class="link__item link__title">
+      <a :href="`#/post?page=${bulletin.number}`" class="link__item link__title">
         {{ bulletin.title }}
       </a>
       <div class="link__item link__category">
-        {{ bulletin.category }}
+        {{ categoryObj[categoryArr[bulletin.cat_id]].text }}
       </div>
       <div class="link__item link__date">
-        {{ bulletin.date }}
+        {{ dateFormat(bulletin.createdDate) }}
       </div>
       <div class="link__item link__good">
-        {{ bulletin.good }}
+        {{ bulletin.favor }}
       </div>
       <div class="link__item link__bad">
-        {{ bulletin.bad }}
+        {{ bulletin.hate }}
       </div>
     </li>
   </ul>
 </template>
 
 <script>
+import { categoryObj, categoryArr } from '../../constants/category';
+
 export default {
   name: 'bulletin-list',
   props: {
     bulletins: Array,
+  },
+  data() {
+    return {
+      categoryObj,
+      categoryArr,
+    };
+  },
+  methods: {
+    dateFormat(date) {
+      const dateObject = new Date(...date);
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return dateObject.toLocaleDateString('ko-KR', options);
+    },
   },
 };
 </script>
@@ -78,6 +93,9 @@ export default {
   @include e('title') {
     width: 50%;
   }
+  @include e('date') {
+    width: 30%;
+  }
 }
 .link {
   @extend %list-item;
@@ -89,6 +107,9 @@ export default {
   @include e('title') {
     width: 50%;
     text-align: left;
+  }
+  @include e('date') {
+    width: 30%;
   }
 }
 </style>

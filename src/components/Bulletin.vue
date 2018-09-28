@@ -6,11 +6,19 @@
       <div class="bulletin__container">
         <header class="bulletin__header">
           <div class="bulletin__outline">
-            총 {{ totalBulletin }}건 / 금일 {{ todayBulletin }}건
+            총 {{ totalElements }}건
+            <!-- 금일 {{ todayBulletin }}건 -->
           </div>
           <div class="bulletin__nav-tool">
-            <select class="bulletin__category">
-              <option disabled selected>카테고리</option>
+            <select
+              class="bulletin__category"
+              v-model="currentCategory"
+              @change="getPostList(1)">
+              <option v-for="option in categoryOptions"
+                :key="option.value"
+                :value="option.value">
+                {{ option.text }}
+              </option>
             </select>
             <input
               type="search"
@@ -26,7 +34,9 @@
 
         <bulletin-paging
           class="bulletin__bulletin-paging"
-          :pagesTotalNumber="25"/>
+          :selected="currentPage"
+          @select="number => getPostList(number)"
+          :pagesTotalNumber="totalPages"/>
       </div>
     </div>
   </div>
@@ -37,21 +47,19 @@ import Navigation from './Common/Navigation';
 import Slideshow from './Common/Slideshow';
 import BulletinList from './Bulletin/BulletinList';
 import BulletinPaging from './Bulletin/BulletinPaging';
+import { categoryObj } from '../constants/category';
+import uri from '../constants/uri';
 
 export default {
   name: 'bulletin',
   data() {
     return {
-      totalBulletin: 0,
-      todayBulletin: 0,
-      bulletins: [{
-        number: 1,
-        title: '대덕소프트웨어마이스터고등학교 교사 아르바이트 후기',
-        category: '교육',
-        date: '2014-04-28',
-        good: 100,
-        bad: 200,
-      }],
+      categoryOptions: categoryObj,
+      currentCategory: 0,
+      bulletins: null,
+      currentPage: 1,
+      totalPages: 0,
+      totalElements: 0,
     };
   },
   components: {
@@ -59,6 +67,21 @@ export default {
     Slideshow,
     BulletinList,
     BulletinPaging,
+  },
+  methods: {
+    getPostList(number) {
+      this.currentPage = number;
+      this.$axios.get(`${uri}/posts?page=${number - 1}&catId=${this.currentCategory}`)
+        .then(({ data }) => {
+          console.log(data);
+          this.bulletins = data.content;
+          this.totalPages = data.totalPages;
+          this.totalElements = data.totalElements;
+        });
+    },
+  },
+  created() {
+    this.getPostList(this.currentPage);
   },
 };
 </script>
@@ -108,7 +131,7 @@ export default {
   }
   @include e('category') {
     @extend %tool;
-    width: 75px;
+    width: 200px;
     appearance: none;
     padding-left: 15px;
   }
