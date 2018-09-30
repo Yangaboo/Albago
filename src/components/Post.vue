@@ -26,6 +26,7 @@
 import Navigation from './Common/Navigation';
 import PostArticle from './Post/PostArticle';
 import PostComment from './Post/PostComment';
+import uri from '../constants/uri';
 
 export default {
   components: {
@@ -37,36 +38,30 @@ export default {
   data() {
     return {
       postNavStyle: 'background-color: #eee; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16)',
-      name: '대전 대덕소프트웨어마이스터고등학교 GS27 편의점 아르바이트 후기',
-      writingDate: '2018.09.10',
-      writingTime: '12:00',
-      viewCount: 87,
-      content: 'text',
+      name: '데이터를 가져오는 중 입니다',
+      writingDate: '',
+      writingTime: '',
+      viewCount: 0,
+      content: '데이터를 가져오는 중 입니다',
       good: 47,
       bad: 13,
-      comments: [{
-        name: '1와 정말 좋네요',
-        writingDate: '2018.06.30',
-        writingTime: '09:22',
-        content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
-        good: 10,
-        isCheckedGood: false,
-      }, {
-        name: '2와 정말 좋네요',
-        writingDate: '2018.06.30',
-        writingTime: '09:22',
-        content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
-        good: 10,
-        isCheckedGood: false,
-      }, {
-        name: '3와 정말 좋네요',
-        writingDate: '2018.06.30',
-        writingTime: '09:22',
-        content: '편의점 아르바이트 하는데 도움이 많이 됐습니다',
-        good: 10,
-        isCheckedGood: false,
-      }],
+      comments: null,
     };
+  },
+  created() {
+    const postId = location.href.split('id=')[1];
+    this.$axios.get(`${uri}/posts/${postId}`)
+      .then(({ data }) => {
+        const post = data.post[0];
+        this.name = post.title;
+        this.writingDate = `${post.createdDate[0]}.${post.createdDate[1]}.${post.createdDate[2]}`;
+        this.writingTime = `${post.createdDate[3]}:${post.createdDate[4]}`;
+        this.viewCount = post.visit;
+        this.content = post.content;
+        this.good = post.favor;
+        this.bad = post.hate;
+        this.comments = data.comments[0];
+      });
   },
   methods: {
     deleteCommentByIndex(index) {

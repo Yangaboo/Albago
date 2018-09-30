@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="comment__count">
+    <div class="comment__count" v-if="comments">
       댓글 {{ comments.length }}개
     </div>
     <ul class="comment__list">
@@ -8,10 +8,10 @@
         class="comment__item"
         v-for="(comment, index) in comments" :key="index">
         <div class="comment__name">
-          {{ comment.name }}
+          {{ comment.author }}
         </div>
         <div class="comment__writing-date">
-          {{ comment.writingDate }} {{ comment.writingTime }}
+          {{ formatDate(comment.createdDate) }}
         </div>
         <div class="comment__content">
           {{ comment.content }}
@@ -25,7 +25,7 @@
         <label
           class="comment__good-label"
           :for="`good${index}`">
-          {{comment.good}}
+          {{comment.favor}}
         </label>
         <button class="comment__delete" @click="$emit('delete', index)">
           삭제
@@ -77,6 +77,12 @@ export default {
       pwRe: '',
       isCheckGood: false,
     };
+  },
+  // TODO: 서버로부터 데이터 받아온 comments로 데이터 바인딩하기
+  methods: {
+    formatDate(dateArr) {
+      return `${dateArr[0]}.${dateArr[1]}.${dateArr[2]} ${dateArr[3]}:${dateArr[4]}`;
+    },
   },
 };
 </script>
