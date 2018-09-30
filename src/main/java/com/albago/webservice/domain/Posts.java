@@ -38,8 +38,10 @@ public class Posts extends BaseTimeEntity {
 
     private int hate;
 
+    private int visit;
+
     @Builder
-    public Posts(String title, String content, String author, String pwd, int cat_id, int favor, int hate) {
+    public Posts(String title, String content, String author, String pwd, int cat_id, int favor, int hate, int visit) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -47,6 +49,7 @@ public class Posts extends BaseTimeEntity {
         this.cat_id = cat_id;
         this.favor = favor;
         this.hate = hate;
+        this.visit = visit;
     }
 }
 /*

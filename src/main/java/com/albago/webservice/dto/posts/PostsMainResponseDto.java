@@ -16,6 +16,7 @@ public class PostsMainResponseDto {
     private int cat_id;
     private int favor;
     private int hate;
+    private int visit;
 
     public PostsMainResponseDto(Posts entity) {
         postId = entity.getPostId();
@@ -24,6 +25,7 @@ public class PostsMainResponseDto {
         cat_id = entity.getCat_id();
         favor = entity.getFavor();
         hate = entity.getHate();
+        visit = entity.getVisit();
     }
 
     private String toStringDateTime(LocalDateTime localDateTime){

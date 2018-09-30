@@ -18,9 +18,10 @@ public class PostsSaveRequestDto {
     private int cat_id;
     private int favor;
     private int hate;
+    private int visit;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author, String pwd, int cat_id, int favor, int hate) {
+    public PostsSaveRequestDto(String title, String content, String author, String pwd, int cat_id, int favor, int hate, int visit) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -28,6 +29,7 @@ public class PostsSaveRequestDto {
         this.cat_id = cat_id;
         this.favor = favor;
         this.hate = hate;
+        this.visit = visit;
     }
 
     public Posts toEntity() {
@@ -39,6 +41,7 @@ public class PostsSaveRequestDto {
                 .cat_id(cat_id)
                 .favor(favor)
                 .hate(hate)
+                .visit(visit)
                 .build();
     }
 }

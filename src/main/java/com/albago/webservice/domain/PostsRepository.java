@@ -34,7 +34,14 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 
     @Query("SELECT p.pwd FROM Posts p WHERE p.postId=:postId")
     String findPwd(@Param("postId") Long post_id);
-    
+
+    @Query("SELECT p.visit FROM Posts p WHERE p.postId=:postId")
+    String findVisit(@Param("postId") Long post_id);
+
+    @Modifying
+    @Query("UPDATE Posts as p SET p.visit=:visit WHERE p.postId=:postId")
+    int updateVisit(@Param("visit") int visit,
+                   @Param("postId") Long post_id);
 }
 
 

@@ -67,4 +67,14 @@ public class PostsService {
         return postsRepository.findOne(post_id);
     }
 
+    @Transactional
+    public String findVisit(Long post_id) {
+        return postsRepository.findVisit(post_id);
+    }
+
+    @Transactional
+    public int updateVisit(int visit, Long post_id) {
+        postsRepository.updateVisit(visit, post_id);
+        return visit;
+    }
 }

@@ -2,6 +2,7 @@ package com.albago.webservice.web;
 
 import com.albago.webservice.JOB;
 import com.albago.webservice.domain.Posts;
+import com.albago.webservice.domain.PostsRepository;
 import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
@@ -55,6 +56,8 @@ public class WebRestController {
 
     @GetMapping("/posts/{post_id}")
     public HashMap<String, ArrayList> getPost(@PathVariable Long post_id) {
+        String currentVisit = postsService.findVisit(post_id);
+        postsService.updateVisit(Integer.parseInt(currentVisit)+1, post_id);
         //AutoDelete auto = new AutoDelete();
         HashMap<String, ArrayList> Post = new HashMap<String, ArrayList>();
 
