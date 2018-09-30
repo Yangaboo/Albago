@@ -36,6 +36,10 @@ export default {
       type: Number,
       default: 1,
     },
+    category: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -57,7 +61,7 @@ export default {
   },
   methods: {
     link(number) {
-      return `#/bulletin?catid=${number}`;
+      return `#/bulletin?page=${number}&category=${this.category}`;
     },
     select(number) {
       this.$emit('select', number);

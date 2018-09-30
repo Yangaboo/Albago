@@ -13,7 +13,7 @@
         </li>
         <li class="container__item">
           <router-link class="container__item__link"
-            :to="{path: '/bulletin', query: {page: 1}}">게시판</router-link>
+            :to="{path: '/bulletin', query: {page: 1, category: 'ALL'}}">게시판</router-link>
         </li>
         <li class="container__item">
           <a class="container__item__link"

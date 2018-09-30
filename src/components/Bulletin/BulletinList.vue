@@ -19,7 +19,7 @@
         {{ categoryObj[categoryArr[bulletin.cat_id]].text }}
       </div>
       <div class="link__item link__date">
-        {{ dateFormat(bulletin.createdDate) }}
+        {{ formatDate(bulletin.createdDate) }}
       </div>
       <div class="link__item link__good">
         {{ bulletin.favor }}
@@ -46,10 +46,8 @@ export default {
     };
   },
   methods: {
-    dateFormat(date) {
-      const dateObject = new Date(...date);
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      return dateObject.toLocaleDateString('ko-KR', options);
+    formatDate(dateArr) {
+      return `${dateArr[0]}.${dateArr[1]}.${dateArr[2]}`;
     },
   },
 };
@@ -87,32 +85,37 @@ export default {
   @extend %list-item;
   @include e('item') {
     @extend %flex-item;
-    width: 10%;
+    width: 5%;
     text-align: center;
   }
   @include e('title') {
-    width: 50%;
+    flex: 1;
+    padding-left: 20px;
+  }
+  @include e('category') {
+    width: 20%;
   }
   @include e('date') {
-    width: 30%;
+    width: 10%;
   }
 }
 .link {
   @extend %list-item;
   @include e('item') {
     @extend %flex-item;
-    width: 10%;
+    width: 5%;
     text-align: center;
   }
   @include e('title') {
-    width: 50%;
+    flex: 1;
+    padding-left: 20px;
     text-align: left;
   }
   @include e('category') {
     width: 20%;
   }
   @include e('date') {
-    width: 30%;
+    width: 10%;
   }
 }
 </style>

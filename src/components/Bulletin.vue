@@ -35,6 +35,7 @@
         <bulletin-paging
           class="bulletin__bulletin-paging"
           :selected="currentPage"
+          :category="categoryArray[currentCategory]"
           @select="number => getPostList(number)"
           :pagesTotalNumber="totalPages"/>
       </div>
@@ -47,7 +48,7 @@ import Navigation from './Common/Navigation';
 import Slideshow from './Common/Slideshow';
 import BulletinList from './Bulletin/BulletinList';
 import BulletinPaging from './Bulletin/BulletinPaging';
-import { categoryObj } from '../constants/category';
+import { categoryObj, categoryArr } from '../constants/category';
 import uri from '../constants/uri';
 
 export default {
@@ -55,6 +56,7 @@ export default {
   data() {
     return {
       categoryOptions: categoryObj,
+      categoryArray: categoryArr,
       currentCategory: 0,
       bulletins: null,
       currentPage: 1,
