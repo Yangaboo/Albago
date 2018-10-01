@@ -10,8 +10,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.stream.Stream;
 
 public interface PostsRepository extends JpaRepository<Posts, Long> {
-    @Query("SELECT p FROM Posts p ORDER BY p.id DESC ")
-    Stream<Posts> findAllDesc();
+    @Query("SELECT p FROM Posts p ORDER BY p.id ASC ")
+    Stream<Posts> findAllAsc();
 
     @Query("SELECT p.favor FROM Posts p WHERE p.postId=:postId")
     String findFavor(@Param("postId") Long post_id);
