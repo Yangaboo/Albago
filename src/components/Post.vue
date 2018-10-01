@@ -16,8 +16,8 @@
         :bad="bad"
         :isCheckedGood="isCheckedGood"
         :isCheckedBad="isCheckedBad"
-        @click-good="value => isCheckedGood = value"
-        @click-bad="value => isCheckedBad = value"/>
+        @click-good="isCheckedGood = !isCheckedGood"
+        @click-bad="isCheckedBad = !isCheckedBad"/>
       <post-comment
         class="post__comment"
         :comments="comments"
@@ -77,7 +77,7 @@ export default {
 
       // TODO: 댓글 삭제 요청
     },
-    toggleGood(index) {
+    toggle(index) {
       // TODO: 해당 index의 isCheckedGood이 토글됨, 서버로 요청(각 컴퓨터를 구분할 수 있는 식별자와 함께)
     },
     createComment(content, author, pwd) {
