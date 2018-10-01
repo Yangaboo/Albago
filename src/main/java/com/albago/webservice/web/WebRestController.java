@@ -53,7 +53,8 @@ public class WebRestController {
     public Comments saveComments(@RequestBody CommentsSaveRequestDto dto) {
         commentsService.save(dto);
         String post_id = String.valueOf(dto.getPost_id());
-        return commentsService.findComments(Long.valueOf(post_id)).get(0);
+        List<Comments> comment = commentsService.findComments(Long.valueOf(post_id));
+        return comment.get(comment.size()-1);
     }
 
     @GetMapping("/posts/{post_id}")
