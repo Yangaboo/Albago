@@ -74,7 +74,6 @@ ol, ul {
 
 #app {
   min-width: 1670px;
-  margin-top: 70px; // navigation size
 }
 // common style
 .section-name {

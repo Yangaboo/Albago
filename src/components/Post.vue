@@ -1,24 +1,26 @@
 <template>
-  <div class="post">
+  <div>
     <navigation :style="postNavStyle"/>
-    <div class="branch">
-      홈 > 게시판 > 아르바이트 리뷰
+    <div class="post">
+      <div class="branch">
+        홈 > 게시판 > 아르바이트 리뷰
+      </div>
+      <post-article
+        class="post__article"
+        :name="name"
+        :writingDate="writingDate"
+        :writingTime="writingTime"
+        :viewCount="viewCount"
+        :content="content"
+        :good="good"
+        :bad="bad"/>
+      <post-comment
+        class="post__comment"
+        :comments="comments"
+        @click-good="index => toggleGood(index)"
+        @delete="index => deleteCommentByIndex(index)"
+        @create="(content, name, pw) => createComment(content, name, pw)"/>
     </div>
-    <post-article
-      class="post__article"
-      :name="name"
-      :writingDate="writingDate"
-      :writingTime="writingTime"
-      :viewCount="viewCount"
-      :content="content"
-      :good="good"
-      :bad="bad"/>
-    <post-comment
-      class="post__comment"
-      :comments="comments"
-      @click-good="index => toggleGood(index)"
-      @delete="index => deleteCommentByIndex(index)"
-      @create="(content, name, pw) => createComment(content, name, pw)"/>
   </div>
 </template>
 

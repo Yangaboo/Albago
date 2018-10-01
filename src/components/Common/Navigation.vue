@@ -1,30 +1,28 @@
 <template>
   <nav class="nav">
-    <div class="container">
-      <router-link :to="{path: '/'}" class="container__logo-link">
-        <img class="container__logo-link__img"
-          src="../../assets/logo.png"
-          alt="알바고">
-      </router-link>
-      <ul class="container__list">
-        <li class="container__item">
-          <router-link class="container__item__link"
-            :to="{path: '/'}">홈</router-link>
-        </li>
-        <li class="container__item">
-          <router-link class="container__item__link"
-            :to="{path: '/bulletin', query: {page: 1, category: 'ALL'}}">게시판</router-link>
-        </li>
-        <li class="container__item">
-          <a class="container__item__link"
-            @click="$EventBus.$emit('showModal')">위치 설정</a>
-        </li>
-        <li class="container__item">
-          <router-link class="container__item__link"
-            :to="{path: '/compare'}">아르바이트 비교</router-link>
-        </li>
-      </ul>
-    </div>
+    <router-link :to="{path: '/'}" class="nav__logo-link">
+      <img class="nav__logo-link__img"
+        src="../../assets/logo.png"
+        alt="알바고">
+    </router-link>
+    <ul class="nav__list">
+      <li class="nav__item">
+        <router-link class="nav__item__link"
+          :to="{path: '/'}">홈</router-link>
+      </li>
+      <li class="nav__item">
+        <router-link class="nav__item__link"
+          :to="{path: '/bulletin', query: {page: 1, category: 'ALL'}}">게시판</router-link>
+      </li>
+      <li class="nav__item">
+        <a class="nav__item__link"
+          @click="$EventBus.$emit('showModal')">위치 설정</a>
+      </li>
+      <li class="nav__item">
+        <router-link class="nav__item__link"
+          :to="{path: '/compare'}">아르바이트 비교</router-link>
+      </li>
+    </ul>
   </nav>
 </template>
 
@@ -38,18 +36,11 @@ export default {
 @import '../../styles/setting.scss';
 
 .nav {
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 70px;
   background-color: #fff;
   width: 100%;
-}
-
-.container {
+  padding-left: 125px;
   position: relative;
-  width: 1670px;
-  margin: 0 auto;
   @include e('logo-link') {
     display: inline-block;
     padding: 20px 0;
@@ -59,7 +50,7 @@ export default {
   }
   @include e('list') {
     position: absolute;
-    right: 0;
+    right: 125px;
     top: 0;
     font-size: 0;
   }
