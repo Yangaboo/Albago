@@ -50,10 +50,10 @@ public class WebRestController {
     }
 
     @PostMapping("/posts/{post_id}/comments")
-    public List<Comments> saveComments(@RequestBody CommentsSaveRequestDto dto) {
+    public Comments saveComments(@RequestBody CommentsSaveRequestDto dto) {
         commentsService.save(dto);
         String post_id = String.valueOf(dto.getPost_id());
-        return commentsService.findComments(Long.valueOf(post_id));
+        return commentsService.findComments(Long.valueOf(post_id)).get(0);
     }
 
     @GetMapping("/posts/{post_id}")
