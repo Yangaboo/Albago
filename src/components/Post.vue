@@ -13,7 +13,11 @@
         :viewCount="viewCount"
         :content="content"
         :good="good"
-        :bad="bad"/>
+        :bad="bad"
+        :isCheckedGood="isCheckedGood"
+        :isCheckedBad="isCheckedBad"
+        @click-good="value => isCheckedGood = value"
+        @click-bad="value => isCheckedBad = value"/>
       <post-comment
         class="post__comment"
         :comments="comments"
@@ -41,6 +45,7 @@ export default {
     return {
       postNavStyle: 'background-color: #eee; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16)',
       name: '데이터를 가져오는 중 입니다',
+      postId: location.href.split('id=')[1],
       writingDate: '',
       writingTime: '',
       viewCount: 0,
@@ -48,11 +53,12 @@ export default {
       good: 47,
       bad: 13,
       comments: null,
+      isCheckedGood: false,
+      isCheckedBad: false,
     };
   },
   created() {
-    const postId = location.href.split('id=')[1];
-    this.$axios.get(`${uri}/posts/${postId}`)
+    this.$axios.get(`${uri}/posts/${this.postId}`)
       .then(({ data }) => {
         const post = data.post[0];
         this.name = post.title;
@@ -74,29 +80,15 @@ export default {
     toggleGood(index) {
       // TODO: 해당 index의 isCheckedGood이 토글됨, 서버로 요청(각 컴퓨터를 구분할 수 있는 식별자와 함께)
     },
-    formatDate(dateObject = new Date()) {
-      const year = dateObject.getFullYear();
-      const month = `0${dateObject.getMonth() + 1}`.slice(-2);
-      const date = `0${dateObject.getDate()}`.slice(-2);
-
-      return `${year}.${month}.${date}`;
-    },
-    formatTime(dateObject = new Date()) {
-      const hour = `0${dateObject.getHours()}`.slice(-2);
-      const minute = `0${dateObject.getMinutes()}`.slice(-2);
-
-      return `${hour}:${minute}`;
-    },
-    createComment(content, name, pw) {
-      this.comments.push({
-        name,
+    createComment(content, author, pwd) {
+      this.$axios.post(`${uri}/posts/${this.postId}/comments`, {
         content,
-        writingDate: this.formatDate(),
-        writingTime: this.formatTime(),
-        good: 0,
+        author,
+        pwd,
+        post_id: this.postId,
+      }).then(({ data }) => {
+        this.comments.push(data);
       });
-
-      // TODO: 댓글 추가 요청
     },
   },
 };
