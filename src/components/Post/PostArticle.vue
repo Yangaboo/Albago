@@ -8,9 +8,7 @@
         {{ writingDate }} | {{ writingTime }} | 조회 {{ viewCount }}회
       </div>
     </header>
-    <div class="article__content">
-      {{ content }}
-    </div>
+    <div class="article__content" v-html="content"></div>
     <div class="article__cover">
       <div class="clickable good">
         {{ good }}

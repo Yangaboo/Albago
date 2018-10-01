@@ -13,9 +13,7 @@
         <div class="comment__writing-date">
           {{ formatDate(comment.createdDate) }}
         </div>
-        <div class="comment__content">
-          {{ comment.content }}
-        </div>
+        <div class="comment__content" v-html="comment.content"></div>
         <input
           type="checkbox"
           class="comment__good-checkbox"
