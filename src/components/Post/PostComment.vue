@@ -31,7 +31,9 @@
         <!-- TODO: 댓글 수정 기능 -->
       </li>
     </ul>
-    <div class="comment__add-cover">
+    <form
+      class="comment__add-cover"
+      @submit.prevent="pw === pwRe ? $emit('create', text, name, pw) : ''">
       <div class="comment__alert" v-show="pw !== pwRe">
         비밀번호가 다릅니다
       </div>
@@ -55,12 +57,11 @@
         type="password"
         placeholder="비밀번호 재입력"
         v-model="pwRe">
-      <button
-        class="comment__btn-add"
-        @click="pw === pwRe ? $emit('create', text, name, pw) : ''">
-        댓글달기
-      </button>
-    </div>
+      <input
+        type="submit"
+        value="댓글달기"
+        class="comment__btn-add">
+    </form>
   </div>
 </template>
 
