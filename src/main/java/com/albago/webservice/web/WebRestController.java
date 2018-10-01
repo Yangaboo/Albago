@@ -1,8 +1,8 @@
 package com.albago.webservice.web;
 
 import com.albago.webservice.JOB;
+import com.albago.webservice.domain.Comments;
 import com.albago.webservice.domain.Posts;
-import com.albago.webservice.domain.PostsRepository;
 import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
 import com.albago.webservice.service.CommentsService;
@@ -50,8 +50,10 @@ public class WebRestController {
     }
 
     @PostMapping("/posts/{post_id}/comments")
-    public Long saveComments(@RequestBody CommentsSaveRequestDto dto) {
-        return commentsService.save(dto);
+    public List<Comments> saveComments(@RequestBody CommentsSaveRequestDto dto) {
+        commentsService.save(dto);
+        String post_id = String.valueOf(dto.getPost_id());
+        return commentsService.findComments(Long.valueOf(post_id));
     }
 
     @GetMapping("/posts/{post_id}")
