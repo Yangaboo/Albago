@@ -10,12 +10,24 @@
     </header>
     <div class="article__content" v-html="content"></div>
     <div class="article__cover">
-      <div class="clickable good">
+      <input
+        type="checkbox"
+        style="display: none"
+        id="checkboxGood"
+        :value="isCheckedGood"
+        @change="$emit('click-good', isCheckedGood)">
+      <label class="clickable good" for="checkboxGood">
         {{ good }}
-      </div>
-      <div class="clickable bad">
+      </label>
+      <input
+        type="checkbox"
+        style="display: none"
+        id="checkboxBad"
+        :value="isCheckedBad"
+        @change="$emit('click-bad', isCheckedGood)">
+      <label class="clickable bad" for="checkboxBad">
         {{ bad }}
-      </div>
+      </label>
     </div>
   </div>
 </template>
@@ -30,6 +42,8 @@ export default {
     content: String,
     good: Number,
     bad: Number,
+    isCheckedGood: Boolean,
+    isCheckedBad: Boolean,
   },
 };
 </script>
@@ -81,16 +95,17 @@ $border1: 3px solid #c4c6c9;
 
 .clickable {
   width: 100px;
-  height: 100px;
+  height: 50px;
   text-align: center;
+  margin: 0 30px;
 }
 .good {
-  // background: url('../../assets/good.png') no-repeat bottom center;
-  background-size: cover;
+  background: url('../../assets/post-like.png') no-repeat bottom center;
+  background-size: contain;
 }
 .bad {
-  // background: url('../../assets/bad.png') no-repeat bottom center;
-  background-size: cover;
+  background: url('../../assets/post-dislike.png') no-repeat bottom center;
+  background-size: contain;
 }
 
 </style>
