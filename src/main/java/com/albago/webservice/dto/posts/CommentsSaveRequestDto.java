@@ -18,12 +18,12 @@ public class CommentsSaveRequestDto {
     private long post_id;
 
     @Builder
-    public CommentsSaveRequestDto(String content, String author, String pwd, int favor, int hate, long post_id) {
+    public CommentsSaveRequestDto(String content, String author, String pwd, long post_id) {
         this.content = content;
         this.author = author;
         this.pwd = pwd;
-        this.favor = favor;
-        this.hate = hate;
+        this.favor = 0;
+        this.hate = 0;
         this.post_id = post_id;
     }
 

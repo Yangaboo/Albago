@@ -21,14 +21,14 @@ public class PostsSaveRequestDto {
     private int visit;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author, String pwd, int cat_id, int favor, int hate, int visit) {
+    public PostsSaveRequestDto(String title, String content, String author, String pwd, int cat_id, int visit) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.pwd = pwd;
         this.cat_id = cat_id;
-        this.favor = favor;
-        this.hate = hate;
+        this.favor = 0;
+        this.hate = 0;
         this.visit = visit;
     }
 
