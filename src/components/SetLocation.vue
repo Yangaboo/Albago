@@ -1,8 +1,10 @@
 <template>
   <transition name="modal">
-    <div class="set-loc">
+    <div class="set-loc">>
       <div class="set-loc__mask" @click="$emit('closeModal')"></div>
       <div class="modal">
+
+        <!-- modal header -->
         <h2 class="modal__name">
           위치 변경하기
           <button class="modal__close-button"
@@ -10,18 +12,22 @@
             &times;
           </button>
         </h2>
+
+        <!-- modal main -->
         <div class="modal__main">
-          <div class="modal__search">
+          <form @submit.prevent="searchPlaces" class="modal__search">
+            <!-- modal input keyword -->
             <input class="modal__search__input-text"
               type="text"
               :placeholder="placeholdText"
-              v-model="keyword"
-              @keydown.enter="searchPlaces">
-            <button class="modal__search__search-button"
-              @click="searchPlaces">
-              검색
-            </button>
-          </div>
+              v-model="keyword">
+            <input
+              type="submit"
+              class="modal__search__search-button"
+              value="검색"/>
+          </form>
+
+          <!-- map view -->
           <vue-daum-map class="modal__map"
             :appKey="appKey"
             :center.sync="center"
@@ -29,11 +35,15 @@
             :libraries="libraries"
             @load="onLoad"/>
           <div class="modal__wrapper">
+
+            <!-- result list -->
             <ul class="modal__result-list">
               <li class="modal__result-item"
                 v-for="(placeList, index) in placeLists"
                 :key="index"
-                @click="selected = index"
+                @click="selectPlace(index)"
+                @mouseover="displayInfowindow(markers[index], placeList.place_name)"
+                @mouseout="infowindow.close()"
                 :class="{'selected': selected == index}">
                 <h5 class="modal__result-item__name">
                   {{ placeList.place_name }}
@@ -46,6 +56,8 @@
                 </div>
               </li>
             </ul>
+
+            <!-- result list pagination -->
             <div class="modal__pagination">
               <a class="modal__pagination__number"
                 href="#"
@@ -56,6 +68,8 @@
                 {{ index }}
               </a>
             </div>
+
+            <!-- select button -->
             <button class="modal__set-button"
               @click="setLocation">
               {{ buttonText }}
@@ -87,10 +101,12 @@ export default {
       searchPlaceObject: {},
       keyword: '',
       placeLists: [],
+      markers: [],
       selected: 0,
       placeholdText: '키워드를 입력해 주세요(건물명, 주소..)',
       pagination: {},
       buttonText: '해당 위치로 설정',
+      infowindow: null,
     };
   },
   methods: {
@@ -102,9 +118,14 @@ export default {
       const boundsStr = bounds.toString();
       window.console.log('Daum Map Loaded', boundsStr);
 
+      // 생성된 지도 객체 바인딩
       this.mapObject = map;
+      // daum.maps 객체를 window 속성으로 매핑
       this.daumMapsObject = window.daum.maps;
+      // 장소 검색 객체 바인딩
       this.searchPlaceObject = new this.daumMapsObject.services.Places();
+      // 마커위에 표출할 인포윈도우
+      this.infowindow = new this.daumMapsObject.InfoWindow({ zIndex: 1 });
     },
     searchPlaces() {
       if (!this.keyword.replace(/^\s+|\s+$/g, '')) {
@@ -132,17 +153,32 @@ export default {
     },
     displayPlaces() {
       const bounds = new this.daumMapsObject.LatLngBounds();
+      this.removeAllMarker();
       for (let i = 0; i < this.placeLists.length; i += 1) {
         // 마커를 생성하고 지도에 표시합니다
         const placePosition = new this.daumMapsObject.LatLng(
           this.placeLists[i].y,
           this.placeLists[i].x,
         );
-        this.addMarker(placePosition);
+        const marker = this.addMarker(placePosition);
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
+
+        // 마커에 마우스오버시 인포윈도우표시
+        this.daumMapsObject.event.addListener(marker, 'mouseover', () => {
+          this.displayInfowindow(marker, this.placeLists[i].place_name);
+        });
+
+        this.daumMapsObject.event.addListener(marker, 'mouseout', () => {
+          this.infowindow.close();
+        });
+
+        // 마커 클릭시 해당 장소 선택
+        this.daumMapsObject.event.addListener(marker, 'click', () => {
+          this.selectPlace(i);
+        });
       }
 
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
@@ -161,13 +197,26 @@ export default {
       });
 
       marker.setMap(this.mapObject); // 지도 위에 마커를 표출합니다
-      // markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+      this.markers.push(marker); // 배열에 생성된 마커를 추가합니다
 
       return marker;
+    },
+    removeAllMarker() {
+      this.markers.forEach(marker => marker.setMap(null));
+      this.markers = [];
+    },
+    displayInfowindow(marker, title) {
+      const content = `<div style="padding:5px;z-index:1;">${title}</div>`;
+
+      this.infowindow.setContent(content);
+      this.infowindow.open(this.mapObject, marker);
     },
     changePlaceholdText(text) {
       this.keyword = '';
       this.placeholdText = text;
+    },
+    selectPlace(index) {
+      this.selected = index;
     },
     setLocation() {
       if (this.placeLists) {
