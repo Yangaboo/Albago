@@ -224,8 +224,10 @@ export default {
         window.localStorage.setItem('place_name', selectedPlace.place_name);
         window.localStorage.setItem('address_name', selectedPlace.address_name);
         window.localStorage.setItem('road_address_name', selectedPlace.road_address_name);
-        this.buttonText = '변경되었습니다';
+        window.localStorage.setItem('x', selectedPlace.x);
+        window.localStorage.setItem('y', selectedPlace.y);
         this.$EventBus.$emit('setLocate');
+        this.$emit('closeModal');
       }
     },
   },
