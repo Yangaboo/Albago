@@ -156,7 +156,7 @@ public class WebRestController {
             @ApiImplicitParam(name = "url", value = "알바정보", required = true,  dataType = "string", paramType = "body", defaultValue = ""),
     })
     @PostMapping("/filter")
-    public HashMap<String, String> filter(@RequestBody JOB url) throws IOException {
+    public HashMap<String, String> filter(@RequestBody JOB url) throws Exception {
         ArrayList geoLocation;
         String totalDistance;
 

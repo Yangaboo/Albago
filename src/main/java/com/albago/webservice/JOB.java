@@ -1,5 +1,7 @@
 package com.albago.webservice;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -52,7 +54,7 @@ public class JOB {
         return startY;
     }
 
-    public ArrayList convertAddress(String address) throws IOException {
+    public ArrayList convertAddress(String address) throws Exception {
         String apiKey = "53cc8319-52df-4dfa-ba76-fbcc52ccdc99";
         String Accept = "application/json";
 
@@ -72,21 +74,28 @@ public class JOB {
         }
 
         String inputLine;
-        String response = null;
+        StringBuffer response = new StringBuffer();
         ArrayList geoLocation = new ArrayList();
-        if ((inputLine = br.readLine()) != null) {
-            response = inputLine;
-
-            System.out.println(response);
-
-            geoLocation.add(response.substring(365, 389).replaceAll("[^0-9&.]", ""));
-            geoLocation.add(response.substring(388, 413).replaceAll("[^0-9&.]", ""));
+        while ((inputLine = br.readLine()) != null) {
+            response.append(inputLine);
+//            geoLocation.add(response.substring(365, 389).replaceAll("[^0-9&.]", ""));
+//            geoLocation.add(response.substring(388, 413).replaceAll("[^0-9&.]", ""));
         }
+        br.close();
+        System.out.println(response.toString());
+
+        JSONObject myResponse = new JSONObject(response.toString());
+        JSONObject convertAdd = myResponse.getJSONObject("ConvertAdd");
+        System.out.println(convertAdd.getString("oldLat"));
+        System.out.println(convertAdd.getString("oldLon"));
+
+        geoLocation.add(convertAdd.getString("oldLat"));
+        geoLocation.add(convertAdd.getString("oldLon"));
 
         return geoLocation;
     }
 
-    public String findDistance(String startX, String startY, String endX, String endY) throws IOException {
+    public String findDistance(String startX, String startY, String endX, String endY) throws Exception {
         String apiKey = "53cc8319-52df-4dfa-ba76-fbcc52ccdc99";
         String Accept = "application/json";
 
@@ -106,13 +115,24 @@ public class JOB {
         }
 
         String inputLine;
-        String response = null;
+        StringBuffer response = new StringBuffer();
         String totalDistance = null;
-        if ((inputLine = br.readLine()) != null) {
-            response = inputLine;
-            totalDistance = response.substring(110, 120).replaceAll("[^0-9]", "");
+        while ((inputLine = br.readLine()) != null) {
+            response.append(inputLine);
         }
+        br.close();
 
+        JSONObject myResponse = new JSONObject(response.toString());
+        JSONArray features = new JSONArray(myResponse.getJSONArray("features").toString());
+        JSONObject tmp = new JSONObject(features.getJSONObject(0).toString());
+        JSONObject properties = new JSONObject(tmp.getJSONObject("properties").toString());
+//        System.out.println(myResponse);
+//        System.out.println(tmp);
+//        System.out.println(properties.getString("totalDistance"));
+//        System.out.println(tmp.getJSONObject("properties"));
+
+        totalDistance = properties.getString("totalDistance");
+        
         return totalDistance;
     }
 
