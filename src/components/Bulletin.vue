@@ -6,10 +6,10 @@
       <div class="bulletin__container">
         <header class="bulletin__header">
           <div class="bulletin__outline">
-            총 {{ totalElements }}건
+            결과 총 {{ totalElements }}건
             <!-- 금일 {{ todayBulletin }}건 -->
           </div>
-          <div class="bulletin__nav-tool">
+          <form @submit.prevent="searchPost(1)" class="bulletin__nav-tool">
             <select
               class="bulletin__category"
               v-model="currentCategory"
@@ -23,9 +23,13 @@
             <input
               type="search"
               placeholder="검색어.."
-              class="bulletin__search-input">
-            <button class="bulletin__search-button">검색</button>
-          </div>
+              class="bulletin__search-input"
+              v-model="searchKeyword"/>
+            <input
+              type="submit"
+              value="검색"
+              class="bulletin__search-button"/>
+          </form>
         </header>
 
         <bulletin-list
@@ -36,7 +40,7 @@
           class="bulletin__bulletin-paging"
           :selected="currentPage"
           :category="categoryArray[currentCategory]"
-          @select="number => getPostList(number)"
+          @select="number => isSearchedResult ? searchPost(number) : getPostList(number)"
           :pagesTotalNumber="totalPages"/>
       </div>
     </div>
@@ -62,6 +66,8 @@ export default {
       currentPage: 1,
       totalPages: 0,
       totalElements: 0,
+      searchKeyword: '',
+      isSearchedResult: false,
     };
   },
   components: {
@@ -72,11 +78,26 @@ export default {
   },
   methods: {
     getPostList(number) {
+      this.isSearchedResult = false;
       this.currentPage = number;
       this.$axios.get(`${URI}/posts`, {
         params: {
           page: number,
           catId: this.currentCategory,
+        },
+      }).then(({ data }) => {
+        this.bulletins = data.content;
+        this.totalPages = data.totalPages;
+        this.totalElements = data.totalElements;
+      });
+    },
+    searchPost(number) {
+      this.isSearchedResult = true;
+      this.currentPage = number;
+      this.$axios.get(`${URI}/search`, {
+        params: {
+          page: number,
+          title: this.searchKeyword,
         },
       }).then(({ data }) => {
         this.bulletins = data.content;
