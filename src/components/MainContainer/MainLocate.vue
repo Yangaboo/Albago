@@ -19,11 +19,11 @@ export default {
     };
   },
   created() {
-    if (window.localStorage.getItem('address_name')) {
-      this.currentLocation = window.localStorage.getItem('address_name');
+    if (window.localStorage.getItem('road_address_name')) {
+      this.currentLocation = window.localStorage.getItem('road_address_name');
     }
     this.$EventBus.$on('setLocate', () => {
-      this.currentLocation = window.localStorage.getItem('address_name');
+      this.currentLocation = window.localStorage.getItem('road_address_name');
     });
   },
 };
