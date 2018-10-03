@@ -49,7 +49,7 @@ import Slideshow from './Common/Slideshow';
 import BulletinList from './Bulletin/BulletinList';
 import BulletinPaging from './Bulletin/BulletinPaging';
 import { categoryObj, categoryArr } from '../constants/category';
-import uri from '../constants/uri';
+import URI from '../constants/uri';
 
 export default {
   name: 'bulletin',
@@ -73,12 +73,16 @@ export default {
   methods: {
     getPostList(number) {
       this.currentPage = number;
-      this.$axios.get(`${uri}/posts?page=${number}&catId=${this.currentCategory}`)
-        .then(({ data }) => {
-          this.bulletins = data.content;
-          this.totalPages = data.totalPages;
-          this.totalElements = data.totalElements;
-        });
+      this.$axios.get(`${URI}/posts`, {
+        params: {
+          page: number,
+          catId: this.currentCategory,
+        },
+      }).then(({ data }) => {
+        this.bulletins = data.content;
+        this.totalPages = data.totalPages;
+        this.totalElements = data.totalElements;
+      });
     },
   },
   created() {

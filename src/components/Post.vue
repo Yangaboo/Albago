@@ -32,7 +32,7 @@
 import Navigation from './Common/Navigation';
 import PostArticle from './Post/PostArticle';
 import PostComment from './Post/PostComment';
-import uri from '../constants/uri';
+import URI from '../constants/uri';
 
 export default {
   components: {
@@ -58,7 +58,7 @@ export default {
     };
   },
   created() {
-    this.$axios.get(`${uri}/posts/${this.postId}`)
+    this.$axios.get(`${URI}/posts/${this.postId}`)
       .then(({ data }) => {
         const post = data.post[0];
         this.name = post.title;
@@ -81,7 +81,7 @@ export default {
     // TODO: 해당 index의 isCheckedGood이 토글됨, 서버로 요청(각 컴퓨터를 구분할 수 있는 식별자와 함께)
     // },
     createComment(content, author, pwd) {
-      this.$axios.post(`${uri}/posts/${this.postId}/comments`, {
+      this.$axios.post(`${URI}/posts/${this.postId}/comments`, {
         content,
         author,
         pwd,
