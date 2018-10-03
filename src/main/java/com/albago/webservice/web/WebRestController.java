@@ -166,6 +166,9 @@ public class WebRestController {
         String endX = String.valueOf(geoLocation.get(1));
         String endY = String.valueOf(geoLocation.get(0));
 
+        System.out.println(endX);
+        System.out.println(endY);
+
         String startX = url.getStartX();
         String startY = url.getStartY();
 
