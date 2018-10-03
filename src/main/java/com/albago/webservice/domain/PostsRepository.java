@@ -1,5 +1,6 @@
 package com.albago.webservice.domain;
 
+import javafx.geometry.Pos;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 public interface PostsRepository extends JpaRepository<Posts, Long> {
@@ -38,11 +40,14 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query("SELECT p.visit FROM Posts p WHERE p.postId=:postId")
     String findVisit(@Param("postId") Long post_id);
 
+    @Query("SELECT p FROM Posts p WHERE p.title LIKE %:title%")
+    Page<Posts> findPostsByTitle(@Param("title") String title, Pageable pageable);
+
+    @Query("SELECT p FROM Posts p WHERE p.content LIKE %:content%")
+    Page<Posts> findPostsByContent(@Param("content") String content, Pageable pageable);
+
     @Modifying
     @Query("UPDATE Posts as p SET p.visit=:visit WHERE p.postId=:postId")
     int updateVisit(@Param("visit") int visit,
                    @Param("postId") Long post_id);
 }
-
-
-

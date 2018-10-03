@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class PostsService {
@@ -70,6 +72,16 @@ public class PostsService {
     @Transactional
     public String findVisit(Long post_id) {
         return postsRepository.findVisit(post_id);
+    }
+
+    @Transactional
+    public Page<Posts> findPostsByTitle(String title, Pageable pageable) {
+        return postsRepository.findPostsByTitle(title, pageable);
+    }
+
+    @Transactional
+    public Page<Posts> findPostsByContent(String content, Pageable pageable) {
+        return postsRepository.findPostsByContent(content, pageable);
     }
 
     @Transactional

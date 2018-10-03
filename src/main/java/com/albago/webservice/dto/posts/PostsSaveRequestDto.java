@@ -21,7 +21,7 @@ public class PostsSaveRequestDto {
     private int visit;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author, String pwd, int cat_id, int visit) {
+    public PostsSaveRequestDto(String title, String content, String author, String pwd, int cat_id) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -29,7 +29,7 @@ public class PostsSaveRequestDto {
         this.cat_id = cat_id;
         this.favor = 0;
         this.hate = 0;
-        this.visit = visit;
+        this.visit = 0;
     }
 
     public Posts toEntity() {

@@ -10,15 +10,18 @@ import com.albago.webservice.service.PostsService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import javafx.geometry.Pos;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
+import javax.validation.constraints.Null;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -174,5 +177,10 @@ public class WebRestController {
         crawling.put("distance", totalDistance);
 
         return crawling;
+    }
+
+    @GetMapping("/search")
+    public Page<Posts> search(@PageableDefault(size = 10, sort = {"postId"}, direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(value = "title", required = true) String title) {
+        return postsService.findPostsByTitle(title, pageable);
     }
 }
