@@ -77,8 +77,8 @@ public class JOB {
         if ((inputLine = br.readLine()) != null) {
             response = inputLine;
 
-            geoLocation.add(response.substring(371, 382));
-            geoLocation.add(response.substring(394, 406));
+            geoLocation.add(response.substring(365, 389).replaceAll("[^0-9&.]", ""));
+            geoLocation.add(response.substring(390, 413).replaceAll("[^0-9&.]", ""));
         }
 
         return geoLocation;
