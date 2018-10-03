@@ -83,7 +83,6 @@ export default {
   },
   methods: {
     addJob() {
-      console.log('addjob');
       // request to uri crawling for job data
     },
     deleteAll() {

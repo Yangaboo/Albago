@@ -75,7 +75,6 @@ export default {
       this.currentPage = number;
       this.$axios.get(`${uri}/posts?page=${number}&catId=${this.currentCategory}`)
         .then(({ data }) => {
-          console.log(data);
           this.bulletins = data.content;
           this.totalPages = data.totalPages;
           this.totalElements = data.totalElements;
