@@ -148,20 +148,24 @@ public class JOB {
         Element workTime = albaDocument.select("li[class=worktimecd]").first();
         Element period = albaDocument.select("li[class=workperiodcd]").select("a").first();
         Element pay = albaDocument.select("p[class=pay]").first();
-        Element workDate = albaDocument.select("li[class=workweekcd]").select("a").first();
+        Element workDate = albaDocument.select("li[class=workweekcd]").first();
         Element age = albaDocument.select("li[class=agetemp]").first();
+        Element sex = albaDocument.select("li[class=sex]").first();
+        Element grade = albaDocument.select("li[class=lastSchool]").first();
 
         String addressValue = address.text();
         String titleValue = title.text();
         String workTimeValue = workTime.text().replaceAll("[^0-9&~]", "");
         String[] workTimeValues = workTimeValue.split("~");
-        String periodValue = period.text().replace("1년", "12개월").replaceAll("[^0-9&~]", "");
+        String periodValue = period.text().replace("1년", "12개월");
         String[] periodValues = periodValue.split("~");
         String payValue;
-        String workDateValue = workDate.text();
-        String[] workDateValues;
+        String workDateValue = workDate.text().substring(5);
+        ArrayList workDateValues = new ArrayList();
         String ageValue = age.text();
         int workingTime = Integer.parseInt(workTimeValues[1].substring(0, 2)) - Integer.parseInt(workTimeValues[0].substring(0, 2));
+        String sexValue = sex.text().substring(3);
+        String gradeValue = grade.text();
 
         String Monday = "0";
         String Tuesday = "1";
@@ -170,6 +174,44 @@ public class JOB {
         String Friday = "4";
         String Saturday = "5";
         String Sunday = "6";
+
+        if (ageValue.contains("연령무관") && gradeValue.contains("학력무관")) {
+            res.put("isTeen", String.valueOf(true));
+        } else if (ageValue.contains("미성년자 불가")) {
+            res.put("isTeen", String.valueOf(false));
+        } else if (ageValue.contains("연령무관") && gradeValue.contains("고졸이상")) {
+            res.put("isTeen", String.valueOf(false));
+        }
+
+        String workDateNew = workDateValue.replaceAll("[^월화수목금토일]", "");
+
+        if (workDateNew.contains("월")) {
+            workDateValues.add("0");
+        }
+
+        if (workDateNew.contains("화")) {
+            workDateValues.add("1");
+        }
+
+        if (workDateNew.contains("수")) {
+            workDateValues.add("2");
+        }
+
+        if (workDateNew.contains("목")) {
+            workDateValues.add("3");
+        }
+
+        if (workDateNew.contains("금")) {
+            workDateValues.add("4");
+        }
+
+        if (workDateNew.contains("토")) {
+            workDateValues.add("5");
+        }
+
+        if (workDateNew.contains("일")) {
+            workDateValues.add("6");
+        }
 
         if (pay == null) {
             payValue = "추후 협의";
@@ -187,31 +229,20 @@ public class JOB {
             }
         }
 
-        if (periodValues.length == 2) {
-            res.put("minimumPeriod", periodValues[0]);
-            res.put("maximumPeriod", periodValues[1]);
+        if (sexValue.equals("성별무관")) {
+            res.put("sex", "0");
+        } else if (sexValue.equals("남자")) {
+            res.put("sex", "1");
         } else {
-            res.put("minimumPeriod", periodValues[0]);
-        }
-
-        if (workDateValue.equals("주5일")) {
-            workDateValues = workDateValue.replaceAll("주5일", Monday + "," + Tuesday + ","  + Wednesday + ","  + Thursday + ","  + Friday).split(",");
-            res.put("days", Arrays.toString(workDateValues));
-        } else if (workDateValue.equals("월~금")) {
-            workDateValues = workDateValue.replaceAll("월~금", Monday + ","  + Tuesday + ","  + Wednesday + ","  + Thursday + ","  + Friday).split(",");
-            res.put("days", Arrays.toString(workDateValues));
-        } else if (workDateValue.equals("월~토")) {
-            workDateValues = workDateValue.replaceAll("월~토", Monday + ","  + Tuesday + ","  + Wednesday + ","  + Thursday + ","  + Friday + "," + Saturday).split(",");
-            res.put("days", Arrays.toString(workDateValues));
-        } else {
-            res.put("days", workDateValue);
+            res.put("sex", "2");
         }
 
         res.put("address", addressValue);
         res.put("name", titleValue);
         res.put("startTime", workTimeValues[0].substring(0, 2));
         res.put("endTime", workTimeValues[1].substring(0, 2));
-        res.put("age", ageValue.substring(3));
+        res.put("period", periodValue);
+        res.put("days", String.valueOf(workDateValues));
         return res;
     }
 }
