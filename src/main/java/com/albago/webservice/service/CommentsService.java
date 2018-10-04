@@ -82,4 +82,9 @@ public class CommentsService {
     public int getHate(Long comment_id) {
         return commentsRepository.getHate(comment_id);
     }
+
+    @Transactional
+    public int updateComment(String content, Long comment_id) {
+        return commentsRepository.updateComment(content, comment_id);
+    }
 }

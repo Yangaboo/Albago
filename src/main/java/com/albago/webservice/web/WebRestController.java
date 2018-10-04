@@ -122,6 +122,12 @@ public class WebRestController {
         return "Success";
     }
 
+    @PutMapping("/posts/{post_id}/update/{comment_id}")
+    public String updateComment(@PathVariable Long comment_id, @RequestBody Post comment) {
+        commentsService.updateComment(comment.getContent(), comment_id);
+        return "Success";
+    }
+
     @DeleteMapping("/posts/{post_id}/delete/{comment_id}")
     public ResponseEntity<?> deleteComments(@PathVariable Long comment_id, @RequestBody JOB pwd) {
         try{

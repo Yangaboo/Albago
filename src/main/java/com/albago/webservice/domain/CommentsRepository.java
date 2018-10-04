@@ -44,4 +44,8 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
     @Query("SELECT c.hate FROM Comments c WHERE c.comment_id=:comment_id")
     int getHate(@Param("comment_id") Long comment_id);
+
+    @Modifying
+    @Query("UPDATE Comments as c SET c.content=:content WHERE c.comment_id=:comment_id")
+    int updateComment(@Param("content") String content, @Param("comment_id") Long comment_id);
 }
