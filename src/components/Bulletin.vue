@@ -1,6 +1,9 @@
 <template>
   <div class="wrap">
-    <bulletin-create v-if="onCreateModal"/>
+    <bulletin-create
+      v-if="onCreateModal"
+      @close-modal="onCreateModal = false"
+      @create="isSearchedResult ? searchPost(currentPage) : getPostList(currentPage)"/>
     <navigation/>
     <slideshow/>
     <div class="bulletin">
@@ -11,6 +14,9 @@
             <!-- 금일 {{ todayBulletin }}건 -->
           </div>
           <form @submit.prevent="searchPost(1)" class="bulletin__nav-tool">
+            <button @click="onCreateModal = true" class="bulletin__create-post">
+              게시글 만들기
+            </button>
             <select
               class="bulletin__category"
               v-model="currentCategory"
@@ -30,9 +36,6 @@
               type="submit"
               value="검색"
               class="bulletin__search-button"/>
-            <button @click="onCreateModal = true" class="bulletin__create-post">
-              게시글 만들기
-            </button>
           </form>
         </header>
 
@@ -161,6 +164,11 @@ export default {
     color: #494f5c;
     border: none;
     margin-left: 5px;
+  }
+  @include e('create-post') {
+    @extend %tool;
+    width: 100px;
+    margin-right: 20px;
   }
   @include e('category') {
     @extend %tool;
