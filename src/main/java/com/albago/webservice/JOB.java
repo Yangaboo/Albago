@@ -1,5 +1,6 @@
 package com.albago.webservice;
 
+import io.swagger.models.auth.In;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Connection;
@@ -14,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class JOB {
@@ -82,12 +84,9 @@ public class JOB {
 //            geoLocation.add(response.substring(388, 413).replaceAll("[^0-9&.]", ""));
         }
         br.close();
-        System.out.println(response.toString());
 
         JSONObject myResponse = new JSONObject(response.toString());
         JSONObject convertAdd = myResponse.getJSONObject("ConvertAdd");
-        System.out.println(convertAdd.getString("oldLat"));
-        System.out.println(convertAdd.getString("oldLon"));
 
         geoLocation.add(convertAdd.getString("oldLat"));
         geoLocation.add(convertAdd.getString("oldLon"));
@@ -132,7 +131,7 @@ public class JOB {
 //        System.out.println(tmp.getJSONObject("properties"));
 
         totalDistance = properties.getString("totalDistance");
-        
+
         return totalDistance;
     }
 
@@ -154,26 +153,65 @@ public class JOB {
 
         String addressValue = address.text();
         String titleValue = title.text();
-        String workTimeValue = workTime.text();
-        String periodValue = period.text();
+        String workTimeValue = workTime.text().replaceAll("[^0-9&~]", "");
+        String[] workTimeValues = workTimeValue.split("~");
+        String periodValue = period.text().replace("1년", "12개월").replaceAll("[^0-9&~]", "");
+        String[] periodValues = periodValue.split("~");
         String payValue;
         String workDateValue = workDate.text();
+        String[] workDateValues;
         String ageValue = age.text();
+        int workingTime = Integer.parseInt(workTimeValues[1].substring(0, 2)) - Integer.parseInt(workTimeValues[0].substring(0, 2));
 
+        String Monday = "0";
+        String Tuesday = "1";
+        String Wednesday = "2";
+        String Thursday = "3";
+        String Friday = "4";
+        String Saturday = "5";
+        String Sunday = "6";
 
         if (pay == null) {
             payValue = "추후 협의";
+            res.put("hourlyWage", payValue);
         } else {
-            payValue = pay.text();
+            payValue = pay.text().replaceAll("[^0-9]", "");
+            if (payValue.length() >= 7) {
+                if (workingTime < 0) res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / (workingTime*-1)));
+                else res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / workingTime));
+            } else if (Integer.parseInt(payValue) > 50000) {
+                if (workingTime < 0) res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / (workingTime*-1)));
+                else res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / workingTime));
+            } else {
+                res.put("hourlyWage", payValue);
+            }
+        }
+
+        if (periodValues.length == 2) {
+            res.put("minimumPeriod", periodValues[0]);
+            res.put("maximumPeriod", periodValues[1]);
+        } else {
+            res.put("minimumPeriod", periodValues[0]);
+        }
+
+        if (workDateValue.equals("주5일")) {
+            workDateValues = workDateValue.replaceAll("주5일", Monday + "," + Tuesday + ","  + Wednesday + ","  + Thursday + ","  + Friday).split(",");
+            res.put("days", Arrays.toString(workDateValues));
+        } else if (workDateValue.equals("월~금")) {
+            workDateValues = workDateValue.replaceAll("월~금", Monday + ","  + Tuesday + ","  + Wednesday + ","  + Thursday + ","  + Friday).split(",");
+            res.put("days", Arrays.toString(workDateValues));
+        } else if (workDateValue.equals("월~토")) {
+            workDateValues = workDateValue.replaceAll("월~토", Monday + ","  + Tuesday + ","  + Wednesday + ","  + Thursday + ","  + Friday + "," + Saturday).split(",");
+            res.put("days", Arrays.toString(workDateValues));
+        } else {
+            res.put("days", workDateValue);
         }
 
         res.put("address", addressValue);
         res.put("name", titleValue);
-        res.put("workTime", workTimeValue);
-        res.put("period", periodValue);
-        res.put("hourlyWage", payValue);
-        res.put("days", workDateValue);
-        res.put("age", ageValue);
+        res.put("startTime", workTimeValues[0].substring(0, 2));
+        res.put("endTime", workTimeValues[1].substring(0, 2));
+        res.put("age", ageValue.substring(3));
         return res;
     }
 }
