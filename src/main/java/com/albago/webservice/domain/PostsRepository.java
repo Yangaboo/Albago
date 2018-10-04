@@ -45,6 +45,14 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     Page<Posts> findPostsByContent(@Param("content") String content, Pageable pageable);
 
     @Modifying
+    @Query("UPDATE Posts as p SET p.content=:content WHERE p.postId=:postId")
+    int updatePostContent(@Param("content") String content, @Param("postId") Long post_id);
+
+    @Modifying
+    @Query("UPDATE Posts as p SET p.title=:title WHERE p.postId=:postId")
+    int updatePostTitle(@Param("title") String title, @Param("postId") Long post_id);
+
+    @Modifying
     @Query("UPDATE Posts as p SET p.visit=:visit WHERE p.postId=:postId")
     int updateVisit(@Param("visit") int visit,
                    @Param("postId") Long post_id);

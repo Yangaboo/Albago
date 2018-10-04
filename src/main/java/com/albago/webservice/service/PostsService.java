@@ -1,5 +1,6 @@
 package com.albago.webservice.service;
 
+import com.albago.webservice.Post;
 import com.albago.webservice.domain.Posts;
 import com.albago.webservice.domain.PostsRepository;
 import com.albago.webservice.dto.posts.PostsSaveRequestDto;
@@ -88,5 +89,17 @@ public class PostsService {
     public int updateVisit(int visit, Long post_id) {
         postsRepository.updateVisit(visit, post_id);
         return visit;
+    }
+
+    @Transactional
+    public int updatePostContent(String content, Long post_id) {
+        postsRepository.updatePostContent(content, post_id);
+        return 1;
+    }
+
+    @Transactional
+    public int updatePostTitle(String title, Long post_id) {
+        postsRepository.updatePostTitle(title, post_id);
+        return 1;
     }
 }

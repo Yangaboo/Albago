@@ -1,6 +1,5 @@
 package com.albago.webservice;
 
-import io.swagger.models.auth.In;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Connection;
@@ -15,7 +14,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class JOB {
@@ -80,8 +78,6 @@ public class JOB {
         ArrayList geoLocation = new ArrayList();
         while ((inputLine = br.readLine()) != null) {
             response.append(inputLine);
-//            geoLocation.add(response.substring(365, 389).replaceAll("[^0-9&.]", ""));
-//            geoLocation.add(response.substring(388, 413).replaceAll("[^0-9&.]", ""));
         }
         br.close();
 
@@ -125,10 +121,6 @@ public class JOB {
         JSONArray features = new JSONArray(myResponse.getJSONArray("features").toString());
         JSONObject tmp = new JSONObject(features.getJSONObject(0).toString());
         JSONObject properties = new JSONObject(tmp.getJSONObject("properties").toString());
-//        System.out.println(myResponse);
-//        System.out.println(tmp);
-//        System.out.println(properties.getString("totalDistance"));
-//        System.out.println(tmp.getJSONObject("properties"));
 
         totalDistance = properties.getString("totalDistance");
 
@@ -158,7 +150,6 @@ public class JOB {
         String workTimeValue = workTime.text().replaceAll("[^0-9&~]", "");
         String[] workTimeValues = workTimeValue.split("~");
         String periodValue = period.text().replace("1년", "12개월");
-        String[] periodValues = periodValue.split("~");
         String payValue;
         String workDateValue = workDate.text().substring(5);
         ArrayList workDateValues = new ArrayList();
@@ -166,14 +157,6 @@ public class JOB {
         int workingTime = Integer.parseInt(workTimeValues[1].substring(0, 2)) - Integer.parseInt(workTimeValues[0].substring(0, 2));
         String sexValue = sex.text().substring(3);
         String gradeValue = grade.text();
-
-        String Monday = "0";
-        String Tuesday = "1";
-        String Wednesday = "2";
-        String Thursday = "3";
-        String Friday = "4";
-        String Saturday = "5";
-        String Sunday = "6";
 
         if (ageValue.contains("연령무관") && gradeValue.contains("학력무관")) {
             res.put("isTeen", String.valueOf(true));
@@ -183,7 +166,9 @@ public class JOB {
             res.put("isTeen", String.valueOf(false));
         }
 
-        String workDateNew = workDateValue.replaceAll("[^월화수목금토일]", "");
+        String workDateNew = workDateValue.replaceAll("(요일)", "").replaceAll("[^월화수목금토일]", "");
+
+        System.out.println(workDateNew);
 
         if (workDateNew.contains("월")) {
             workDateValues.add("0");

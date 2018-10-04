@@ -1,6 +1,7 @@
 package com.albago.webservice.web;
 
 import com.albago.webservice.JOB;
+import com.albago.webservice.Post;
 import com.albago.webservice.domain.Comments;
 import com.albago.webservice.domain.Posts;
 import com.albago.webservice.dto.posts.CommentsSaveRequestDto;
@@ -84,6 +85,13 @@ public class WebRestController {
         Post.put("comments", comment);
 
         return Post;
+    }
+
+    @PutMapping("/posts/{post_id}/update")
+    public String updatePost(@PathVariable Long post_id, @RequestBody Post post) {
+        postsService.updatePostTitle(post.getTitle(), post_id);
+        postsService.updatePostContent(post.getContent(), post_id);
+        return "Success";
     }
 
     @PostMapping("/posts/{post_id}/favor")
