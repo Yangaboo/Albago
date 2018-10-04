@@ -31,10 +31,9 @@
             :key="`job${index}`"
             :name="job.name"
             :distance="job.distance"
-            :startDay="job.startDay"
-            :endDay="job.endDay"
             :startTime="job.startTime"
             :endTime="job.endTime"
+            :period="job.period"
             :hourlyWage="job.hourlyWage"
             :href="job.href"
             :days="job.days"
@@ -81,6 +80,8 @@ export default {
           data.days = JSON.parse(data.days);
           data.href = url;
 
+          data.sex = Number(data.sex);
+          data.isTeen = data.isTeen === 'true';
           data.tags = [];
           if (
             (data.startTime >= 6 && data.startTime <= 21) ||
