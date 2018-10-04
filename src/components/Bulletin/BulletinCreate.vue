@@ -14,7 +14,7 @@
             @input="title = $event.target.value"
             :value="title">
           <select
-            class="bulletin__category"
+            class="modal__category"
             v-model="currentCategory">
             <option v-for="option in categoryOptions"
               :key="option.value"
@@ -36,19 +36,23 @@
           placeholder="닉네임을 입력해주세요"
           @input="nickname = $event.target.value"
           :value="nickname">
-        <div class="modal__cover">
+        <div class="modal__flex-cover">
           <input
             class="modal__pw"
             placeholder="비밀번호를 입력해주세요"
-            type="text"
+            type="password"
             v-model="pw">
           <input
-            class="modal__pwRe"
+            class="modal__pw-re"
             placeholder="비밀번호를 재 입력해주세요"
-            type="text"
+            type="password"
             v-model="pwRe">
         </div>
-        <button @click="!onPost ? create() : ''">{{ buttonText }}</button>
+        <button
+          class="modal__btn"
+          @click="!onPost ? create() : ''">
+          {{ buttonText }}
+        </button>
       </div>
     </div>
   </transition>
@@ -104,6 +108,7 @@ export default {
 $z-index-create: 1;
 $z-index-mask: 2;
 $z-index-modal: 3;
+$color-main: #494f5c;
 
 .create {
   width: 100vw;
@@ -125,8 +130,8 @@ $z-index-modal: 3;
   $width-modal: 900px;
   $height-modal: 600px;
   $radius: 10px;
-  $side-padding: 60px;
   $name-padding-top: 30px;
+  $border-modal: solid 1px #707070;
 
   position: absolute;
   z-index: $z-index-modal;
@@ -140,6 +145,66 @@ $z-index-modal: 3;
   height: $height-modal;
   background-color: #fff;
   border-radius: $radius;
+  font-size: 16px;
+  line-height: 60px;
+  display: flex;
+  flex-flow: column;
+  @include e('name') {
+    border-bottom: $border-modal;
+    height: 60px;
+    text-align: center;
+    color: $color-main;
+    font-weight: bold;
+  }
+  @include e('flex-cover') {
+    height: 60px;
+    border-bottom: $border-modal;
+    display: flex;
+  }
+  @include e('title') {
+    padding-left: 30px;
+    flex: 1;
+  }
+  @include e('category') {
+    padding-left: 20px;
+    width: 200px;
+    border: none;
+    border-left: $border-modal;
+  }
+  @include e('content') {
+    resize: none;
+    border: none;
+    font-size: inherit;
+    overflow-y: scroll;
+    border-bottom: $border-modal;
+    width: 100%;
+    flex: 1;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  @include e('nickname') {
+    height: 60px;
+    border-bottom: $border-modal;
+    width: 100%;
+    padding-left: 30px;
+  }
+  @include e('pw') {
+    flex: 1;
+    padding-left: 30px;
+  }
+  @include e('pw-re') {
+    flex: 1;
+    padding-left: 30px;
+    border-left: $border-modal;
+  }
+  @include e('btn ') {
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
+    font-weight: bolder;
+    color: #fff;
+    background-color: $color-main;
+  }
   &-enter-active, &-leave-active {
     transition: opacity 0.5s ease;
   }
