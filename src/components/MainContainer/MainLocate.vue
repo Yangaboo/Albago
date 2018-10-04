@@ -15,16 +15,18 @@ export default {
   name: 'main-locate',
   data() {
     return {
-      currentLocation: '대전광역시 동구 산내로 1375',
+      currentLocation: '',
     };
   },
   created() {
-    if (window.localStorage.getItem('road_address_name')) {
-      this.currentLocation = window.localStorage.getItem('road_address_name');
-    }
     this.$EventBus.$on('setLocate', () => {
-      this.currentLocation = window.localStorage.getItem('road_address_name');
+      if (window.localStorage.getItem('road_address_name')) {
+        this.currentLocation = window.localStorage.getItem('road_address_name');
+      } else {
+        this.currentLocation = window.localStorage.getItem('address_name');
+      }
     });
+    this.$EventBus.$emit('setLocate');
   },
 };
 </script>
