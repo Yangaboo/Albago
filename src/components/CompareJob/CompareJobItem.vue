@@ -1,8 +1,4 @@
 <template>
-    <!--
-      TODO
-      job delete function
-    -->
     <div class="job">
       <div class="job__tags">
         <div
@@ -28,7 +24,7 @@
         {{ name }}
       </a>
       <div class="job__period">
-        {{ periodSring }}
+        {{ period }}
       </div>
       <div class="job__work-time">
         {{ workTimeString }}
@@ -49,14 +45,13 @@ export default {
   props: {
     distance: Number,
     name: String,
-    startDay: String,
-    endDay: String,
+    period: String,
     startTime: Number,
     endTime: Number,
     hourlyWage: Number,
-    href: String,
     days: Array,
     tags: Array,
+    href: String,
   },
   data() {
     return {
@@ -81,13 +76,6 @@ export default {
       const end = this.endTime;
       const workTime = start > end ? (end + 24) - end : end - start;
       return `${workTime}시간 (${start}시 ~ ${end}시)`;
-    },
-    // period: '17일 근무 (2018.04.01 ~ 2018.04.18)',
-    periodSring() {
-      const start = new Date(this.startDay);
-      const end = new Date(this.endDay);
-      const dateConst = 1000 * 60 * 60 * 24;
-      return `${Math.floor((end - start) / dateConst)}일 근무 (${this.startDay} ~ ${this.endDay})`;
     },
   },
 };

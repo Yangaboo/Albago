@@ -13,7 +13,7 @@
           <input
             type="url"
             class="add-job__uri-input"
-            v-model="uri"
+            v-model="jobUrl"
             placeholder="URI를 입력하세요">
           <input
             type="submit"
@@ -51,11 +51,7 @@
 import Navigation from './Common/Navigation';
 import CompareJobFilter from './CompareJob/CompareJobFilter';
 import CompareJobItem from './CompareJob/CompareJobItem';
-
-/*
-  TODO:
-  addJob으로 데이터 요청, jobLists에 데이터 추가
-*/
+import URI from '../constants/uri';
 
 export default {
   name: 'compare-job',
@@ -66,24 +62,46 @@ export default {
   },
   data() {
     return {
-      uri: '',
-      jobLists: [{
-        name: 'GS25 편의점 아르바이트',
-        distance: 16000,
-        startDay: '2018.04.01',
-        endDay: '2018.04.18',
-        startTime: 17,
-        endTime: 22,
-        hourlyWage: 8690,
-        days: [0, 1, 2, 3],
-        tags: ['day', 'night', 'male', 'female', 'teen'],
-        href: '#',
-      }],
+      jobUrl: '',
+      jobLists: [],
     };
   },
   methods: {
     addJob() {
-      // request to uri crawling for job data
+      const startX = localStorage.getItem('x');
+      const startY = localStorage.getItem('y');
+      const url = this.jobUrl;
+      this.$axios.post(`${URI}/filter`, { startX, startY, url })
+        .then((res) => {
+          const { data } = res;
+          data.distance = Number(data.distance);
+          data.startTime = Number(data.startTime);
+          data.endTime = Number(data.endTime);
+          data.hourlyWage = Number(data.hourlyWage);
+          data.days = JSON.parse(data.days);
+          data.href = url;
+
+          data.tags = [];
+          if (
+            (data.startTime >= 6 && data.startTime <= 21) ||
+            (data.endTime >= 6 && data.endTime <= 21)
+          ) {
+            data.tags.push('주간');
+          } if (
+            (data.startTime <= 6 && data.startTime >= 21) ||
+            (data.endTime <= 6 && data.endTime >= 21)
+          ) {
+            data.tags.push('야간');
+          } if (data.sex === 0 || data.sex === 1) {
+            data.tags.push('남자');
+          } if (data.sex === 0 || data.sex === 2) {
+            data.tags.push('여자');
+          } if (data.isTeen) {
+            data.tags.push('청소년');
+          }
+
+          this.jobLists.push(data);
+        });
     },
     deleteAll() {
       this.jobLists = [];
