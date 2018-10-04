@@ -11,9 +11,9 @@
       <div class="job__days">
         <div
           class="job__day"
-          v-for="(day, index) in reassignedDays"
+          v-for="(day, index) in dailyConstant"
           :key="`day${index}`"
-          :class="{'on':day }">
+          :class="{'on':days.includes(day) }">
           {{ day }}
         </div>
       </div>
@@ -48,6 +48,7 @@ export default {
     period: String,
     startTime: Number,
     endTime: Number,
+    workTime: Number,
     hourlyWage: Number,
     days: Array,
     tags: Array,
@@ -64,18 +65,8 @@ export default {
         `${Math.floor(this.distance / 1000)}km` :
         `${this.distance}m`;
     },
-    reassignedDays() {
-      const arr = ['', '', '', '', '', '', ''];
-      this.days.forEach((day) => {
-        arr[day] = this.dailyConstant[day];
-      });
-      return arr;
-    },
     workTimeString() {
-      const start = this.startTime;
-      const end = this.endTime;
-      const workTime = start > end ? (end + 24) - end : end - start;
-      return `${workTime}시간 (${start}시 ~ ${end}시)`;
+      return `${this.workTime}시간 (${this.startTime}시 ~ ${this.endTime}시)`;
     },
   },
 };

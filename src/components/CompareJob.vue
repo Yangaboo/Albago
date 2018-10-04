@@ -33,6 +33,7 @@
             :distance="job.distance"
             :startTime="job.startTime"
             :endTime="job.endTime"
+            :workTime="job.workTime"
             :period="job.period"
             :hourlyWage="job.hourlyWage"
             :href="job.href"
@@ -77,9 +78,14 @@ export default {
           data.startTime = Number(data.startTime);
           data.endTime = Number(data.endTime);
           data.hourlyWage = Number(data.hourlyWage);
-          data.days = JSON.parse(data.days);
+          data.days = JSON.parse(data.days.replace('\\', ''));
           data.href = url;
+          const start = data.startTime;
+          const end = data.endTime;
+          data.workTime = start > end ? (end + 24) - start : end - start;
 
+          data.isDay = false;
+          data.isNight = false;
           data.sex = Number(data.sex);
           data.isTeen = data.isTeen === 'true';
           data.tags = [];
@@ -87,11 +93,13 @@ export default {
             (data.startTime >= 6 && data.startTime <= 21) ||
             (data.endTime >= 6 && data.endTime <= 21)
           ) {
+            data.isDay = true;
             data.tags.push('주간');
           } if (
             (data.startTime <= 6 && data.startTime >= 21) ||
             (data.endTime <= 6 && data.endTime >= 21)
           ) {
+            data.isNight = true;
             data.tags.push('야간');
           } if (data.sex === 0 || data.sex === 1) {
             data.tags.push('남자');
@@ -110,6 +118,92 @@ export default {
     deleteItem(index) {
       this.jobLists.splice(index, 1);
     },
+    compare(relevantFilter, selectFilter) {
+      console.log(relevantFilter);
+      let filtered = this.jobLists;
+
+      // select 필터링
+      filtered = filtered.filter(({ days }) => days.every(day => selectFilter[0].includes(day)));
+      if (selectFilter[1] === 'day') {
+        filtered = filtered.filter(({ isDay }) => isDay);
+      } else if (selectFilter[1] === 'night') {
+        filtered = filtered.filter(({ isNight }) => isNight);
+      }
+      if (selectFilter[2] === 'male') {
+        filtered = filtered.filter(({ sex }) => sex === 0 || sex === 1);
+      } else if (selectFilter[2] === 'female') {
+        filtered = filtered.filter(({ sex }) => sex === 0 || sex === 2);
+      }
+      if (selectFilter[3] === 'teen') {
+        filtered = filtered.filter(({ isTeen }) => isTeen);
+      }
+
+      filtered.forEach((item) => {
+        const job = item;
+        job.point = 0;
+      });
+
+      relevantFilter.forEach(({ name, value }, index) => {
+        switch (name) {
+          case '거리': this.compareDistance(filtered, value, index); break;
+          case '시급': this.compareHourlyWage(filtered, value, index); break;
+          case '근무 기간': this.comparePeriod(filtered, value, index); break;
+          case '근무 시간': this.compareWorkTime(filtered, value, index); break;
+          default: break;
+        }
+      });
+
+      filtered.sort((a, b) => b.point - a.point);
+      this.jobLists = filtered;
+    },
+    compareDistance(list, value, priority) {
+      const comparable = [];
+      const originalList = list;
+      originalList.forEach(({ distance }, index) => comparable.push({ distance, index }));
+      comparable.sort((a, b) => (value === 'close' ? a.distance - b.distance : b.distance - a.distance));
+      comparable.forEach(({ index }, i) => {
+        originalList[index].point += (list.length - i) * (4 - priority);
+      });
+    },
+    compareHourlyWage(list, value, priority) {
+      const comparable = [];
+      const originalList = list;
+      originalList.forEach(({ hourlyWage }, index) => comparable.push({ hourlyWage, index }));
+      comparable.sort((a, b) => (value === 'high' ? b.hourlyWage - a.hourlyWage : a.hourlyWage - b.hourlyWage));
+      comparable.forEach(({ index }, i) => {
+        originalList[index].point += (list.length - i) * (4 - priority);
+      });
+    },
+    comparePeriod(list, value, priority) {
+      const PERIOD_CONST = {
+        '1일': 0,
+        '1주일이하': 1,
+        '1주일~1개월': 2,
+        '1개월~3개월': 3,
+        '3개월~6개월': 4,
+        '6개월~1년': 5,
+        '1년 이상': 6,
+      };
+      const comparable = [];
+      const originalList = list;
+      originalList.forEach(({ period }, index) => comparable.push({ period, index }));
+      comparable.sort((a, b) => (value === 'shortDay' ? PERIOD_CONST[a.period] - PERIOD_CONST[b.period] : PERIOD_CONST[b.period] - PERIOD_CONST[a.period]));
+      comparable.forEach(({ index }, i) => {
+        originalList[index].point += (list.length - i) * (4 - priority);
+      });
+    },
+    compareWorkTime(list, value, priority) {
+      const comparable = [];
+      const originalList = list;
+      originalList.forEach(({ workTime }, index) => comparable.push({ workTime, index }));
+      comparable.sort((a, b) => (value === 'shortTime' ? a.workTime - b.workTime : b.workTime - a.workTime));
+      comparable.forEach(({ index }, i) => {
+        originalList[index].point += (list.length - i) * (4 - priority);
+      });
+    },
+  },
+  created() {
+    this.$EventBus.$on('updateFilter', this.compare);
   },
 };
 </script>
