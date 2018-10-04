@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <set-location v-if="isOnModal" @closeModal="isOnModal = false"/>
+    <set-location v-if="isOnModal" @close-modal="isOnModal = false"/>
     <router-view/>
   </div>
 </template>

@@ -83,6 +83,7 @@ export default {
         if (status !== 200) {
           this.buttonText = '오류 발생';
         } else {
+          this.$emit('create');
           this.$emit('close-modal');
         }
       });

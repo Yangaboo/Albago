@@ -1,14 +1,14 @@
 <template>
   <transition name="modal">
-    <div class="set-loc">>
-      <div class="set-loc__mask" @click="$emit('closeModal')"></div>
+    <div class="set-loc">
+      <div class="set-loc__mask" @click="$emit('close-modal')"></div>
       <div class="modal">
 
         <!-- modal header -->
         <h2 class="modal__name">
           위치 변경하기
           <button class="modal__close-button"
-            @click="$emit('closeModal')">
+            @click="$emit('close-modal')">
             &times;
           </button>
         </h2>
@@ -227,7 +227,7 @@ export default {
         window.localStorage.setItem('x', selectedPlace.x);
         window.localStorage.setItem('y', selectedPlace.y);
         this.$EventBus.$emit('setLocate');
-        this.$emit('closeModal');
+        this.$emit('close-modal');
       }
     },
   },
@@ -236,9 +236,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/setting';
-$z-index-set-loc: 1;
-$z-index-mask: 2;
-$z-index-modal: 3;
+$z-index-set-loc: 4;
+$z-index-mask: 5;
+$z-index-modal: 6;
 $color-main: #494f5c;
 
 @mixin set-color($color1, $color2) {
