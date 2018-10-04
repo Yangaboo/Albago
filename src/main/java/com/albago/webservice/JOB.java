@@ -171,31 +171,31 @@ public class JOB {
         System.out.println(workDateNew);
 
         if (workDateNew.contains("월")) {
-            workDateValues.add("0");
+            workDateValues.add("월");
         }
 
         if (workDateNew.contains("화")) {
-            workDateValues.add("1");
+            workDateValues.add("화");
         }
 
         if (workDateNew.contains("수")) {
-            workDateValues.add("2");
+            workDateValues.add("수");
         }
 
         if (workDateNew.contains("목")) {
-            workDateValues.add("3");
+            workDateValues.add("목");
         }
 
         if (workDateNew.contains("금")) {
-            workDateValues.add("4");
+            workDateValues.add("금");
         }
 
         if (workDateNew.contains("토")) {
-            workDateValues.add("5");
+            workDateValues.add("토");
         }
 
         if (workDateNew.contains("일")) {
-            workDateValues.add("6");
+            workDateValues.add("일");
         }
 
         if (pay == null) {
