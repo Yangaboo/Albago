@@ -3,21 +3,26 @@
     <div class="create">
       <div class="create__mask" @click="$emit('close-modal')"></div>
       <div class="modal">
-        <input
-          class="modal__title"
-          type="text"
-          placeholder="제목을 입력해주세요"
-          @input="title = $event.target.value"
-          :value="title">
-        <select
-          class="bulletin__category"
-          v-model="currentCategory">
-          <option v-for="option in categoryOptions"
-            :key="option.value"
-            :value="option.value">
-            {{ option.text }}
-          </option>
-        </select>
+        <h2 class="modal__name">
+          글 작성하기
+        </h2>
+        <div class="modal__flex-cover">
+          <input
+            class="modal__title"
+            type="text"
+            placeholder="제목을 입력해주세요"
+            @input="title = $event.target.value"
+            :value="title">
+          <select
+            class="bulletin__category"
+            v-model="currentCategory">
+            <option v-for="option in categoryOptions"
+              :key="option.value"
+              :value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
+        </div>
         <textarea
           class="modal__content"
           type="text"
@@ -31,16 +36,18 @@
           placeholder="닉네임을 입력해주세요"
           @input="nickname = $event.target.value"
           :value="nickname">
-        <input
-          class="modal__pw"
-          placeholder="비밀번호를 입력해주세요"
-          type="text"
-          v-model="pw">
-        <input
-          class="modal__pwRe"
-          placeholder="비밀번호를 재 입력해주세요"
-          type="text"
-          v-model="pwRe">
+        <div class="modal__cover">
+          <input
+            class="modal__pw"
+            placeholder="비밀번호를 입력해주세요"
+            type="text"
+            v-model="pw">
+          <input
+            class="modal__pwRe"
+            placeholder="비밀번호를 재 입력해주세요"
+            type="text"
+            v-model="pwRe">
+        </div>
         <button @click="!onPost ? create() : ''">{{ buttonText }}</button>
       </div>
     </div>
@@ -115,9 +122,9 @@ $z-index-modal: 3;
 }
 
 .modal {
-  $width-modal: 500px;
-  $height-modal: 700px;
-  $radius: 5px;
+  $width-modal: 900px;
+  $height-modal: 600px;
+  $radius: 10px;
   $side-padding: 60px;
   $name-padding-top: 30px;
 
@@ -132,6 +139,7 @@ $z-index-modal: 3;
   width: $width-modal;
   height: $height-modal;
   background-color: #fff;
+  border-radius: $radius;
   &-enter-active, &-leave-active {
     transition: opacity 0.5s ease;
   }

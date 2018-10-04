@@ -14,13 +14,13 @@
         class="clickable good"
         :class="{'checked': isCheckedGood}"
         @click="$emit('click-good')">
-        {{ good }}
+        {{ isCheckedGood ? good + 1 : good }}
       </div>
       <div
         class="clickable bad"
         :class="{'checked': isCheckedBad}"
         @click="$emit('click-bad')">
-        {{ bad }}
+        {{ isCheckedBad ? bad + 1 : bad }}
       </div>
     </div>
   </div>
@@ -38,6 +38,14 @@ export default {
     bad: Number,
     isCheckedGood: Boolean,
     isCheckedBad: Boolean,
+  },
+  methods: {
+    updatePost() {
+      this.$emit('update');
+    },
+    deletePost() {
+      this.$emit('delete');
+    },
   },
 };
 </script>
@@ -74,6 +82,7 @@ $border1: 3px solid #c4c6c9;
     height: 14px;
     font-size: 14px;
     color: $color1;
+    display: inline-block;
   }
   @include e('content') {
     padding: 30px 10px;

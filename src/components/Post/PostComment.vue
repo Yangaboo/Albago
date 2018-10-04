@@ -23,12 +23,25 @@
         <label
           class="comment__good-label"
           :for="`good${index}`">
-          {{comment.favor}}
+          {{comment.isCheckedGood ? comment.favor + 1 : comment.favor}}
         </label>
-        <button class="comment__delete" @click="$emit('delete', index)">
+        <button class="comment__delete" @click="comment.onVerify = true">
           삭제
         </button>
-        <!-- TODO: 댓글 수정 기능 -->
+        <form
+          class="comment__verify"
+          v-show="comment.onVerify"
+          @submit.prevent="deleteComment(index, comment.pwd, comment.comment_id)">
+          <input
+            class="comment__verify-pw"
+            :placeholder="comment.verifyPlaceholdText"
+            type="password"
+            v-model="comment.verifyPw">
+          <input class="comment__verify-btn" type="submit">
+          <button class="comment__verify-cancel" @click="comment.onVerify = false">
+            &times;
+          </button>
+        </form>
       </li>
     </ul>
     <form
@@ -74,13 +87,20 @@ export default {
       name: '',
       pw: '',
       pwRe: '',
-      isCheckGood: false,
     };
   },
   // TODO: 서버로부터 데이터 받아온 comments로 데이터 바인딩하기
   methods: {
     formatDate(dateArr) {
       return `${dateArr[0]}.${dateArr[1]}.${dateArr[2]} ${dateArr[3]}:${dateArr[4]}`;
+    },
+    deleteComment(index, pw, id) {
+      if (this.comments[index].verifyPw === pw) {
+        this.$emit('delete', index, pw, id);
+      } else {
+        this.comments[index].verifyPw = '';
+        this.comments[index].verifyPlaceholdText = '비밀번호가 다릅니다';
+      }
     },
   },
 };
@@ -151,6 +171,25 @@ $border1: 3px solid #c4c6c9;
     padding-left: 10px;
     border-left: $border1;
     user-select: none;
+  }
+  @include e('verify') {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    display: flex;
+    height: 30px;
+    font-size: 12px;
+    border-bottom: $border1;
+  }
+  @include e('verify-pw') {
+    padding-left: 10px;
+  }
+  @include e('verify-btn') {
+    background-color: #ccc;
+  }
+  @include e('verify-cancel') {
+    width: 30px;
+    background-color: #ddd;
   }
 
   $add-font-size: 15px;
