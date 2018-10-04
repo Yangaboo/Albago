@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <bulletin-create v-if="onCreateModal"/>
     <navigation/>
     <slideshow/>
     <div class="bulletin">
@@ -29,6 +30,9 @@
               type="submit"
               value="검색"
               class="bulletin__search-button"/>
+            <button @click="onCreateModal = true" class="bulletin__create-post">
+              게시글 만들기
+            </button>
           </form>
         </header>
 
@@ -52,6 +56,7 @@ import Navigation from './Common/Navigation';
 import Slideshow from './Common/Slideshow';
 import BulletinList from './Bulletin/BulletinList';
 import BulletinPaging from './Bulletin/BulletinPaging';
+import BulletinCreate from './Bulletin/BulletinCreate';
 import { categoryObj, categoryArr } from '../constants/category';
 import URI from '../constants/uri';
 
@@ -68,6 +73,7 @@ export default {
       totalElements: 0,
       searchKeyword: '',
       isSearchedResult: false,
+      onCreateModal: false,
     };
   },
   components: {
@@ -75,6 +81,7 @@ export default {
     Slideshow,
     BulletinList,
     BulletinPaging,
+    BulletinCreate,
   },
   methods: {
     getPostList(number) {
