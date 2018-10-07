@@ -59,7 +59,7 @@ public class JOB {
         String Accept = "application/json";
 
         String location = URLEncoder.encode(address, "UTF-8");
-        String apiURL = "https://api2.sktelecom.com/tmap/geo/convertAddress?version=1&searchTypCd=NtoO&reqAdd=" + location + "&appKey=" + apiKey;
+        String apiURL = "https://api2.sktelecom.com/tmap/geo/fullAddrGeo?addressFlag=F00&fullAddr=" + location + "&appKey=" + apiKey;
         java.net.URL url = new java.net.URL(apiURL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -82,10 +82,20 @@ public class JOB {
         br.close();
 
         JSONObject myResponse = new JSONObject(response.toString());
-        JSONObject convertAdd = myResponse.getJSONObject("ConvertAdd");
+        JSONObject convertAdd = myResponse.getJSONObject("coordinateInfo");
+        JSONObject coordinated = convertAdd.getJSONArray("coordinate").getJSONObject(0);
 
-        geoLocation.add(convertAdd.getString("oldLat"));
-        geoLocation.add(convertAdd.getString("oldLon"));
+        System.out.println(coordinated);
+
+        System.out.println(coordinated.getString("newLat"));
+
+        if (coordinated.getString("lat").equals("")) {
+            geoLocation.add(coordinated.getString("newLat"));
+            geoLocation.add(coordinated.getString("newLon"));
+        } else {
+            geoLocation.add(coordinated.getString("lat"));
+            geoLocation.add(coordinated.getString("lon"));
+        }
 
         return geoLocation;
     }
