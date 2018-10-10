@@ -255,6 +255,7 @@ public class JOB {
         Element period = albaDocument.select("a[class=dateInfo]").first().select("span").first();
         Element pay = albaDocument.select("span[class=monthPay]").first();
         Element workDate = albaDocument.select("a[title=근무요일별 리스트]").select("span").first();
+        Element workDateRest = albaDocument.select("span[class=restTime]").first();
         Element age = albaDocument.select("tbody").first().child(3).select("td").first();
         Element sex = albaDocument.select("tbody").first().child(2).select("td").first().select("span").first();
         Element grade = albaDocument.select("tbody").first().child(4).select("td").first().select("span").first();
@@ -265,6 +266,7 @@ public class JOB {
         String periodValue = period.text().replaceAll("1년", "12개월");
         String payValue;
         String workDateValue = workDate.text();
+        String workDateRestValue = workDateRest.text();
         String ageValue = age.text();
         String sexValue = sex.text();
         String gradeValue = grade.text();
@@ -306,6 +308,10 @@ public class JOB {
         }
 
         if (workDateValue.contains("토, 일")) {
+            res.put("days", "[\"토\", \"일\"]");
+        }
+
+        if (workDateRestValue.contains("토, 일")) {
             res.put("days", "[\"토\", \"일\"]");
         }
 
