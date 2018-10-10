@@ -330,6 +330,9 @@ $shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
   }
   @include e('job-item') {
     border-bottom: 1px solid $point-color1;
+    &:first-child {
+      background-color: $main-color2 * 1.3;
+    }
     &:last-child {
       border: none;
     }
