@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     deleteCommentByIndex(index, pw, id) {
-      console.log(index, pw, id);
       this.$axios.delete(`${URI}/posts/${this.postId}/delete/${id}`, {
         param: id,
         data: { pwd: pw },
