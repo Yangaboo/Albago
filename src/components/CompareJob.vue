@@ -66,6 +66,11 @@ export default {
       jobLists: [],
     };
   },
+  watch: {
+    jobLists(list) {
+      localStorage.setItem('job-list', JSON.stringify(list));
+    },
+  },
   methods: {
     addJob() {
       const startX = localStorage.getItem('x');
@@ -110,6 +115,7 @@ export default {
           }
 
           this.jobLists.push(data);
+          this.saveJobList();
         });
     },
     deleteAll() {
@@ -204,6 +210,7 @@ export default {
   },
   created() {
     this.$EventBus.$on('updateFilter', this.compare);
+    this.jobLists = JSON.parse(localStorage.getItem('job-list')) || [];
   },
 };
 </script>

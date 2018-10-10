@@ -142,7 +142,7 @@ export default {
       selectday: {
         name: '요일',
         options: ['월', '화', '수', '목', '금', '토', '일'],
-        value: ['토', '일'],
+        value: ['월', '화', '수', '목', '금', '토', '일'],
       },
       selectitems: [
         {

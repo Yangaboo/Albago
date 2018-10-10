@@ -20,7 +20,7 @@
       <div class="job__distance">
         {{ unittedDistance }}
       </div>
-      <a class="job__name" :href="href">
+      <a class="job__name" :href="href" target="blank">
         {{ name }}
       </a>
       <div class="job__period">
