@@ -173,8 +173,16 @@ public class WebRestController {
     public HashMap<String, String> filter(@RequestBody JOB url) throws Exception {
         ArrayList geoLocation;
         String totalDistance;
+        HashMap<String, String> crawling = null;
 
-        HashMap<String, String> crawling =  url.Crawling(url);
+        if (url.getUrl().contains("alba.co.kr")) {
+            crawling = url.Crawling(url);
+        }
+
+        if (url.getUrl().contains("albamon.com")) {
+            crawling = url.CrawlingAlbamon(url);
+        }
+
         geoLocation = url.convertAddress(crawling.get("address"));
 
         String endX = String.valueOf(geoLocation.get(1));

@@ -84,10 +84,10 @@ public class JOB {
         JSONObject myResponse = new JSONObject(response.toString());
         JSONObject convertAdd = myResponse.getJSONObject("coordinateInfo");
         JSONObject coordinated = convertAdd.getJSONArray("coordinate").getJSONObject(0);
-
-        System.out.println(coordinated);
-
-        System.out.println(coordinated.getString("newLat"));
+//
+//        System.out.println(coordinated);
+//
+//        System.out.println(coordinated.getString("newLat"));
 
         if (coordinated.getString("lat").equals("")) {
             geoLocation.add(coordinated.getString("newLat"));
@@ -178,7 +178,7 @@ public class JOB {
 
         String workDateNew = workDateValue.replaceAll("(요일)", "").replaceAll("[^월화수목금토일]", "");
 
-        System.out.println(workDateNew);
+//        System.out.println(workDateNew);
 
         if (workDateNew.contains("월")) {
             workDateValues.add("\"" + "월" + "\"");
@@ -216,7 +216,7 @@ public class JOB {
             if (payValue.length() >= 7) {
                 if (workingTime < 0) res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / (workingTime*-1)));
                 else res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / workingTime));
-            } else if (Integer.parseInt(payValue) > 50000) {
+            } else if (Integer.parseInt(payValue) > 100000) {
                 if (workingTime < 0) res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / (workingTime*-1)));
                 else res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / workingTime));
             } else {
@@ -238,6 +238,107 @@ public class JOB {
         res.put("endTime", workTimeValues[1].substring(0, 2));
         res.put("period", periodValue);
         res.put("days", String.valueOf(workDateValues));
+        return res;
+    }
+
+    public HashMap<String, String> CrawlingAlbamon(JOB url) throws Exception {
+        HashMap<String, String> res = new HashMap<String, String>();
+        String uri;
+        uri = url.getUrl();
+        Connection.Response response = Jsoup.connect(uri)
+                .method(Connection.Method.GET)
+                .execute();
+        Document albaDocument = response.parse();
+        Element address = albaDocument.select("div[class=workAddr]").first().select("span").first();
+        Element title = albaDocument.select("div[class=recruitInfo]").first().select("h1").first();
+        Element workTime = albaDocument.select("span[class=letter_0]").first();
+        Element period = albaDocument.select("a[class=dateInfo]").first().select("span").first();
+        Element pay = albaDocument.select("span[class=monthPay]").first();
+        Element workDate = albaDocument.select("a[title=근무요일별 리스트]").select("span").first();
+        Element age = albaDocument.select("tbody").first().child(3).select("td").first();
+        Element sex = albaDocument.select("tbody").first().child(2).select("td").first().select("span").first();
+        Element grade = albaDocument.select("tbody").first().child(4).select("td").first().select("span").first();
+
+        String addressValue = address.text();
+        String titleValue = title.text();
+        String workTimeValue = workTime.text();
+        String periodValue = period.text().replaceAll("1년", "12개월");
+        String payValue;
+        String workDateValue = workDate.text();
+        String ageValue = age.text();
+        String sexValue = sex.text();
+        String gradeValue = grade.text();
+        String[] workTimeValues = new String[0];
+        int workingTime;
+
+        if (workTimeValue.contains("협의")) {
+            res.put("startTime", "추후 협의");
+            res.put("endTime", "추후 협의");
+            workingTime = 8;
+        } else {
+            workTimeValue.replaceAll("[^0-9&~]", "");
+            workTimeValues = workTimeValue.split("~");
+            workingTime = Integer.parseInt(workTimeValues[1].substring(0, 2)) - Integer.parseInt(workTimeValues[0].substring(0, 2));
+
+            res.put("startTime", workTimeValues[0].substring(0, 2));
+            res.put("endTime", workTimeValues[1].substring(0, 2));
+        }
+
+
+        if (ageValue.contains("무관") || ageValue.contains("청소년가능") && sexValue.contains("무관")) {
+            res.put("isTeen", String.valueOf(true));
+        } else if (ageValue.contains("무관") && gradeValue.contains("고등학교 졸업 이상")) {
+            res.put("isTeen", String.valueOf(false));
+        } else {
+            res.put("isTeen", String.valueOf(false));
+        }
+
+        if (workDateValue.contains("월~일")) {
+            res.put("days", "[\"월\", \"화\", \"수\", \"목\", \"금\", \"토\", \"일\"]");
+        }
+
+        if (workDateValue.contains("월~토")) {
+            res.put("days", "[\"월\", \"화\", \"수\", \"목\", \"금\", \"토\"]");
+        }
+
+        if (workDateValue.contains("월~금")) {
+            res.put("days", "[\"월\", \"화\", \"수\", \"목\", \"금\"]");
+        }
+
+        if (workDateValue.contains("토, 일")) {
+            res.put("days", "[\"토\", \"일\"]");
+        }
+
+        if (pay == null) {
+            payValue = "추후 협의";
+            res.put("hourlyWage", payValue);
+        } else {
+            payValue = pay.text().replaceAll("[^0-9]", "");
+            if (payValue.length() >= 7) {
+                if (workingTime < 0) res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / (workingTime*-1)));
+                else res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / workingTime));
+            } else if (Integer.parseInt(payValue) > 99999) {
+                if (workingTime < 0) res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / (workingTime*-1)));
+                else res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / workingTime));
+            } else {
+                res.put("hourlyWage", payValue);
+            }
+        }
+
+        if (sexValue.contains("무관")) {
+            res.put("sex", "0");
+        } else if (sexValue.contains("남자")) {
+            res.put("sex", "1");
+        } else {
+            res.put("sex", "2");
+        }
+
+        res.put("address", addressValue);
+        res.put("name", titleValue);
+        res.put("period", periodValue);
+
+//        System.out.println(res);
+
         return res;
     }
 }
