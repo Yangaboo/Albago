@@ -11,8 +11,8 @@
         <div
           class="modal__explanation"
           v-for="(explanation, index) in explanations"
-          :key="`ex${index}`">
-          <img class="modal__diagram" :src="explanation.diagram"/>
+          :key="`ex${index}`"
+          :style="{ backgroundImage: `url(${explanation.diagram})`}">
           <div class="modal__caption">
             {{ explanation.caption }}
           </div>
@@ -31,6 +31,11 @@
 </template>
 
 <script>
+import tutorialImg1 from '../../assets/tutorial_1.png';
+import tutorialImg2 from '../../assets/tutorial_2.png';
+import tutorialImg3 from '../../assets/tutorial_3.png';
+import tutorialImg4 from '../../assets/tutorial_4.png';
+
 export default {
   name: 'compare-job-tutorial',
   data() {
@@ -38,19 +43,19 @@ export default {
       current: 0,
       explanations: [
         {
-          diagram: '../../assets/tutorial_1',
+          diagram: tutorialImg1,
           caption: '알바 정보 사이트에 들어가세요',
         },
         {
-          diagram: '../../assets/tutorial_2',
+          diagram: tutorialImg2,
           caption: '원하는 아르바이트를 선택해주세요',
         },
         {
-          diagram: '../../assets/tutorial_3',
+          diagram: tutorialImg3,
           caption: '알바고에 원하는 아르바이트 url를 넣어주세요',
         },
         {
-          diagram: '../../assets/tutorial_4',
+          diagram: tutorialImg4,
           caption: '비교버튼을 누르고 아르바이트를 비교해주세요',
         },
       ],
@@ -98,8 +103,16 @@ $color-main: #494f5c;
   }
   width: $width-modal;
   height: $height-modal;
-  background-color: #fff;
-  border-radius: $color-main;
+  background-color: $color-main;
+  border-radius: $radius;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+  @include e('explanation') {
+    width: 250px;
+    height: 250px;
+    background-image: url('../../assets/tutorial_1.png');
+    background-size: 250px 250px;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
 }
 </style>
