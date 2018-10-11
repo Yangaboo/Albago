@@ -18,16 +18,18 @@
           v-show="current < explanations.length - 1">
           &rang;
         </div>
-        <div
-          class="modal__explanation"
-          v-for="(explanation, index) in explanations"
-          :key="`ex${index}`"
-          :style="{ backgroundImage: `url(${explanation.diagram})`}"
-          v-if="current === index">
-          <div class="modal__caption">
-            {{ explanation.caption }}
+        <transition name="explanation">
+          <div
+            class="modal__explanation"
+            v-for="(explanation, index) in explanations"
+            :key="`ex${index}`"
+            :style="{ backgroundImage: `url(${explanation.diagram})`}"
+            v-if="current === index">
+            <div class="modal__caption">
+              {{ explanation.caption }}
+            </div>
           </div>
-        </div>
+        </transition>
         <div class="modal__paging">
           <div
             class="modal__page"
@@ -127,6 +129,7 @@ $color-main: #494f5c;
   border-radius: $radius;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
   color: #fff;
+  overflow-x: hidden;
   @include e('exit') {
     position: absolute;
     top: 0;
@@ -157,19 +160,22 @@ $color-main: #494f5c;
     right: 0;
   }
   @include e('explanation') {
-    margin-top: 170px;
+    width: 100%;
     height: 290px;
     background-image: url('../../assets/tutorial_1.png');
     background-size: 250px 250px;
     background-position: center 0;
     background-repeat: no-repeat;
-    position: relative;
     z-index: $z-index-explanation;
+    position: absolute;
+    top: 170px;
   }
   @include e('caption') {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: $width-modal;
+    left: 50%;
+    margin-left: -($width-modal / 2);
     font-size: 20px;
     text-align: center;
   }
@@ -189,6 +195,21 @@ $color-main: #494f5c;
     @include m('selected') {
       background-color: #fff;
     }
+  }
+}
+
+.explanation {
+  &-enter-active, &-leave-active {
+    transition: transform 0.5s;
+  }
+  &-enter {
+    transform: translateX(100%);
+  }
+  &-enter-to, &-leave {
+    transform: translateX(0);
+  }
+  &-leave-to {
+    transform: translateX(-100%);
   }
 }
 </style>
