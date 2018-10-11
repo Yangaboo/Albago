@@ -216,7 +216,7 @@ public class JOB {
             if (payValue.length() >= 7) {
                 if (workingTime < 0) res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / (workingTime*-1)));
                 else res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / workingTime));
-            } else if (Integer.parseInt(payValue) > 100000) {
+            } else if (Integer.parseInt(payValue) >= 70000) {
                 if (workingTime < 0) res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / (workingTime*-1)));
                 else res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / workingTime));
             } else {
@@ -270,8 +270,9 @@ public class JOB {
         String ageValue = age.text();
         String sexValue = sex.text();
         String gradeValue = grade.text();
-        String[] workTimeValues = new String[0];
+        String[] workTimeValues;
         int workingTime;
+        ArrayList days = new ArrayList();
 
         if (workTimeValue.contains("협의")) {
             res.put("startTime", "추후 협의");
@@ -295,24 +296,64 @@ public class JOB {
             res.put("isTeen", String.valueOf(false));
         }
 
-        if (workDateValue.contains("월~일")) {
-            res.put("days", "[\"월\", \"화\", \"수\", \"목\", \"금\", \"토\", \"일\"]");
-        }
-
         if (workDateValue.contains("월~토")) {
-            res.put("days", "[\"월\", \"화\", \"수\", \"목\", \"금\", \"토\"]");
+            days.add("\"월\"");
+            days.add("\"화\"");
+            days.add("\"수\"");
+            days.add("\"목\"");
+            days.add("\"금\"");
+            days.add("\"토\"");
         }
 
         if (workDateValue.contains("월~금")) {
-            res.put("days", "[\"월\", \"화\", \"수\", \"목\", \"금\"]");
+            days.add("\"월\"");
+            days.add("\"화\"");
+            days.add("\"수\"");
+            days.add("\"목\"");
+            days.add("\"금\"");
         }
 
-        if (workDateValue.contains("토, 일")) {
-            res.put("days", "[\"토\", \"일\"]");
+        if (workDateValue.contains("토, 일") | workDateValue.contains("주말")) {
+            days.add("\"토\"");
+            days.add("\"일\"");
         }
 
-        if (workDateRestValue.contains("토, 일")) {
-            res.put("days", "[\"토\", \"일\"]");
+        if (workDateValue.contains("월~일")) {
+            days.add("\"월\"");
+            days.add("\"화\"");
+            days.add("\"수\"");
+            days.add("\"목\"");
+            days.add("\"금\"");
+            days.add("\"토\"");
+            days.add("\"일\"");
+        }
+
+        if (workDateRestValue.contains("월")) {
+            days.add("\"월\"");
+        }
+
+        if (workDateRestValue.contains("화")) {
+            days.add("\"화\"");
+        }
+
+        if (workDateRestValue.contains("수")) {
+            days.add("\"수\"");
+        }
+
+        if (workDateRestValue.contains("목")) {
+            days.add("\"목\"");
+        }
+
+        if (workDateRestValue.contains("금")) {
+            days.add("\"금\"");
+        }
+
+        if (workDateRestValue.contains("토")) {
+            days.add("\"토\"");
+        }
+
+        if (workDateRestValue.contains("일")) {
+            days.add("\"일\"");
         }
 
         if (pay == null) {
@@ -323,7 +364,7 @@ public class JOB {
             if (payValue.length() >= 7) {
                 if (workingTime < 0) res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / (workingTime*-1)));
                 else res.put("hourlyWage", String.valueOf((Integer.parseInt(payValue) / 30) / workingTime));
-            } else if (Integer.parseInt(payValue) > 99999) {
+            } else if (Integer.parseInt(payValue) > 69999) {
                 if (workingTime < 0) res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / (workingTime*-1)));
                 else res.put("hourlyWage", String.valueOf(Integer.parseInt(payValue) / workingTime));
             } else {
@@ -342,6 +383,7 @@ public class JOB {
         res.put("address", addressValue);
         res.put("name", titleValue);
         res.put("period", periodValue);
+        res.put("days", String.valueOf(days));
 
 //        System.out.println(res);
 
