@@ -3,16 +3,27 @@
     <div class="tutorial">
       <div class="tutorial__mask" @click="$emit('close-modal')"></div>
       <div class="modal">
-        <div class="modal__exit">
+        <div class="modal__exit" @click="$emit('close-modal')">
           &times;
         </div>
-        <div class="modal__to-left">&lt;</div>
-        <div class="modal__to-right">&gt;</div>
+        <div
+          class="modal__to-left"
+          @click="left"
+          v-show="current > 0">
+          &lang;
+        </div>
+        <div
+          class="modal__to-right"
+          @click="right"
+          v-show="current < explanations.length - 1">
+          &rang;
+        </div>
         <div
           class="modal__explanation"
           v-for="(explanation, index) in explanations"
           :key="`ex${index}`"
-          :style="{ backgroundImage: `url(${explanation.diagram})`}">
+          :style="{ backgroundImage: `url(${explanation.diagram})`}"
+          v-if="current === index">
           <div class="modal__caption">
             {{ explanation.caption }}
           </div>
@@ -22,7 +33,7 @@
             class="modal__page"
             v-for="page in 4"
             :key="page"
-            :class="{'modal__page--selected': current === page}">
+            :class="{'modal__page--selected': current === page - 1}">
           </div>
         </div>
       </div>
@@ -61,6 +72,14 @@ export default {
       ],
     };
   },
+  methods: {
+    left() {
+      this.current -= 1;
+    },
+    right() {
+      this.current += 1;
+    },
+  },
 };
 </script>
 
@@ -69,6 +88,8 @@ export default {
 $z-index-create: 1;
 $z-index-mask: 2;
 $z-index-modal: 3;
+$z-index-explanation: 4;
+$z-index-move-page: 5;
 $color-main: #494f5c;
 
 .tutorial {
@@ -91,7 +112,6 @@ $color-main: #494f5c;
   $width-modal: 500px;
   $height-modal: 650px;
   $radius: 10px;
-  $name-padding-top: 30px;
 
   position: absolute;
   z-index: $z-index-modal;
@@ -106,13 +126,69 @@ $color-main: #494f5c;
   background-color: $color-main;
   border-radius: $radius;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
-  @include e('explanation') {
-    width: 250px;
+  color: #fff;
+  @include e('exit') {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 30px;
+  }
+  %move-page {
+    z-index: $z-index-move-page;
+    position: absolute;
     height: 250px;
+    width: 100px;
+    top: 170px;
+    font-size: 30px;
+    line-height: 250px;
+    cursor: pointer;
+    text-align: center;
+  }
+  @include e('to-left') {
+    @extend %move-page;
+    left: 0;
+  }
+  @include e('to-right') {
+    @extend %move-page;
+    right: 0;
+  }
+  @include e('explanation') {
+    margin-top: 170px;
+    height: 290px;
     background-image: url('../../assets/tutorial_1.png');
     background-size: 250px 250px;
-    background-position: center center;
+    background-position: center 0;
     background-repeat: no-repeat;
+    position: relative;
+    z-index: $z-index-explanation;
+  }
+  @include e('caption') {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+  }
+  @include e('paging') {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    bottom: 50px;
+  }
+  @include e('page') {
+    width: 15px;
+    height: 15px;
+    margin: 0 15px;
+    background-color: #686868;
+    border-radius: 100%;
+    @include m('selected') {
+      background-color: #fff;
+    }
   }
 }
 </style>
