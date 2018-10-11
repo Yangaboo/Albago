@@ -1,26 +1,37 @@
 <template>
   <div id="app">
-    <set-location v-if="isOnModal" @close-modal="isOnModal = false"/>
+    <set-location v-if="onSetLocationModal" @close-modal="onSetLocationModal = false"/>
+    <tutorial v-if="onTutorialModal" @close-modal="onTutorialModal = false"/>
     <router-view/>
   </div>
 </template>
 
 <script>
 import SetLocation from './components/SetLocation';
+import Tutorial from './components/Tutorial';
 
 export default {
   name: 'App',
   data() {
     return {
-      isOnModal: false,
+      onSetLocationModal: false,
+      onTutorialModal: false,
     };
   },
   components: {
     SetLocation,
+    Tutorial,
   },
   created() {
-    this.$EventBus.$on('showModal', () => {
-      this.isOnModal = true;
+    if (!localStorage.getItem('isPassedTutorial')) {
+      this.onTutorialModal = true;
+      localStorage.setItem('isPassedTutorial', true);
+    }
+    this.$EventBus.$on('showSetLocation', () => {
+      this.onSetLocationModal = true;
+    });
+    this.$EventBus.$on('showTutorial', () => {
+      this.onTutorialModal = true;
     });
   },
 };

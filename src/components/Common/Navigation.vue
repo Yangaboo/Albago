@@ -12,11 +12,14 @@
       </li>
       <li class="nav__item">
         <a class="nav__item__link"
-          @click="$EventBus.$emit('showModal')">위치 설정</a>
+          @click="$EventBus.$emit('showSetLocation')">위치 설정</a>
       </li>
       <li class="nav__item">
         <router-link class="nav__item__link"
           :to="{path: '/bulletin', query: {page: 1, category: 'ALL'}}">게시판</router-link>
+      </li>
+      <li class="nav__item">
+        <a class="nav__item__link" @click="$EventBus.$emit('showTutorial')">도움말</a>
       </li>
     </ul>
   </nav>

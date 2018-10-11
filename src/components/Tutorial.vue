@@ -44,13 +44,13 @@
 </template>
 
 <script>
-import tutorialImg1 from '../../assets/tutorial_1.png';
-import tutorialImg2 from '../../assets/tutorial_2.png';
-import tutorialImg3 from '../../assets/tutorial_3.png';
-import tutorialImg4 from '../../assets/tutorial_4.png';
+import tutorialImg1 from '../assets/tutorial_1.png';
+import tutorialImg2 from '../assets/tutorial_2.png';
+import tutorialImg3 from '../assets/tutorial_3.png';
+import tutorialImg4 from '../assets/tutorial_4.png';
 
 export default {
-  name: 'compare-job-tutorial',
+  name: 'tutorial',
   data() {
     return {
       current: 0,
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/setting';
+@import '../styles/setting';
 $z-index-create: 1;
 $z-index-mask: 2;
 $z-index-modal: 3;
@@ -162,7 +162,6 @@ $color-main: #494f5c;
   @include e('explanation') {
     width: 100%;
     height: 290px;
-    background-image: url('../../assets/tutorial_1.png');
     background-size: 250px 250px;
     background-position: center 0;
     background-repeat: no-repeat;
