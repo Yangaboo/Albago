@@ -1,5 +1,8 @@
 <template>
   <div class="wrap">
+    <compare-job-tutorial
+      v-if="onTutorialModal"
+      @close-modal="onTutorialModal = false"/>
     <navigation/>
     <div class="compare-job">
       <header class="compare-job__header">
@@ -51,6 +54,7 @@
 import Navigation from './Common/Navigation';
 import CompareJobFilter from './CompareJob/CompareJobFilter';
 import CompareJobItem from './CompareJob/CompareJobItem';
+import CompareJobTutorial from './CompareJob/CompareJobTutorial';
 import PERIOD from '../constants/period';
 import URI from '../constants/uri';
 
@@ -60,11 +64,13 @@ export default {
     Navigation,
     CompareJobFilter,
     CompareJobItem,
+    CompareJobTutorial,
   },
   data() {
     return {
       jobUrl: '',
       jobLists: [],
+      onTutorialModal: false,
     };
   },
   watch: {
@@ -185,6 +191,11 @@ export default {
     },
   },
   created() {
+    if (!localStorage.getItem('isPassedTutorial')) {
+      this.onTutorialModal = true;
+      localStorage.setItem('isPassedTutorial', true);
+    }
+
     this.$EventBus.$on('updateFilter', this.compare);
     this.jobLists = JSON.parse(localStorage.getItem('job-list')) || [];
   },
