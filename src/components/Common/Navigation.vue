@@ -8,11 +8,7 @@
     <ul class="nav__list">
       <li class="nav__item">
         <router-link class="nav__item__link"
-          :to="{path: '/'}">홈</router-link>
-      </li>
-      <li class="nav__item">
-        <router-link class="nav__item__link"
-          :to="{path: '/bulletin', query: {page: 1, category: 'ALL'}}">게시판</router-link>
+          :to="{path: '/'}">아르바이트 비교</router-link>
       </li>
       <li class="nav__item">
         <a class="nav__item__link"
@@ -20,7 +16,7 @@
       </li>
       <li class="nav__item">
         <router-link class="nav__item__link"
-          :to="{path: '/compare'}">아르바이트 비교</router-link>
+          :to="{path: '/bulletin', query: {page: 1, category: 'ALL'}}">게시판</router-link>
       </li>
     </ul>
   </nav>
