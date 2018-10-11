@@ -176,12 +176,15 @@ export default {
       const originalList = list;
       originalList.forEach(({ distance }, index) => comparable.push({ distance, index }));
       comparable.sort((a, b) => (value === 'close' ? a.distance - b.distance : b.distance - a.distance));
-      comparable.forEach(({ index, distance }, i) => {
+      comparable.forEach(({ distance }, i) => {
         if (i !== 0 && distance === comparable[i - 1].distance) {
-          originalList[index].point += originalList[comparable[i - 1].index].point;
+          comparable[i].point = comparable[i - 1].point;
         } else {
-          originalList[index].point += (list.length - i) * (4 - priority);
+          comparable[i].point = (list.length - i) * (4 - priority);
         }
+      });
+      comparable.forEach(({ index, point }) => {
+        originalList[index].point += point;
       });
     },
     compareHourlyWage(list, value, priority) {
@@ -189,12 +192,15 @@ export default {
       const originalList = list;
       originalList.forEach(({ hourlyWage }, index) => comparable.push({ hourlyWage, index }));
       comparable.sort((a, b) => (value === 'high' ? b.hourlyWage - a.hourlyWage : a.hourlyWage - b.hourlyWage));
-      comparable.forEach(({ index, hourlyWage }, i) => {
+      comparable.forEach(({ hourlyWage }, i) => {
         if (i !== 0 && hourlyWage === comparable[i - 1].hourlyWage) {
-          originalList[index].point += originalList[comparable[i - 1].index].point;
+          comparable[i].point = comparable[i - 1].point;
         } else {
-          originalList[index].point += (list.length - i) * (4 - priority);
+          comparable[i].point = (list.length - i) * (4 - priority);
         }
+      });
+      comparable.forEach(({ index, point }) => {
+        originalList[index].point += point;
       });
     },
     comparePeriod(list, value, priority) {
@@ -202,12 +208,15 @@ export default {
       const originalList = list;
       originalList.forEach(({ periodWeight }, index) => comparable.push({ periodWeight, index }));
       comparable.sort((a, b) => (value === 'shortDay' ? a.periodWeight - b.periodWeight : b.periodWeight - a.periodWeight));
-      comparable.forEach(({ index, periodWeight }, i) => {
+      comparable.forEach(({ periodWeight }, i) => {
         if (i !== 0 && periodWeight === comparable[i - 1].periodWeight) {
-          originalList[index].point += originalList[comparable[i - 1].index].point;
+          comparable[i].point = comparable[i - 1].point;
         } else {
-          originalList[index].point += (list.length - i) * (4 - priority);
+          comparable[i].point = (list.length - i) * (4 - priority);
         }
+      });
+      comparable.forEach(({ index, point }) => {
+        originalList[index].point += point;
       });
     },
     compareWorkTime(list, value, priority) {
@@ -215,12 +224,15 @@ export default {
       const originalList = list;
       originalList.forEach(({ workTime }, index) => comparable.push({ workTime, index }));
       comparable.sort((a, b) => (value === 'shortTime' ? a.workTime - b.workTime : b.workTime - a.workTime));
-      comparable.forEach(({ index, workTime }, i) => {
+      comparable.forEach(({ workTime }, i) => {
         if (i !== 0 && workTime === comparable[i - 1].workTime) {
-          originalList[index].point += originalList[comparable[i - 1].index].point;
+          comparable[i].point = comparable[i - 1].point;
         } else {
-          originalList[index].point += (list.length - i) * (4 - priority);
+          comparable[i].point = (list.length - i) * (4 - priority);
         }
+      });
+      comparable.forEach(({ index, point }) => {
+        originalList[index].point += point;
       });
     },
   },
