@@ -72,11 +72,6 @@ export default {
       localStorage.setItem('job-list', JSON.stringify(list));
     },
   },
-  computed: {
-    points() {
-      return this.jobLists.map(item => item.point);
-    },
-  },
   methods: {
     addJob() {
       const startX = localStorage.getItem('x');
@@ -159,10 +154,10 @@ export default {
       // 비교 및 점수 부여
       relevantFilter.forEach(({ name, value }, index) => {
         switch (name) {
-          case '거리': this.compareDistance(filtered, value, index); break;
-          case '시급': this.compareHourlyWage(filtered, value, index); break;
-          case '근무 기간': this.comparePeriod(filtered, value, index); break;
-          case '근무 시간': this.compareWorkTime(filtered, value, index); break;
+          case '거리': this.scoreJobsByCriteria(filtered, index, 'distance', value === 'close'); break;
+          case '시급': this.scoreJobsByCriteria(filtered, index, 'hourlyWage', value === 'low'); break;
+          case '근무 기간': this.scoreJobsByCriteria(filtered, index, 'periodWeight', value === 'shortDay'); break;
+          case '근무 시간': this.scoreJobsByCriteria(filtered, index, 'workTime', value === 'shortTime'); break;
           default: break;
         }
       });
@@ -171,69 +166,22 @@ export default {
       filtered.sort((a, b) => b.point - a.point);
       this.jobLists = filtered;
     },
-    compareDistance(list, value, priority) {
-      const comparable = [];
+    scoreJobsByCriteria(list, priority, criteria, isAscending) {
       const originalList = list;
-      originalList.forEach(({ distance }, index) => comparable.push({ distance, index }));
-      comparable.sort((a, b) => (value === 'close' ? a.distance - b.distance : b.distance - a.distance));
-      comparable.forEach(({ distance }, i) => {
-        if (i !== 0 && distance === comparable[i - 1].distance) {
-          comparable[i].point = comparable[i - 1].point;
+      const sortable = originalList.map((job, index) => ({ worth: job[criteria], index }));
+
+      sortable.sort((a, b) => (isAscending ? a.worth - b.worth : b.worth - a.worth));
+
+      for (let i = 0; i < sortable.length; i += 1) {
+        if (i !== 0 && sortable[i].worth === sortable[i - 1].worth) {
+          sortable[i].point = sortable[i - 1].point;
         } else {
-          comparable[i].point = (list.length - i) * (4 - priority);
+          sortable[i].point = (sortable.length - i) * (4 - priority);
         }
-      });
-      comparable.forEach(({ index, point }) => {
+
+        const { index, point } = sortable[i];
         originalList[index].point += point;
-      });
-    },
-    compareHourlyWage(list, value, priority) {
-      const comparable = [];
-      const originalList = list;
-      originalList.forEach(({ hourlyWage }, index) => comparable.push({ hourlyWage, index }));
-      comparable.sort((a, b) => (value === 'high' ? b.hourlyWage - a.hourlyWage : a.hourlyWage - b.hourlyWage));
-      comparable.forEach(({ hourlyWage }, i) => {
-        if (i !== 0 && hourlyWage === comparable[i - 1].hourlyWage) {
-          comparable[i].point = comparable[i - 1].point;
-        } else {
-          comparable[i].point = (list.length - i) * (4 - priority);
-        }
-      });
-      comparable.forEach(({ index, point }) => {
-        originalList[index].point += point;
-      });
-    },
-    comparePeriod(list, value, priority) {
-      const comparable = [];
-      const originalList = list;
-      originalList.forEach(({ periodWeight }, index) => comparable.push({ periodWeight, index }));
-      comparable.sort((a, b) => (value === 'shortDay' ? a.periodWeight - b.periodWeight : b.periodWeight - a.periodWeight));
-      comparable.forEach(({ periodWeight }, i) => {
-        if (i !== 0 && periodWeight === comparable[i - 1].periodWeight) {
-          comparable[i].point = comparable[i - 1].point;
-        } else {
-          comparable[i].point = (list.length - i) * (4 - priority);
-        }
-      });
-      comparable.forEach(({ index, point }) => {
-        originalList[index].point += point;
-      });
-    },
-    compareWorkTime(list, value, priority) {
-      const comparable = [];
-      const originalList = list;
-      originalList.forEach(({ workTime }, index) => comparable.push({ workTime, index }));
-      comparable.sort((a, b) => (value === 'shortTime' ? a.workTime - b.workTime : b.workTime - a.workTime));
-      comparable.forEach(({ workTime }, i) => {
-        if (i !== 0 && workTime === comparable[i - 1].workTime) {
-          comparable[i].point = comparable[i - 1].point;
-        } else {
-          comparable[i].point = (list.length - i) * (4 - priority);
-        }
-      });
-      comparable.forEach(({ index, point }) => {
-        originalList[index].point += point;
-      });
+      }
     },
   },
   created() {
