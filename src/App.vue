@@ -1,38 +1,16 @@
 <template>
   <div id="app">
-    <set-location v-if="onSetLocationModal" @close-modal="onSetLocationModal = false"/>
-    <tutorial v-if="onTutorialModal" @close-modal="onTutorialModal = false"/>
-    <router-view/>
+    <compare-job/>
   </div>
 </template>
 
 <script>
-import SetLocation from './components/SetLocation';
-import Tutorial from './components/Tutorial';
+import CompareJob from './components/CompareJob';
 
 export default {
   name: 'App',
-  data() {
-    return {
-      onSetLocationModal: false,
-      onTutorialModal: false,
-    };
-  },
   components: {
-    SetLocation,
-    Tutorial,
-  },
-  created() {
-    if (!localStorage.getItem('isPassedTutorial')) {
-      this.onTutorialModal = true;
-      localStorage.setItem('isPassedTutorial', true);
-    }
-    this.$EventBus.$on('showSetLocation', () => {
-      this.onSetLocationModal = true;
-    });
-    this.$EventBus.$on('showTutorial', () => {
-      this.onTutorialModal = true;
-    });
+    CompareJob,
   },
 };
 </script>

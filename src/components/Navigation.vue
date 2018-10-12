@@ -1,25 +1,20 @@
 <template>
   <nav class="nav">
-    <router-link :to="{path: '/'}" class="nav__logo-link">
+    <div :to="{path: '/'}" class="nav__logo-link">
       <img class="nav__logo-link__img"
-        src="../../assets/logo.png"
+        src="../assets/logo.png"
         alt="알바고">
-    </router-link>
+    </div>
     <ul class="nav__list">
       <li class="nav__item">
-        <router-link class="nav__item__link"
-          :to="{path: '/'}">아르바이트 비교</router-link>
-      </li>
-      <li class="nav__item">
-        <a class="nav__item__link"
+        <a
+          class="nav__item__link"
           @click="$EventBus.$emit('showSetLocation')">위치 설정</a>
       </li>
       <li class="nav__item">
-        <router-link class="nav__item__link"
-          :to="{path: '/bulletin', query: {page: 1, category: 'ALL'}}">게시판</router-link>
-      </li>
-      <li class="nav__item">
-        <a class="nav__item__link" @click="$EventBus.$emit('showTutorial')">도움말</a>
+        <a
+          class="nav__item__link"
+          @click="$EventBus.$emit('showTutorial')">도움말</a>
       </li>
     </ul>
   </nav>
@@ -32,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/setting.scss';
+@import '../styles/setting.scss';
 
 .nav {
   height: 70px;

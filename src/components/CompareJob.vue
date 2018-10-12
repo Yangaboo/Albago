@@ -1,5 +1,7 @@
 <template>
   <div class="wrap">
+    <set-location v-if="onSetLocationModal" @close-modal="onSetLocationModal = false"/>
+    <tutorial v-if="onTutorialModal" @close-modal="onTutorialModal = false"/>
     <navigation/>
     <div class="compare-job">
       <header class="compare-job__header">
@@ -48,7 +50,9 @@
 </template>
 
 <script>
-import Navigation from './Common/Navigation';
+import Navigation from './Navigation';
+import SetLocation from './SetLocation';
+import Tutorial from './Tutorial';
 import CompareJobFilter from './CompareJob/CompareJobFilter';
 import CompareJobItem from './CompareJob/CompareJobItem';
 import PERIOD from '../constants/period';
@@ -58,14 +62,17 @@ export default {
   name: 'compare-job',
   components: {
     Navigation,
+    SetLocation,
+    Tutorial,
     CompareJobFilter,
     CompareJobItem,
   },
   data() {
     return {
+      onSetLocationModal: false,
+      onTutorialModal: false,
       jobUrl: '',
       jobLists: [],
-      onTutorialModal: false,
     };
   },
   watch: {
@@ -186,6 +193,17 @@ export default {
     },
   },
   created() {
+    if (!localStorage.getItem('isPassedTutorial')) {
+      this.onTutorialModal = true;
+      localStorage.setItem('isPassedTutorial', true);
+    }
+    this.$EventBus.$on('showSetLocation', () => {
+      this.onSetLocationModal = true;
+    });
+    this.$EventBus.$on('showTutorial', () => {
+      this.onTutorialModal = true;
+    });
+
     this.$EventBus.$on('updateFilter', this.compare);
     this.jobLists = JSON.parse(localStorage.getItem('job-list')) || [];
   },
