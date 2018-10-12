@@ -1,0 +1,11 @@
+{
+  "name": "Albago",
+  "version": "1.0.0",
+  "description": "Albago project",
+  "author": "Wonderful author",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "npm install express"
+  }
+}
