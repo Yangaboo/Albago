@@ -15,3 +15,15 @@ yarn-error.log*
 
 # appkey
 config.js
+
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+/out
+url.md
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
