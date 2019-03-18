@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class JOB {
     private String url;
@@ -162,7 +163,7 @@ public class JOB {
         String periodValue = period.text().replace("1년", "12개월");
         String payValue;
         String workDateValue = workDate.text().substring(5);
-        ArrayList workDateValues = new ArrayList();
+        HashSet workDateValues = new HashSet();
         String ageValue = age.text();
         int workingTime = Integer.parseInt(workTimeValues[1].substring(0, 2)) - Integer.parseInt(workTimeValues[0].substring(0, 2));
         String sexValue = sex.text().substring(3);
@@ -176,9 +177,39 @@ public class JOB {
             res.put("isTeen", String.valueOf(false));
         }
 
-        String workDateNew = workDateValue.replaceAll("(요일)", "").replaceAll("[^월화수목금토일]", "");
+//        System.out.println(workDateValue);
+        String workDateNew = workDateValue.replaceAll("(요일)", "");
+
+//        String workDateNew = workDateValue.replaceAll("(요일)", "").replaceAll("[^월화수목금토일]", "");
 
 //        System.out.println(workDateNew);
+
+        if (workDateNew.equals("월~금")) {
+            workDateValues.add("\"" + "월" + "\"");
+            workDateValues.add("\"" + "화" + "\"");
+            workDateValues.add("\"" + "수" + "\"");
+            workDateValues.add("\"" + "목" + "\"");
+            workDateValues.add("\"" + "금" + "\"");
+        }
+
+        if (workDateNew.equals("월~토")) {
+            workDateValues.add("\"" + "월" + "\"");
+            workDateValues.add("\"" + "화" + "\"");
+            workDateValues.add("\"" + "수" + "\"");
+            workDateValues.add("\"" + "목" + "\"");
+            workDateValues.add("\"" + "금" + "\"");
+            workDateValues.add("\"" + "토" + "\"");
+        }
+
+        if (workDateNew.equals("월~일")) {
+            workDateValues.add("\"" + "월" + "\"");
+            workDateValues.add("\"" + "화" + "\"");
+            workDateValues.add("\"" + "수" + "\"");
+            workDateValues.add("\"" + "목" + "\"");
+            workDateValues.add("\"" + "금" + "\"");
+            workDateValues.add("\"" + "토" + "\"");
+            workDateValues.add("\"" + "일" + "\"");
+        }
 
         if (workDateNew.contains("월")) {
             workDateValues.add("\"" + "월" + "\"");
