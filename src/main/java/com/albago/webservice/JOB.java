@@ -177,12 +177,52 @@ public class JOB {
             res.put("isTeen", String.valueOf(false));
         }
 
-//        System.out.println(workDateValue);
-        String workDateNew = workDateValue.replaceAll("(요일)", "");
+        String workDateNew = null;
 
-//        String workDateNew = workDateValue.replaceAll("(요일)", "").replaceAll("[^월화수목금토일]", "");
+        if (workDateValue.contains("주")) {
+            workDateNew = workDateValue.replaceAll("[^0-9]", "").substring(0, 1);
+        } else {
+            workDateNew = workDateValue.replaceAll("(요일)", "");
+        }
 
-//        System.out.println(workDateNew);
+        if (workDateNew.equals("6")) {
+            workDateValues.add("\"" + "월" + "\"");
+            workDateValues.add("\"" + "화" + "\"");
+            workDateValues.add("\"" + "수" + "\"");
+            workDateValues.add("\"" + "목" + "\"");
+            workDateValues.add("\"" + "금" + "\"");
+            workDateValues.add("\"" + "토" + "\"");
+        }
+
+        if (workDateNew.equals("5")) {
+            workDateValues.add("\"" + "월" + "\"");
+            workDateValues.add("\"" + "화" + "\"");
+            workDateValues.add("\"" + "수" + "\"");
+            workDateValues.add("\"" + "목" + "\"");
+            workDateValues.add("\"" + "금" + "\"");
+        }
+
+        if (workDateNew.equals("4")) {
+            workDateValues.add("\"" + "월" + "\"");
+            workDateValues.add("\"" + "화" + "\"");
+            workDateValues.add("\"" + "수" + "\"");
+            workDateValues.add("\"" + "목" + "\"");
+        }
+
+        if (workDateNew.equals("3")) {
+            workDateValues.add("\"" + "월" + "\"");
+            workDateValues.add("\"" + "수" + "\"");
+            workDateValues.add("\"" + "금" + "\"");
+        }
+
+        if (workDateNew.equals("2")) {
+            workDateValues.add("\"" + "토" + "\"");
+            workDateValues.add("\"" + "일" + "\"");
+        }
+
+        if (workDateNew.equals("1")) {
+            workDateValues.add("\"" + "금" + "\"");
+        }
 
         if (workDateNew.equals("월~금")) {
             workDateValues.add("\"" + "월" + "\"");
